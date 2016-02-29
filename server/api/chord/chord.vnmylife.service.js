@@ -25,13 +25,13 @@ var rhythmMap = {
   'valse': 'http://www.vnmylife.com/mychord/rhythm/valse/14',
   'boston': 'http://www.vnmylife.com/mychord/rhythm/boston/11',
   'tango': 'http://www.vnmylife.com/mychord/rhythm/tango/10',
-  'slow' : 'http://www.vnmylife.com/mychord/rhythm/slow/2',
-  'disco' : 'http://www.vnmylife.com/mychord/rhythm/disco/8'
+  'slow': 'http://www.vnmylife.com/mychord/rhythm/slow/2',
+  'disco': 'http://www.vnmylife.com/mychord/rhythm/disco/8'
 };
 
 var titlesGlobal = [];
 
- /**
+/**
  * crawl existing pages
  * @param rhythm
  * @param fromPage
@@ -53,7 +53,7 @@ function crawlAll() {
   });
 }
 
-function crawlRecursion(step, rCount, rythmsAll){
+function crawlRecursion(step, rCount, rythmsAll) {
   if (step >= rCount) return;
 
   console.log(' rythm: ' + rythmsAll[step]);
@@ -62,7 +62,7 @@ function crawlRecursion(step, rCount, rythmsAll){
   console.log('start crawling all....: ' + rhythm + ' pagination limit: ' + 20 + ' fromPage ' + 1);
   var pagination = '?page=';
 
-  setTimeout(function() {
+  setTimeout(function () {
     for (var i = 4; i <= 10; i++) {
       var url = rhythmMap[rhythm] + pagination + i;
       console.log('start crawling....: ' + url);
@@ -81,14 +81,14 @@ function crawlRecursion(step, rCount, rythmsAll){
 
           // if body is not empty
           if (str.length > 10) {
-            
-                getListOfChordsFromRythmPage(str);
+
+            getListOfChordsFromRythmPage(str);
           }
 
 
           crawlRecursion(++step, rCount, rythmsAll);
         });
-      }).on('error', function(e) {
+      }).on('error', function (e) {
         console.log('Error retrieving page: ' + url);
       });
     }
@@ -122,7 +122,7 @@ function crawl(rhythm, fromPage, limitPaganiation) {
         // console.log(str);
         getListOfChordsFromRythmPage(str);
       });
-    }).on('error', function(e) {
+    }).on('error', function (e) {
       console.log('Error retrieving page: ' + url);
     });
   }
@@ -194,7 +194,7 @@ function getListOfChordsFromRythmPage(body) {
   // console.log('body: ' + body);
   // fight against cloudFare
   var ddos = $('div.attribution a').text().toString();
-  if (ddos != undefined && ddos.length > 10){
+  if (ddos != undefined && ddos.length > 10) {
     console.log('ddos deteced: ' + ddos);
     return;
   }
@@ -204,8 +204,6 @@ function getListOfChordsFromRythmPage(body) {
 
   $ = cheerio.load(content);
 
-  
-  
 
   var chords = [];
 
@@ -247,32 +245,32 @@ function getListOfChordsFromRythmPage(body) {
 }
 
 
-function crawlingEachValidChord(chords){
+function crawlingEachValidChord(chords) {
   // findAllTitlesLowerCase().then(function (titles) {
-    var len = chords.length;
-    // console.log("\n\crawlingEachValidChord.... titles.length: " + titlesGlobal.length + " chords.length..." + len);
-    setTimeout(function() { 
+  var len = chords.length;
+  // console.log("\n\crawlingEachValidChord.... titles.length: " + titlesGlobal.length + " chords.length..." + len);
+  setTimeout(function () {
 
-      for (var i = 0; i < len; i++) {
-        var c = chords[i];
-        console.log("\nchecking if should retrieve for ~ c.title: " + c.title);
+    for (var i = 0; i < len; i++) {
+      var c = chords[i];
+      console.log("\nchecking if should retrieve for ~ c.title: " + c.title);
 
-        var contentLongEnuf = (c.content != undefined && c.content.length > 2);
-        console.log("contentLongEnuf > 2: " + contentLongEnuf);
+      var contentLongEnuf = (c.content != undefined && c.content.length > 2);
+      console.log("contentLongEnuf > 2: " + contentLongEnuf);
 
-        var titleExist = isTitleExisted(c.title, titlesGlobal);
-        if (titleExist && contentLongEnuf) {
-          console.log(title + " exists && contentLongEnuf: " + titleExist);
-        } else {
-          console.log("retrieving for title: " + c.title);
-          console.log("retrieving for creditUrl: " + c.creditUrl);
+      var titleExist = isTitleExisted(c.title, titlesGlobal);
+      if (titleExist && contentLongEnuf) {
+        console.log(title + " exists && contentLongEnuf: " + titleExist);
+      } else {
+        console.log("retrieving for title: " + c.title);
+        console.log("retrieving for creditUrl: " + c.creditUrl);
 
-          setTimeout(function() { 
-            getChord(c.creditUrl, c);
-          }, 10000);
-        }
+        setTimeout(function () {
+          getChord(c.creditUrl, c);
+        }, 10000);
       }
-    }, 10000);
+    }
+  }, 10000);
   // });
 }
 
@@ -301,7 +299,7 @@ function getChord(url, chord) {
       // console.log(str);
       chordProcessing(str, chord);
     });
-  }).on('error', function(e) {
+  }).on('error', function (e) {
     console.log('Error retrieving page: ' + url);
   });
 }
@@ -365,18 +363,18 @@ findAllTitlesLowerCase().then(function (titles) {
 
 
 /**
-* mistake when crawling. Only remove the first line .\n\r => now put it back for all chords.
-*/
-function cleanData(){
+ * mistake when crawling. Only remove the first line .\n\r => now put it back for all chords.
+ */
+function cleanData() {
 
   console.log("starting... chord's content to clean: ");
 
-  findAllChords().then(function (chords){
-    for (var k = 6; k < 7; k++ ){
+  // process line break
+  findAllChords().then(function (chords) {
+    for (var k = 6; k < 7; k++) {
       var c = chords[k];
-      
-      if (!c.content || c.content.length < 2) 
-      {
+
+      if (!c.content || c.content.length < 2) {
         console.log("\n\n this chord is empty: " + c.title);
         continue;
       }
@@ -393,9 +391,9 @@ function cleanData(){
       console.log("\n\nchord's index: " + i + ' character is: ' + content[i]);
       if (i > 0) {
         var c1 = content[i];
-        var c2 = content[i+1];
+        var c2 = content[i + 1];
 
-        var processedContent = content.replace(c1+c2,c1+".\n"+c2);
+        var processedContent = content.replace(c1 + c2, c1 + ".\n" + c2);
         c.content = processedContent;
         console.log("\n\nchord's content cleaned: " + processedContent);
 
@@ -407,28 +405,28 @@ function cleanData(){
   });
 }
 
-String.prototype.regexIndexOf = function(regex, startpos) {
-    var indexOf = this.substring(startpos || 0).search(regex);
-    return (indexOf >= 0) ? (indexOf + (startpos || 0)) : indexOf;
+String.prototype.regexIndexOf = function (regex, startpos) {
+  var indexOf = this.substring(startpos || 0).search(regex);
+  return (indexOf >= 0) ? (indexOf + (startpos || 0)) : indexOf;
 }
 
-transformtoEnChars = function(str){
-  str= str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a");
-  str= str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e");
-  str= str.replace(/ì|í|ị|ỉ|ĩ/g,"i");
-  str= str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o");
-  str= str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u");
-  str= str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y");
-  str= str.replace(/đ/g,"d");
+transformtoEnChars = function (str) {
+  str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+  str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+  str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+  str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+  str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+  str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+  str = str.replace(/đ/g, "d");
 
 
-  str= str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g,"A")
-  str= str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g,"E")
-  str= str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g,"I")
-  str= str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g,"O")
-  str= str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g,"U")
-  str= str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g,"Y")
-  str= str.replace(/Đ/g,"D")
+  str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A")
+  str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E")
+  str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I")
+  str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O")
+  str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U")
+  str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y")
+  str = str.replace(/Đ/g, "D")
   // str= str.replace(/!|@|\$|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\'| |\"|\&|\#|\[|\]|~/g,"-");
   // str= str.replace(/-+-/g,"-"); //thay thế 2- thành 1-
   // str= str.replace(/^\-+|\-+$/g,"");//cắt bỏ ký tự - ở đầu và cuối chuỗi
@@ -436,5 +434,5 @@ transformtoEnChars = function(str){
   return str;
 }
 
-  // cleanData();
+// cleanData();
 

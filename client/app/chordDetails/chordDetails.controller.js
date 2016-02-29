@@ -10,16 +10,20 @@ angular.module('guitariosApp')
       vm.chord = chord;
       // console.log(chords);
       console.log('vm.chord: ' + vm.chord);
-      vm.brokenContent = ChordService.breakContentIntoLines(vm.chord.content);
+      vm.brokenContent = ChordService.decorateContent(vm.chord.content);
       console.log('vm.brokenContent: ' + vm.brokenContent);
 
       // convert html for content
       vm.trustedContentHtml = $sce.trustAsHtml(vm.brokenContent);
+      vm.selectedRhythm = chord.rhythms[0];
 
+      vm.chordsByRhythm = []
+      
       // vm.brokenContent = vm.breakContentIntoLines(content);
     });
 
     vm.join = ChordService.join;
     vm.getStandardDescLength = ChordService.getStandardDescLength;
-    vm.breakContentIntoLines = ChordService.breakContentIntoLines;
+    vm.decorateContent = ChordService.decorateContent;
+    vm.selectChordsByRhythm = ChordService.selectChordsByRhythm;
   });

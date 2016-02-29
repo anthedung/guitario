@@ -15,7 +15,7 @@
   }
 
   .anthe-searchbox{
-    min-width: 800px !important;
+    min-width: 700px !important;
   }
 
   .anthe-global{
@@ -40,7 +40,10 @@
   }
 }
 
-
+.anthe-link-button{
+  color: black !important;
+  text-decoration: none !important;
+}
 .anthe-chord-card {
   background: rgba(255, 255, 255, 0.8);
 }
@@ -68,16 +71,12 @@
 }
 
 .anthe-rythms-chips{
-  width: 10%
+  /*width: 10%*/
   align: center;
 }
 
 .anthe-copyright {
   vertical-align: bottom;
-}
-
-.anthe-cr-text{
-  color:  !important
 }
 
 .things-list {

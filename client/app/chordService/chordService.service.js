@@ -14,13 +14,14 @@ angular.module('guitariosApp')
     }
 
 
-    this.getStandardDescLength = function(description) {
+    this.getStandardDescLength = function(description, length) {
 		// console.log("getStandardDescLength " + description );
+		length = length || 160;
 		description = '' + description;
-		if (description.length < 160) {
+		if (description.length < length) {
 		  return description+"...";
 		} else {
-		  return description.substring(0, 160) + "...";
+		  return description.substring(0, length) + "...";
 		}
 	}
 
@@ -39,12 +40,46 @@ angular.module('guitariosApp')
 		return str;
 	}
 
+	this.decorateContent = function(content){
+		content = this.breakContentIntoLines(content);
+		content = this.removeInitialCounting(content);
+
+		return content;
+	}
+
+	// 1.   2.  
+	this.removeInitialCounting = function(content){
+		content = (''+content).replace(/[0-9]\. /, '');
+		return content;
+	}
+
+
 	this.breakContentIntoLines = function(content){
 		console.log(content);
 		
-		content =  (''+content).replace(/[\.\n\r]/g,'.<br>').toString();
+		content =  (''+content).replace(/[\.\n\r]/g,'<br>').toString();
+
 		return content;
 	}
+
+	this.selectChordsByRhythm = function(rhythm, chords){
+      var chordsByRhythm = [];
+
+      if(rhythm === 'Everything'){
+        chordsByRhythm = chords;
+      } else {
+        for (var i = 0 ; i < chords.length; i++){
+
+          // if rythms includes or content of the song exists => due to scrawling
+          if(chords[i].rhythms.indexOf(rhythm) > -1 && chords[i].content.length > 3){
+            chordsByRhythm.push(chords[i]);
+          }
+        }
+      }
+
+      selectedRythm = rhythm;
+      return chordsByRhythm;
+    }
 
     
   });

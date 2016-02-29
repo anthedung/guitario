@@ -1,94 +1,97 @@
-
 <div layout="column" flex class="anthe-content" ng-cloak>
 
-	<div ng-include="'app/components/banner/bannerSearchBar.html'"></div>
+  <div ng-include="'app/components/banner/bannerSearchBar.html'"></div>
 
-	<br>
-	<div layout="row" layout-align="center center" class="anthe-rythms-chips">
-		<md-chips data-ng-repeat="rythm in vm.rythms34">
-	      <md-chip ng-click="vm.toggleShowChords(rythm)" data-ng-class="vm.chipRhythms[rythm]">{{rythm}}</md-chip>
-	    </md-chips>
+  <br>
+  <br data-ng-show="!vm.chordsVisible">
+  <div layout="row" layout-align="center center" class="anthe-rythms-chips">
+    <md-chips data-ng-repeat="rythm in vm.rythms34">
+      <md-chip ng-click="vm.toggleShowChords(rythm)" data-ng-class="vm.chipRhythms[rythm]">{{rythm}}</md-chip>
+    </md-chips>
+  </div>
+  <div layout="row" layout-align="center center" class="anthe-rythms-chips">
+    <md-chips data-ng-repeat="rythm in vm.rythms">
+      <md-chip ng-click="vm.toggleShowChords(rythm)" data-ng-class="vm.chipRhythms[rythm]">{{rythm}}</md-chip>
+    </md-chips>
+  </div>
+  <br>
+  <div class="anthe-quote fade" layout-align="center" data-ng-show="vm.chordsVisible">
+    <md-card ng-repeat="chord in vm.chordsByRhythm" layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card">
+      <md-card-title>
+        <md-card-title-text>
+          <div class="anthe-headline">
+            <a data-ng-href="chordDetails/{{chord._id}}" class="anthe-link-button">
+              <strong>&#9834; {{chord.title}}</strong>
+              <span ng-if='chord.songAuthors.length > 0'><em>&nbsp;&#127908; &nbsp;
+                {{vm.join(chord.singers)}}</em></span>
+            </a>
+            <br>
+          </div>
+        </md-card-title-text>
+      </md-card-title>
+      <br>
+      <div .md-whiteframe-2dp layout-padding="10">
+        <md-card-content ng-href="#chordDetails/{{chord._id}}">
+          <div>
+            <a data-ng-href="chordDetails/{{chord._id}}" class="anthe-link-button">
+              <p>"{{vm.getStandardDescLength(chord.content)}}"</p>
+              <span ng-if='chord.rhythms.length > 0'> <em>rhythm: {{vm.join(chord.rhythms)}}</em> </span>
+              <br>
+              <span ng-if='chord.chordAuthor.length > 0'> <em>chord: {{chord.chordAuthor}}</em> </span>
+            </a>
+          </div>
+        </md-card-content>
+      </div>
+    </md-card>
+  </div>
+
+  <br>
+  <div layout="row" layout-align="center">
+    <div class="anthe-canvas-globe" id="myCanvasContainer" data-ng-show="!vm.chordsVisible">
+      <canvas min-height="400" id="myCanvas" class="anthe-global">
+        <p>Anything in here will be replaced on browsers that support the canvas element</p>
+      </canvas>
     </div>
-	<div layout="row" layout-align="center center" class="anthe-rythms-chips">
-		<md-chips data-ng-repeat="rythm in vm.rythms">
-	      <md-chip ng-click="vm.toggleShowChords(rythm)" data-ng-class="vm.chipRhythms[rythm]">{{rythm}}</md-chip>
-	    </md-chips>
+    <div id="tags">
+      <ul ng-cloak>
+        <!-- data only -->
+        <li data-ng-repeat="chord in vm.randomChordsForGlobe" data-ng-hide="true"><a>{{chord}}</a></li>
+        <li data-ng-hide="vm.randomChordsForGlobe.length > 0 "><a>I &hearts; Guitarios</a></li>
+      </ul>
     </div>
-	<br >
-    <div class="anthe-quote fade" layout-align="center" data-ng-show="vm.chordsVisible" >
-	  <md-card ng-repeat="chord in vm.chordsByRhythm" layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card" >
-	    <md-card-title>
-	      <md-card-title-text>
-	        <div class="anthe-headline">
-	        	<strong>&#9834; {{chord.title}}</strong>
-	        	<span ng-if='chord.songAuthors.length > 0'><em>&nbsp;&#127908; &nbsp; {{vm.join(chord.singers)}}</em></span> 
+    <br>
+    <br>
 
-	         <br></div>
-	      </md-card-title-text>
-	    </md-card-title>
-	    <br>
-	    <div .md-whiteframe-2dp layout-padding="10">
-	      <md-card-content ng-href="#chordDetails/{{chord._id}}">
-	        <div>
-	        	<p>"{{vm.getStandardDescLength(chord.content)}}"</p>
-	        	<span ng-if='chord.rhythms.length > 0'> <em>rythm: {{vm.join(chord.rhythms)}}</em> </span>  
-	        	<br>
-	        	<span ng-if='chord.chordAuthor.length > 0'> <em>chord by: {{chord.chordAuthor}}</em> </span>  
-	        </div>
-	      </md-card-content>
-	      <md-card-actions layout="row" layout-align="end center">
-	          <md-button href="chordDetails/{{chord._id}}">View chord</md-button>
-        </md-card-actions>
-	    </div>
-	  </md-card>
-	</div>
+  </div>
 
-	<br>
-	<div layout="row" layout-align="center">
-		<div class="anthe-canvas-globe" id="myCanvasContainer" data-ng-show="!vm.chordsVisible">
-			<canvas min-height="400" id="myCanvas" class="anthe-global">
-				<p>Anything in here will be replaced on browsers that support the canvas element</p>
-			</canvas>
-	    </div>
-	    <div id="tags">
-	      <ul ng-cloak>
-	      	<!-- data only -->
-	      	<li data-ng-repeat="chord in vm.randomChordsForGlobe" data-ng-hide="true"><a>{{chord}}</a></li>
-	      	<li data-ng-hide="vm.randomChordsForGlobe.length > 0 "><a>I &hearts; Guitarios</a></li>
-	      </ul>
-	    </div>
-	    <br>
-	    <br>
+  <!-- footer -->
+  <div layout="column">
+    <br>
+    <br>
+    <footer>
+      <div layout="row" layout-align="center center">
+        <div class="anthe-copyright" layout="row" layout-align="center bottom">
+          <p style="color:white">Copyright © 2016 An The Dung - ABCStudio</p>
+        </div>
+      </div>
+    </footer>
+  </div>
 
-    </div>
 
-	<!-- footer -->
-	<div layout="column">
-		<br>
-		<footer>
-	        <div layout="row" layout-align="center center">
-	            <div class="anthe-copyright" layout="row" layout-align="center bottom">
-			      <p style="color:white">Copyright © 2016 An The Dung - ABCStudio</p>
-			  	</div>
-	        </div>
-	    </footer>
-	</div>
+  <script type="text/javascript">
+    window.onload = function () {
+      try {
+        TagCanvas.Start('myCanvas', 'tags', {
+          textColour: '#ffffff',
+          outlineColour: '#A9A9A9',
+          reverse: true,
+          depth: 0.8,
+          maxSpeed: 0.05
+        });
+      } catch (e) {
+        // something went wrong, hide the canvas container
+        document.getElementById('myCanvasContainer').style.display = 'none';
+      }
+    };
+  </script>
 </div>
-
-
-<script type="text/javascript">
-  window.onload = function() {
-    try {
-      TagCanvas.Start('myCanvas','tags',{
-        textColour: '#ffffff',
-        outlineColour: '#A9A9A9',
-        reverse: true,
-        depth: 0.8,
-        maxSpeed: 0.05
-      });
-    } catch(e) {
-      // something went wrong, hide the canvas container
-      document.getElementById('myCanvasContainer').style.display = 'none';
-    }
-  };
-</script>

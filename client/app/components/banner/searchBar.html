@@ -1,0 +1,29 @@
+<div layout="column" layout-align="center center" >
+	<md-autocomplete class="anthe-searchbox"
+          ng-disabled="vm.isDisabled"
+          md-no-cache="vm.noCache"
+          md-selected-item="vm.selectedItem"
+          md-search-text-change="vm.searchTextChange(searchText)"
+          md-search-text="vm.searchText"
+          md-selected-item-change="vm.selectedItemChange(item)"
+          md-items="item in vm.querySearch(vm.searchText)"
+          md-item-text="item.title"
+          md-min-length="0"
+          placeholder="Search for your favorite songs?">
+        <md-item-template>
+        	<div layout="row">
+        		<md-chips>
+        			<md-chip> {{vm.join(item.rhythms)}} </md-chip>
+        		</md-chips>
+          		<span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.title}}</span>
+          		<!-- <br> -->
+          		<!-- <p md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.content}}</p> -->
+
+          	</div>
+        </md-item-template>
+        <md-not-found>
+          Opps, not found.
+          <a ng-click="vm.randomChord(searchText)">Try something random?</a>
+        </md-not-found>
+      </md-autocomplete>
+</div>
