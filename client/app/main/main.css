@@ -1,4 +1,3 @@
-
 @media only screen and (min-width: 800px) {
   .anthe-quote {
     display: flex;
@@ -10,15 +9,15 @@
   }
 
   .anthe-content {
-    padding-left: 100px!important;
-    padding-right: 100px!important;
+    padding-left: 100px !important;
+    padding-right: 100px !important;
   }
 
-  .anthe-searchbox{
+  .anthe-searchbox {
     min-width: 700px !important;
   }
 
-  .anthe-global{
+  .anthe-global {
     color: yellow !important;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black !important;
   }
@@ -35,26 +34,25 @@
   }
 
   .anthe-content {
-    padding-left: 5px!important;
-    padding-right: 5px!important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
   }
 }
 
-.anthe-link-button{
+.anthe-link-button {
   color: black !important;
   text-decoration: none !important;
 }
+
 .anthe-chord-card {
   background: rgba(255, 255, 255, 0.8);
 }
 
-
-
-.anthe-banner{
+.anthe-banner {
 
 }
 
-.fade .ng-hide{
+.fade .ng-hide {
   /*transition:0.5s linear all;*/
   /*-webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
@@ -62,15 +60,15 @@
   transition: all 0.5s ease-in-out;*/
 }
 
-.fade .ng-show{
+.fade .ng-show {
   /*transition:0.5s linear all;*/
-/*  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;*/
+  /*  -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;*/
 }
 
-.anthe-rythms-chips{
+.anthe-rythms-chips {
   /*width: 10%*/
   align: center;
 }
@@ -80,77 +78,97 @@
 }
 
 .things-list {
- margin: 8px;
+  margin: 8px;
 }
 
 .things-list md-grid-tile {
- transition: all 400ms ease-out 50ms;
+  transition: all 400ms ease-out 50ms;
 }
 
 .things-list .avatar-icon {
   width: 50%;
-  height: 50%; }
+  height: 50%;
+}
 
 .things-list .avatar-icon svg {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
-  border-radius: 50%; }
+  border-radius: 50%;
+}
 
 .things-list .s64 {
-  font-size: 64px; }
+  font-size: 64px;
+}
 
 .things-list .s32 {
-  font-size: 48px; }
+  font-size: 48px;
+}
 
 .things-list .avatar-icon.fa {
   display: block;
-  padding-left: 0; }
+  padding-left: 0;
+}
 
 .things-list .avatar-icon.s32 span {
-  padding-left: 8px; }
+  padding-left: 8px;
+}
 
 .things-list md-grid-list {
-  margin: 8px; }
+  margin: 8px;
+}
 
 .things-list .gray {
-  background: #f5f5f5; }
+  background: #f5f5f5;
+}
 
 .things-list .green {
-  background: #b9f6ca; }
+  background: #b9f6ca;
+}
 
 .things-list .yellow {
-  background: #ffff8d; }
+  background: #ffff8d;
+}
 
 .things-list .blue {
-  background: #84ffff; }
+  background: #84ffff;
+}
 
 .things-list .darkBlue {
-  background: #80d8ff; }
+  background: #80d8ff;
+}
 
 .things-list .deepBlue {
-  background: #448aff; }
+  background: #448aff;
+}
 
 .things-list .purple {
-  background: #b388ff; }
+  background: #b388ff;
+}
 
 .things-list .lightPurple {
-  background: #8c9eff; }
+  background: #8c9eff;
+}
 
 .things-list .red {
-  background: #ff8a80; }
+  background: #ff8a80;
+}
 
 .things-list .pink {
-  background: #ff80ab; }
+  background: #ff80ab;
+}
 
 .things-list md-grid-tile .avatar-icon {
-  padding-bottom: 32px; }
+  padding-bottom: 32px;
+}
 
 .things-list md-grid-tile md-grid-tile-footer {
   background: rgba(0, 0, 0, 0.68);
-  height: 48px; }
+  height: 48px;
+}
 
 .things-list md-grid-tile-footer figcaption {
-  width: 100%; }
+  width: 100%;
+}
 
 .things-list md-grid-tile-footer figcaption h3 {
   margin: 0;
@@ -160,7 +178,8 @@
   margin-right: 64px;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; }
+  text-overflow: ellipsis;
+}
 
 .things-list .delete-btn {
   position: absolute;

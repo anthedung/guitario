@@ -6,7 +6,7 @@ angular.module('guitariosApp')
 
     console.log('$stateParams: ' + $stateParams.id);
 
-    $http.get('/api/chords/'+$stateParams.id).success(function(chord) {
+    $http.get('/api/chords/' + $stateParams.id).success(function (chord) {
       vm.chord = chord;
       // console.log(chords);
       console.log('vm.chord: ' + vm.chord);
@@ -18,7 +18,7 @@ angular.module('guitariosApp')
       vm.selectedRhythm = chord.rhythms[0];
 
       vm.chordsByRhythm = []
-      
+
       // vm.brokenContent = vm.breakContentIntoLines(content);
     });
 

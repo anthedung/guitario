@@ -1,16 +1,16 @@
 'use strict';
 
 angular.module('guitariosApp', [
-  'ngCookies',
-  'ngResource',
-  'ngSanitize',
-  'ngAnimate',
-  'ngMessages',
-  'ui.router',
-  'ngMaterial',
-  'ngAnimate'
-])
-  .config(function($mdIconProvider) {
+    'ngCookies',
+    'ngResource',
+    'ngSanitize',
+    'ngAnimate',
+    'ngMessages',
+    'ui.router',
+    'ngMaterial',
+    'ngAnimate'
+  ])
+  .config(function ($mdIconProvider) {
     $mdIconProvider
       .iconSet('action', '../assets/iconsets/action-icons.svg', 24)
       .iconSet('alert', '../assets/iconsets/alert-icons.svg', 24)
@@ -33,7 +33,7 @@ angular.module('guitariosApp', [
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider
       .otherwise('/');
-      
+
 
     $locationProvider.html5Mode(true);
   });

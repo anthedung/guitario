@@ -6,8 +6,8 @@ describe('Controller: ChordDetailsCtrl', function () {
   beforeEach(module('guitariosApp'));
 
   var MainCtrl,
-      scope,
-      $httpBackend;
+    scope,
+    $httpBackend;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function (_$httpBackend_, $controller, $rootScope) {
