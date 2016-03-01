@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 var Chord = require('./chord.model');
-var Crawler = require('./chord.vnmylife.service');
+var ChordGeneralService = require('./chord.vnmylife.service');
 var VnMylifeCrawler = require('./chord.vnmylife.crawl.service');
 var VnMylifeMP3Crawler = require('./chord.vnmylife.mp3.crawl.service');
 require('mongoose-query-paginate');
@@ -101,17 +101,6 @@ function handleError(res, err) {
 }
 
 // anthe
-exports.crawlVnMylifeAll = function (req, res) {
-  Crawler.crawlAll();
-}
-
-exports.crawlVnMylife = function (req, res) {
-  Crawler.crawl(req.params.rhythm, req.params.fromPage, req.params.limitPaganiation);
-}
-
-exports.recrawl = function (req, res) {
-  Crawler.recrawl();
-}
 
 exports.crawlMp3 = function (req, res) {
   VnMylifeMP3Crawler.crawlMp3(req.params.fromPage, req.params.limitPaganiation);
@@ -166,6 +155,30 @@ exports.findAllTitlesWithContent = function (req, res) {
   });
 }
 
+exports.findRandomSingers = function (req, res) {
+  var limit = req.query.limit || 15;
+
+  Chord.find({}).select({title: 1, singers: 1}).exec(function (err, chords) {
+    if (err) {
+      return handleError(res, err);
+    }
+
+    var count = 0;
+    var singers = chords.map(function (item) {
+      var singer = item.singers[0];
+      return (!singer || singer.length > 15 || singer.indexOf('(') > -1) ?  '' : singer;
+    }).filter(function(singer){
+      return singer.length > 0;
+    })
+
+    singers = ChordGeneralService.removeDuplicatesBy(function(x){return x}, singers);
+
+    singers = ChordGeneralService.getRandomSubarray(singers, limit);
+
+    return res.status(200).json(singers);
+  });
+}
+
 exports.findChordsByGeneric = function (req, res) {
   var limit = req.query.limit || 10;
 
@@ -207,3 +220,16 @@ exports.crawlAllValidChordsToUpsert = function(req, res){
     VnMylifeCrawler.crawlAndPersist();
   }
 }
+
+exports.search = function(req, res){
+  var query = req.query.q;
+  var regQuery = new RegExp(query, "i")
+  console.log('search.query: ' + regQuery);
+  Chord.find({'titleEn': regQuery}).sort({title: 1}).exec(function (err, chords) {
+    if (err) {
+      return handleError(res, err);
+    }
+    return res.status(200).json(chords);
+  });
+}
+

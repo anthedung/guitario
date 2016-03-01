@@ -7,7 +7,7 @@ angular.module('guitariosApp')
     // AngularJS will instantiate a singleton by calling "new" on this function
     this.join = function join(arr, isJoinFull, separator, length) {
       if (!arr) return;
-      
+
       // console.log(arr);
       var arr = arr;
       isJoinFull = isJoinFull || false;
@@ -36,6 +36,17 @@ angular.module('guitariosApp')
 
       // console.log('this.findAllChords: ' + indices);
       return indices;
+    };
+
+    this.findLastChord = function (content) {
+      var regex = /\[\w*]/gi, result, indices = [];
+      while ((result = regex.exec(content))) {
+        // only set, no duplicate
+        indices.push(result.toString());
+      }
+
+      // console.log('this.findAllChords: ' + indices);
+      return (indices[indices.length - 1]).toString().replace('[', '').replace(']', '');
     };
 
     this.findAllChordsWithClass = function (chords) {
@@ -100,7 +111,7 @@ angular.module('guitariosApp')
     };
 
     // 1.   2.
-    this.removeInitialCounting = function(content){
+    this.removeInitialCounting = function (content) {
       return removeInitialCounting(content);
     }
 
@@ -127,13 +138,14 @@ angular.module('guitariosApp')
       return content;
     };
 
-    this.selectChordsNoFilter = function (limit) {
+    this.selectChordsNoFilter = function (limit, pageNo) {
       var limit = limit || 7;
-      var url = baseUrl + '?limit=' + limit;
+      var url = 'api/chords' + '?p=' + pageNo + '&limit=' + limit;
+      ;
       var deferred = $q.defer();
       $http.get(url).success(function (chords) {
         chords = processChords(chords);
-        
+
         deferred.resolve(chords);
       })
 
@@ -141,9 +153,11 @@ angular.module('guitariosApp')
     }
 
     this.selectChordsByRhythm = function (rhythm, limit, pageNo) {
-      var limit = limit || 7;
+      var limit = limit || 5;
+      var pageNo = pageNo || 1;
+
       var url = baseUrl + 'rhythms' + '/' + rhythm + '?p=' + pageNo + '&limit=' + limit;
-      console.log('selectChordsByRhythm: '  + url)
+      console.log('selectChordsByRhythm: ' + url)
       var deferred = $q.defer();
 
       $http.get(url).success(function (chords) {
@@ -151,6 +165,39 @@ angular.module('guitariosApp')
         chords = processChords(chords);
 
         deferred.resolve(chords);
+      })
+
+      return deferred.promise;
+    }
+
+    this.selectChordsBySinger = function (singer, limit, pageNo) {
+      var limit = limit || 5;
+      var pageNo = pageNo || 1;
+
+      var url = baseUrl + 'singers' + '/' + singer + '?p=' + pageNo + '&limit=' + limit;
+      console.log('selectChordsBySinger: ' + url)
+      var deferred = $q.defer();
+
+      $http.get(url).success(function (chords) {
+        console.log('Service - selectChordsBySinger: ' + chords);
+        chords = processChords(chords);
+
+        deferred.resolve(chords);
+      })
+
+      return deferred.promise;
+    }
+
+    this.selectRandomSingers = function (limit) {
+      var limit = limit || 15;
+
+      var url = baseUrl + 'randomSingers?limit=' + limit;
+      console.log('selectRandomSingers: ' + url)
+      var deferred = $q.defer();
+
+      $http.get(url).success(function (singers) {
+        console.log('Service - selectRandomSingers: ' + singers);
+        deferred.resolve(singers);
       })
 
       return deferred.promise;
@@ -164,7 +211,7 @@ angular.module('guitariosApp')
       return processChords(chords);
     }
 
-    var processChords = function(chords) {
+    var processChords = function (chords) {
       // remove empty chords
       var refinedChords = [];
       for (var i = 0; i < chords.length; i++) {
@@ -179,7 +226,22 @@ angular.module('guitariosApp')
       return refinedChords;
     }
 
-    this.trustAsHtml = function(url){
+    this.trustAsHtml = function (url) {
       return $sce.trustAsResourceUrl(url);
+    }
+
+    this.getRandomSubarray = function (arr, size) {
+      return getRandomSubarray(arr, size);
+    }
+
+    function getRandomSubarray(arr, size) {
+      var shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
+      while (i-- > min) {
+        index = Math.floor((i + 1) * Math.random());
+        temp = shuffled[index];
+        shuffled[index] = shuffled[i];
+        shuffled[i] = temp;
+      }
+      return shuffled.slice(min);
     }
   });

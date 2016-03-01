@@ -28,3 +28,10 @@ db.chords.remove({_id:{$in:duplicates}})
 
 // create unique index on creditUrl - each creditUrl should exist only 1
 db.chords.createIndex( { creditUrl:1 }, { unique: true } )
+
+
+// update all title to contains 
+db.chords.find().forEach( function (chord) {
+    chord.titleEn = transformtoEnChars(chord.title); 
+    db.chords.save(chord); 
+});

@@ -39,15 +39,16 @@
   }
 }
 
-.anthe-chip{
+.anthe-chip {
   color: rgb(45, 42, 42) !important;
   cursor: pointer !important;
 }
 
-.clickedrhythmChip{
+.clickedrhythmChip {
   color: white !important;
-  background-color: rgb(100,100,100) !important;
+  background-color: rgb(100, 100, 100) !important;
 }
+
 .anthe-link-button {
   color: black !important;
   text-decoration: none !important;

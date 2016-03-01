@@ -17,6 +17,9 @@ var queryString = require('querystring');
 exports.findAllTitlesLowerCase = findAllTitlesLowerCase;
 exports.findAllChords = findAllChords;
 exports.cleanData = cleanData;
+exports.getRandomSubarray = getRandomSubarray;
+exports.removeDuplicatesBy = removeDuplicatesBy;
+exports.upsert = upsert;
 
 // var chords = [];
 var rhythmMap = {
@@ -33,129 +36,6 @@ var rhythmMap = {
   'disco': 'http://www.vnmylife.com/mychord/rhythm/disco/8'
 };
 
-var titlesGlobal = [];
-
-/**
- * crawl existing pages, avoid putting heavy load and ddos attach on the target website with good strategy
- * 1. building rhythm pages (with paging)
- * 2. recursively retrieve list of song pages from each rhythm page to build a song list
- * 3. recursively retrieve songs whose creditUrls are not yet stored
- * @param rhythm
- * @param fromPage
- * @param limitPaganiation
- */
-
-// deprecated
-function crawlAll() {
-  findAllTitlesLowerCase().then(function (titles) {
-    // first load existing titles to avoid recrawl
-    titlesGlobal = titles;
-    //console.log('Title Global onload: ' + titlesGlobal);
-
-
-    var rythmsAll = Object.keys(rhythmMap);
-    //console.log(' rythmsAll: ' + rythmsAll);
-
-    var count = rythmsAll.length;
-
-    crawlRecursion(0, count, rythmsAll);
-  });
-}
-
-function crawlRecursion(step, rCount, rythmsAll) {
-  if (step >= rCount) return;
-
-  console.log(' rythm: ' + rythmsAll[step]);
-  var rhythm = rythmsAll[step];
-
-  console.log('start crawling all....: ' + rhythm + ' pagination limit: ' + 20 + ' fromPage ' + 1);
-  var pagination = '?page=';
-
-  // setTimeout(function () {
-    // for (var i = 4; i <= 10; i++) {
-      var url = rhythmMap[rhythm] + pagination + i;
-      console.log('start crawling....: ' + url);
-
-      http.get(url, function (res) {
-        var str = '';
-
-        //another chunk of data has been recieved, so append it to `str`
-        res.on('data', function (chunk) {
-          str += chunk;
-        });
-
-        //the whole response has been recieved, so we just print it out here
-        res.on('end', function () {
-          // console.log(str);
-
-          // if body is not empty
-          if (str.length > 10) {
-
-            getListOfChordsFromRythmPage(str);
-          }
-
-
-          crawlRecursion(++step, rCount, rythmsAll);
-        });
-      }).on('error', function (e) {
-        console.log('Error retrieving page: ' + url);
-      });
-    // }
-  // }, 15000);
-}
-
-/**crawl existing pages
- *
- * @param rhythm
- * @param fromPage
- * @param limitPaganiation
- */
-function crawl(rhythm, fromPage, limitPaganiation) {
-  console.log('start crawling....: ' + rhythmMap[rhythm] + ' pagination limit: ' + limitPaganiation + ' fromPage ' + fromPage);
-  var pagination = '?page=';
-
-  for (var i = fromPage; i <= limitPaganiation; i++) {
-    var url = rhythmMap[rhythm] + pagination + i;
-    console.log('start crawling....: ' + url);
-
-    http.get(url, function (res) {
-      var str = '';
-
-      //another chunk of data has been recieved, so append it to `str`
-      res.on('data', function (chunk) {
-        str += chunk;
-      });
-
-      //the whole response has been recieved, so we just print it out here
-      res.on('end', function () {
-        // console.log(str);
-        getListOfChordsFromRythmPage(str);
-      });
-    }).on('error', function (e) {
-      console.log('Error retrieving page: ' + url);
-    });
-  }
-}
-
-/**
- * find all chords to start re-crawling if for those whose contents are empty or invalid
- */
-function recrawl() {
-  console.log('start recrawling....');
-
-  // find all chords to start re-crawling if for those whose contents are empty or invalid
-  findAllChords().then(function (chords) {
-    console.log("chords.length: " + chords.length);
-    for (var i = 0; i < chords.length; i++) {
-      var c = chords[i];
-
-      if (c.content.length < 2) {
-        console.log("length < 2, proceeding to re-retrieve for: " + c.title);
-        getChord(c.creditUrl, c);
-      }
-    }
-  })
-}
 
 function findAllTitlesLowerCase() {
   var deferred = Q.defer();
@@ -188,97 +68,6 @@ function findAllChords() {
   });
 
   return deferred.promise;
-}
-
-
-// helpers
-function getListOfChordsFromRythmPage(body) {
-  console.log('Getting list of chords... ~ body.length: ' + body.length);
-
-  // if (err) return console.error(err);
-
-  // Tell Cherrio to load the HTML
-  $ = cheerio.load(body);
-  // console.log('body: ' + body);
-  // fight against cloudFare
-  var ddos = $('div.attribution a').text().toString();
-  if (ddos != undefined && ddos.length > 10) {
-    console.log('ddos deteced: ' + ddos);
-    return;
-  }
-
-  var content = $('#content').toString();
-  // console.log('#content: ' + content);
-
-  $ = cheerio.load(content);
-
-
-  var chords = [];
-
-  console.log('Getting list of chords... ~ body.length: ' + body.length);
-  $('div.article-content').map(function (i, link) {
-    temp = cheerio.load($(link).toString());
-    var chord = new Chord();
-
-    chord.title = temp('h3.entry-title').text().trim();
-
-    chord.songAuthors = [];
-    var songAuthors = temp('b.author').text().trim().split(/[\n\r,]+/);
-    var cleanedAuthors = cleanArray(songAuthors);
-    cleanedAuthors.forEach(function (a) {
-        if (a.toLowerCase().indexOf('thơ') > -1) return;
-        chord.songAuthors.push(a);
-      }
-    );
-
-    chord.singers = [];
-    var singers = temp('b.singer').text().trim().split(/[\n\r,]+/);
-    var cleaned = cleanArray(singers);
-    cleaned.forEach(function (a) {
-        if (a.toLowerCase().indexOf('thơ') > -1) return;
-        chord.singers.push(a);
-      }
-    );
-
-    var href = temp('a').attr('href')
-    if (!href.match('/mychord/lyric/')) return
-    chord.creditUrl = (domain + href).trim();
-
-    chords.push(chord);
-    console.log('JSON.stringify(chord)): ' + JSON.stringify(chord));
-  });
-
-  // start crawling
-  crawlingEachValidChord(chords);
-}
-
-function crawlingEachValidChord(chords) {
-  // findAllTitlesLowerCase().then(function (titles) {
-  var len = chords.length;
-  // console.log("\n\crawlingEachValidChord.... titles.length: " + titlesGlobal.length + " chords.length..." + len);
-  setTimeout(function () {
-
-    for (var i = 0; i < len; i++) {
-      var c = chords[i];
-      console.log("\nchecking if should retrieve for ~ c.title: " + c.title);
-
-      var contentLongEnuf = (c.content != undefined && c.content.length > 2);
-      console.log("contentLongEnuf > 2: " + contentLongEnuf);
-
-      var titleExist = isTitleExisted(c.title, titlesGlobal);
-      if (titleExist && contentLongEnuf) {
-        console.log(title + " exists && contentLongEnuf: " + titleExist);
-      } else {
-        console.log("retrieving for title: " + c.title);
-        console.log("retrieving for creditUrl: " + c.creditUrl);
-
-        setTimeout(function () {
-          getChord(c.creditUrl, c);
-        }, 10000);
-      }
-    }
-  }, 10000);
-  // });
 }
 
 exports.cleanArray = cleanArray;
@@ -343,7 +132,7 @@ function upsert(chord) {
       console.log('upsert err: ' + chord.title + ' ~err: ' + err.toString());
       return {code: 500, msg: err};
     }
-    console.log('upsert successfully: ' + chord.title + ' ~doc.creditUrl: ' + doc.creditUrl + '\n' + doc.content);
+    console.log('upsert successfully: ' + chord.title + ' ~doc.creditUrl: ' + doc.mp3s );
     return {code: 200, msg: "succesfully saved"};
   });
 }
@@ -364,12 +153,6 @@ function isTitleExisted(title, titles) {
   console.log(title + ' exists? : ' + isExist);
   return false;
 }
-
-findAllTitlesLowerCase().then(function (titles) {
-  titlesGlobal = titles;
-  // console.log('Title Global onload: ' + titlesGlobal);
-})
-
 
 /**
  * mistake when crawling. Only remove the first line .\n\r => now put it back for all chords.
@@ -442,6 +225,27 @@ transformtoEnChars = function (str) {
 
   return str;
 }
+
+function getRandomSubarray(arr, size) {
+  var shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
+  while (i-- > min) {
+    index = Math.floor((i + 1) * Math.random());
+    temp = shuffled[index];
+    shuffled[index] = shuffled[i];
+    shuffled[i] = temp;
+  }
+  return shuffled.slice(min);
+}
+
+function removeDuplicatesBy(keyFn, array) {
+  var mySet = new Set();
+  return array.filter(function(x) {
+    var key = keyFn(x), isNew = !mySet.has(key);
+    if (isNew) mySet.add(key);
+    return isNew;
+  });
+}
+
 
 // cleanData();
 

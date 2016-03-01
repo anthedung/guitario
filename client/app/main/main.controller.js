@@ -2,118 +2,30 @@
 // for scrolling
 
 angular.module('guitariosApp')
-  .controller('MainCtrl', function ($http, ChordService, $log, $q) {
+  .controller('MainCtrl', function ($http, ChordService, $log, $q, $location, $rootScope) {
     var vm = this;
     var LIMIT = 20;
-    var infiniteDistance = LIMIT/10;
+    vm.infiniteDistance = LIMIT / 20;
     vm.chords = [];
     vm.bannerVisible = true;
     vm.chipRhythms = {};
-    vm.pageNoToScroll = 2;
+    var pageNoToScroll = 2;
+    vm.chordsByRhythm = [];
+    vm.getStandardDescLength = ChordService.getStandardDescLength;
 
     // loading some chords
     $http.get('/api/chords').success(function (chords) {
       vm.chords = ChordService.processChords(chords);
       console.log("vm.chords.length: " + vm.chords.length)
-      
-      vm.randomChordsForGlobe = getRandomSubarray(vm.chords, 6);
+
+      vm.randomChordsForGlobe = ChordService.getRandomSubarray(vm.chords, 6);
 
       // ensure canvas will start with some delays
       setTimeout(function () {
         startCanvas();
       }, 500);
-
       // page =1 load by default already
     });
-
-    // pagination
-    vm.busy = false;
-    vm.scrollShouldDisable = false;
-
-    vm.nextPage = function() {
-      // console.log('$(window).height(): ' + jQuery(window).height());
-      // console.log('$(anthe-quote).height(): ' + jQuery('div.anthe-quote').height());
-
-      // stop scrolling if not seeing the footer and pageNo / 3
-      // if (!jQuery('div#anthe-footer').visible() && vm.pageNoToScroll % 3 == 0){
-      //   // vm.scrollShouldDisable = true;
-      //   return;
-      //   //enable only 
-      // }
-      if (vm.busy) return;
-
-      // temporary stop to retrieve data
-      vm.scrollShouldDisable = true;
-
-      ChordService.selectChordsByRhythm(vm.selectedRythm, LIMIT, vm.pageNoToScroll).then(function(chords){
-      console.log('nextPage.chords.length: ' + chords.length);
-
-        vm.pageNoToScroll = vm.pageNoToScroll + 1;
-        for (var i = 0; i < chords.length; i++){
-          if (vm.chordsByRhythm.indexOf(chords[i]) < 0)
-            vm.chordsByRhythm.push(chords[i]);
-        }
-
-        // stop scrolling when no more or more than 10 pages already retrieved
-        if (chords.length < 1) {
-          // vm.scrollShouldDisable = true;
-          console.log('nextPage.vm.scrollShouldDisable: ' + vm.scrollShouldDisable);
-        } else {
-          vm.scrollShouldDisable = false;
-        }
-      });
-    }
-
-    vm.addSelected = function(ele){
-      angular.element(ele).addClass('selected');
-    }
-
-    // chords processing
-    vm.toggleShowChords = function (rhythm, ele) {
-      vm.scrollShouldDisable = true;
-      vm.scrollShouldDisable = false;
-      vm.pageNoToScroll = 2;
-      console.log('vm.toggleShowChords - vm.scrollShouldDisable: ' + vm.scrollShouldDisable);
-
-      angular.element(ele).addClass('anthe-selected hihi');
-      $(ele).addClass('selected');
-      //console.log('  added selected: ' + Object.keys(ele));
-      if (!vm.selectedRythm || vm.selectedRythm == rhythm) {
-        vm.chordsVisible = !vm.chordsVisible;
-        vm.bannerVisible = !vm.bannerVisible;
-
-        if (vm.selectedRythm == rhythm) {
-          vm.selectedRythm = undefined;
-          // startCanvas();
-
-          // cleared selected chips
-          vm.chipRhythms = {}
-
-          return;
-        }
-      }
-      console.log("toggleShowChords: " + vm.chordsVisible)
-
-      vm.chordsByRhythm = [];
-
-      if (rhythm === 'Everything') {
-        ChordService.selectChordsNoFilter(LIMIT).then(function(chords){
-          vm.chordsByRhythm = vm.chords;
-          console.log("vm.chordsByRhythm.length: " + vm.chordsByRhythm.length)
-        });
-      } else {
-        ChordService.selectChordsByRhythm(rhythm, LIMIT).then(function(chords){
-          vm.chordsByRhythm = chords;
-          console.log("vm.chordsByRhythm.length: " + vm.chordsByRhythm.length)
-        });
-      }
-
-      vm.selectedRythm = rhythm;
-      console.log("showChords: " + vm.chordsVisible)
-      vm.chipRhythms = {}
-      vm.chipRhythms[rhythm] = 'clickedrhythmChip';
-      // console.log("vm.chipRhythms[rhythm]: " + rhythm + "  " + vm.chipRhythms[rhythm])
-    }
 
     vm.join = ChordService.join;
 
@@ -122,13 +34,7 @@ angular.module('guitariosApp')
     //   console.log("hideChords: " + vm.chordsVisible)
     // }
 
-    vm.getStandardDescLength = ChordService.getStandardDescLength;
-
-    vm.deleteThing = function (thing) {
-      $http.delete('/api/chords/' + thing._id);
-    };
-
-    vm.simulateQuery = false;
+    vm.searchRemote = true;
     vm.isDisabled = false;
     // list of `state` value/display objects
     vm.querySearch = querySearch;
@@ -139,23 +45,21 @@ angular.module('guitariosApp')
       // alert("Sorry! You'll need to create a Constituion for " + state + " first!");
     }
 
-    // ******************************
-    // Internal methods
-    // ******************************
-    /**
-     * Search for chords... use $timeout to simulate
-     * remote dataservice call.
-     */
     function querySearch(query) {
+      $http.get('api')
       var results = query ? vm.chords.filter(createFilterFor(query)) : vm.chords,
         deferred;
-      // if (vm.simulateQuery) {
-      //   deferred = $q.defer();
-      //   $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
-      //   return deferred.promise;
-      // } else {
-      return results;
-      // }
+      if (vm.searchRemote) {
+        deferred = $q.defer();
+        var url = 'api/chords/search?q=';
+        $http.get(url + query).success(function (chords) {
+          deferred.resolve(chords);
+        })
+
+        return deferred.promise;
+      } else {
+        return results;
+      }
     }
 
     function searchTextChange(text) {
@@ -178,27 +82,11 @@ angular.module('guitariosApp')
       };
     }
 
-
-    vm.getSelectedChipIndex = function (event) {
-      var selectedChip = angular.element(event.currentTarget).controller('mdChips').selectedChip;
-      alert(selectedChip);
-    }
-
     vm.rythms34 = ['Everything', 'Boston', 'Slow Rock', 'Valse', 'Twist', 'Pop'];
-    vm.rythms = ['Slow', 'Blues','Rhumba', 'Ballade', 'Chachacha', 'Tango', 'Disco', 'Rock'];
-    console.log(vm.rythms34)
+    vm.rythms = ['Slow', 'Blues', 'Rhumba', 'Ballade', 'Chachacha', 'Tango', 'Disco', 'Rock'];
 
     // helpers
-    function getRandomSubarray(arr, size) {
-      var shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
-      while (i-- > min) {
-        index = Math.floor((i + 1) * Math.random());
-        temp = shuffled[index];
-        shuffled[index] = shuffled[i];
-        shuffled[i] = temp;
-      }
-      return shuffled.slice(min);
-    }
+
 
     function getChordTitlesFromChords(arr) {
       return arr.map(function (chord) {

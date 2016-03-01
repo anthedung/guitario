@@ -19,30 +19,47 @@ exports.crawlMp3 = crawlMp3;
 
 var base = "http://www.vnmylife.com/api/audio/chiasenhac?q=";
 
+// function saveMp3(fromPage, limitPaganiation){
+//   crawlMp3(fromPage, limitPaganiation).then(function(chordsToSave){
+//       console.log("number of chords to saveMp3: " + chordsToUpdate);
+//       Chord.
+//   });
+
+// }
+
 function crawlMp3(fromPage, limitPaganiation) {
+  var deferred = Q.defer();
+
   console.log('preparing  crawlMp3Recursive:' + fromPage + '   ' + limitPaganiation);
   fromPage = parseInt(fromPage, 10);
   limitPaganiation = parseInt(limitPaganiation, 10);
 
 
 
-  findAllChords().then(function (chords) {
+  GeneralService.findAllChords().then(function (chords) {
     if (limitPaganiation >= chords.length) {
       limitPaganiation = chords.length - 1;
     }
     console.log('starting  crawlMp3Recursive:' + fromPage + '   ' + limitPaganiation);
 
-    crawlMp3Recursive(chords, fromPage, limitPaganiation);
+    var chordsToUpdate = [];
+    crawlMp3Recursive(chords, fromPage, limitPaganiation, chordsToUpdate, deferred);
   });
+
+  return deferred.promise;
 }
 
-function crawlMp3Recursive(chords, fromPage, limitPaganiation) {
+function crawlMp3Recursive(chords, fromPage, limitPaganiation, chordsToUpdate, deferred) {
     // console.log('crawlMp3Recursive... fromPage: ' + fromPage + ' limitPaganiation: ' + limitPaganiation);
     // console.log('crawlMp3Recursive... chords.length: ' + chords.length);
     fromPage = parseInt(fromPage, 10);
     limitPaganiation = parseInt(limitPaganiation, 10);
 
-    if (fromPage > limitPaganiation) {return;}
+    if (fromPage > limitPaganiation) {
+      console.log("number of chords to update mp3s: " + chordsToUpdate.length);
+      deferred.resolve(chordsToUpdate);
+      return;
+    }
 
     var chord = chords[fromPage];
     console.log('crawlMp3Recursive... chord.content.length: ' + chord.content.length + ' mp3.length: ' + chord.mp3s.length);
@@ -66,17 +83,18 @@ function crawlMp3Recursive(chords, fromPage, limitPaganiation) {
               //chordProcessing(str, chord);
               // setTimeout(function() {
                 console.log("successfuly hitting url, now processing..mp3: " + chord.title);
-                processBodyGetMp3(str, chord);
-                crawlMp3Recursive(chords, ++fromPage, limitPaganiation);
+                chordsToUpdate.push(processBodyGetMp3(str, chord));
+
+                crawlMp3Recursive(chords, ++fromPage, limitPaganiation, chordsToUpdate, deferred);
               // }, 1000);
             });
       }).on('error', function (e) {
         console.log('Error retrieving page: ' + chord.title+'. Continues..');
-        crawlMp3Recursive(chords, ++fromPage, limitPaganiation);
+        crawlMp3Recursive(chords, ++fromPage, limitPaganiation, chordsToUpdate, deferred);
 
       });
     } else {
-      crawlMp3Recursive(chords, ++fromPage, limitPaganiation);
+      crawlMp3Recursive(chords, ++fromPage, limitPaganiation, chordsToUpdate, deferred);
     }
 
     // }
@@ -119,7 +137,8 @@ function processBodyGetMp3(body, chord) {
 
   chord.mp3s = musicLinks;
 
-  //return chord;
-  upsert(chord);
+  // return chord;
+
+  GeneralService.upsert(chord);
   //chord.
 }
