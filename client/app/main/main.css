@@ -1,4 +1,24 @@
 
+@media only screen and (min-width: 800px) {
+  .anthe-quote {
+    display: flex;
+    flex-flow: row wrap
+  }
+
+  .anthe-quote md-card {
+    width: 31%;
+  }
+
+  .anthe-content {
+    padding-left: 100px!important;
+    padding-right: 100px!important;
+  }
+}
+
+.anthe-chord-card {
+  background: rgba(255, 255, 255, 0.8);
+}
+
 .anthe-searchbox{
   min-width: 800px !important;
 }
@@ -9,13 +29,6 @@
 .anthe-rythms-chips{
   width: 10%
   align: center;
-}
-
-.anthe-home {
-  background: url('/assets/images/guitar_bg.jpg') center center;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 1000px;
 }
 
 .anthe-copyright {

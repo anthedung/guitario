@@ -27,7 +27,7 @@
     <!-- endbuild -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
   </head>
-  <body ng-cloak layout="column" class="anthe-home">
+  <body ng-cloak layout="column">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -74,15 +74,12 @@
       </div>
     </md-toolbar>
 
-
     <!-- <div ng-include="'components/shell/shell.html'"></div> -->
     <div flex layout="column" tabIndex="-1" role="main">
-    <md-content flex id="content" >
-      <div ui-view class="anthe-home"></div>
-
-
-    </md-content>
-  </div>
+      <md-content flex id="content"  class="anthe-home">
+        <div ui-view   style="background-color: transparent"></div>
+      </md-content>
+    </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>

@@ -5,11 +5,13 @@ var mongoose = require('mongoose'),
 
 var ChordSchema = new Schema({
 	title: String,
+	content: String,
 	rhymth: String,
 	songAuthor: String,
 	chordAuthor: String,
+	singers: [],
 	version: Number,
-	created: String,
+	created: Date,
 	mp3s: [],
 	videos: [],
 	active: Boolean

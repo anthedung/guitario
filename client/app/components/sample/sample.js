@@ -3,9 +3,9 @@
 angular.module('guitariosApp')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('main', {
-        url: '/',
-        templateUrl: 'app/main/main.html',
+      .state('mainsss', {
+        url: '/sample',
+        templateUrl: 'app/main/mainss.html',
         controller: 'MainCtrl'
       });
   });
