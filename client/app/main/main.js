@@ -3,7 +3,7 @@
 angular.module('guitariosApp')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('main', {
+      .state('home', {
         url: '/',
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl'

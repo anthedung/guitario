@@ -1,3 +1,31 @@
+
+.anthe-searchbox{
+  min-width: 800px !important;
+}
+
+.anthe-banner{
+}
+
+.anthe-rythms-chips{
+  width: 10%
+  align: center;
+}
+
+.anthe-home {
+  background: url('/assets/images/guitar_bg.jpg') center center;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 1000px;
+}
+
+.anthe-copyright {
+  vertical-align: bottom;
+}
+
+.anthe-cr-text{
+  color:  !important
+}
+
 .things-list {
  margin: 8px;
 }

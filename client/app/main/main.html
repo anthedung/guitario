@@ -1,13 +1,67 @@
-<div ng-include="'components/shell/shell.html'"></div>
+<div layout="column" >
+	<br>
+	<br>
 
-<md-grid-list class="things-list" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="5"
-        md-row-height-gt-md="1:1" md-row-height="4:3"
-        md-gutter="8px" md-gutter-gt-sm="4px">
-  <md-grid-tile ng-repeat="thing in awesomeThings" ng-class="getColor($index)" md-rowspan="{{getSpan($index)}}"
-                  md-colspan="{{getSpan($index)}}"
-                  md-colspan-sm="1">
-    
-    <md-icon class="avatar-icon" md-svg-icon="avatar:svg-{{ ($index + 1) % 11 }}"></md-icon>
-    <md-grid-tile-footer><h3>{{thing.name}}</h3></md-grid-tile-footer>
-  </md-grid-tile>
-</md-grid-list>
+	<div layout="row" layout-align="center center" class="anthe-banner">
+		<img src="/assets/images/guitarios.png">
+	</div>
+	
+	<br>
+	<br>
+	
+	<div layout="column" layout-align="center center">
+		<md-autocomplete class="anthe-searchbox"
+	          ng-disabled="ctrl.isDisabled"
+	          md-no-cache="ctrl.noCache"
+	          md-selected-item="ctrl.selectedItem"
+	          md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+	          md-search-text="ctrl.searchText"
+	          md-selected-item-change="ctrl.selectedItemChange(item)"
+	          md-items="item in ctrl.querySearch(ctrl.searchText)"
+	          md-item-text="item.display"
+	          md-min-length="0"
+	          placeholder="Search for your favorite songs?">
+	        <md-item-template>
+	          <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+	        </md-item-template>
+	        <md-not-found>
+	          Opps, not found. 
+	          <a ng-click="ctrl.newState(ctrl.searchText)">Try something random?</a>
+	        </md-not-found>
+	      </md-autocomplete>
+	</div>
+
+	<br>
+	<br>
+	<br>
+
+	<div layout="row" layout-align="center center" class="anthe-rythms-chips">
+		<md-chips>
+	      <md-chip data-ng-href="#rhumba">Rhumba</md-chip>
+	      <md-chip>Chachacha</md-chip>
+	      <md-chip>Ballade</md-chip>
+	      <md-chip>Flamenco</md-chip>
+	      <md-chip>Disco</md-chip>
+	      <md-chip>Slow Rock</md-chip>
+	      <md-chip>Twist</md-chip>
+	      <!-- Static chips are transcluded -->
+	    </md-chips>
+    </div>
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<!-- footer -->
+	<div class="anthe-copyright" layout="row" layout-align="center bottom">
+      <br>
+      <br>
+      <!-- <md-divider></md-divider> -->
+      <p style="color:white">Copyright © 2016 An The Dung - ABCStudio</p>
+  	</div>
+</div>

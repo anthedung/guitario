@@ -1,4 +1,4 @@
-<!doctype html>
+<html ng-app="guitariosApp">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -20,18 +20,69 @@
     <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
       <link rel="stylesheet" href="app/app.css">
+      <link rel="stylesheet" href="app/components/sample/sample.css">
       <link rel="stylesheet" href="app/main/main.css">
+      <link rel="stylesheet" href="components/shell/shell.css">
       <!-- endinjector -->
     <!-- endbuild -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
   </head>
-  <body ng-app="guitariosApp">
+  <body ng-cloak layout="column" class="anthe-home">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div ui-view=""></div>
+    <md-toolbar class="anthe-toolbar">
+      <div class="md-toolbar-tools">
+        <md-button ng-click="toggleLeft()" class="md-icon-button" aria-label="Settings">
+          <md-icon md-svg-icon="assets/icons/menu.svg"></md-icon>
+        </md-button>
+        <span flex=""></span>
+        <md-menu>
+          <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+            <md-icon md-menu-origin md-svg-icon="assets/icons/dots-vertical.svg"></md-icon>
+          </md-button>
+          <md-menu-content width="4">
+            <md-menu-item>
+              <md-button ng-click="showAddDialog($event)">
+                <md-icon md-svg-icon="content:add" md-menu-align-target></md-icon>
+                Add
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="redial($event)">
+                <md-icon md-svg-icon="communication:dialpad" md-menu-align-target></md-icon>
+                Redial
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button disabled="disabled" ng-click="checkVoicemail()">
+                <md-icon md-svg-icon="communication:voicemail"></md-icon>
+                Check voicemail
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="toggleNotifications()">
+                <md-icon md-svg-icon="social:notifications{{notificationsEnabled ? '_off' : ''}}"></md-icon>
+                {{notificationsEnabled ? 'Disable' : 'Enable' }} notifications
+              </md-button>
+            </md-menu-item>
+            
+          </md-menu-content>
+        </md-menu>
+      </div>
+    </md-toolbar>
+
+
+    <!-- <div ng-include="'components/shell/shell.html'"></div> -->
+    <div flex layout="column" tabIndex="-1" role="main">
+    <md-content flex id="content" >
+      <div ui-view class="anthe-home"></div>
+
+
+    </md-content>
+  </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
@@ -68,6 +119,8 @@
         
         <script src="app/app.js"></script>
           <!-- injector:js -->
+          <script src="app/components/sample/sample.controller.js"></script>
+          <script src="app/components/sample/sample.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
           <script src="components/shell/dialog/dialog.controller.js"></script>
