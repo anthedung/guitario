@@ -78,8 +78,11 @@ function crawlRecursion(step, rCount, rythmsAll){
         // console.log(str);
 
         // if body is not empty
-        if (str.length > 10)
-          getListOfChordsFromRythmPage(str);
+        if (str.length > 10) {
+          setTimeout(function() {
+              getListOfChordsFromRythmPage(str);
+          }, 5000);
+        }
 
 
         crawlRecursion(++step, rCount, rythmsAll);
