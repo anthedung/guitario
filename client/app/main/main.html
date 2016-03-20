@@ -24,7 +24,7 @@
 	        <md-item-template>
 	        	<div layout="row">
 	        		<md-chips>
-	        			<md-chip> {{item.rhymth}} </md-chip>
+	        			<md-chip> {{item.rhythm}} </md-chip>
 	        		</md-chips>
 	          		<span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.title}}</span>
 	          		<!-- <br> -->
@@ -51,23 +51,24 @@
 	<br>
 	<br>
     <div class="anthe-quote fade" layout-align="center" data-ng-show="vm.chordsVisible" >
-	  <md-card ng-repeat="chord in vm.chordsByRhymth" layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card" >
+	  <md-card ng-repeat="chord in vm.chordsByRhythm" layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card" >
 	    <md-card-title>
 	      <md-card-title-text>
-	        <div class="anthe-headline"><strong>{{chord.title}}</strong> <br></div>
+	        <div class="anthe-headline">
+	        	<strong>{{chord.title}}</strong>
+	        	<span ng-if='chord.songAuthors.length > 0'> ~ <em>{{vm.join(chord.singers)}}</em></span> 
+
+	         <br></div>
 	      </md-card-title-text>
 	    </md-card-title>
 	    
-	    <br>
 	    <div .md-whiteframe-2dp layout-padding="10">
-	      <!-- <md-card-actions layout-align="right">
-	        <md-button href="#specific/{{chord.id}}">View Chords</md-button>
-	      </md-card-actions> -->
-
 	      <md-card-content ng-href="#specific/{{chord.id}}">
 	        <div>
 	        	<p>"{{vm.getStandardDescLength(chord.content)}}"</p>
-	        	<em>by: {{chord.songAuthor}}<em> | <em>rythm: {{chord.rhymth}}<em>  
+	        	<span ng-if='chord.rhythms.length > 0'> <em>rythm: {{vm.join(chord.rhythms)}}</em> </span>  
+	        	<br>
+	        	<span ng-if='chord.chordAuthor.length > 0'> <em>chord by: {{chord.chordAuthor}}</em> </span>  
 	        </div>
 	      </md-card-content>
 	    </div>

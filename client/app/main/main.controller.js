@@ -15,33 +15,38 @@ angular.module('guitariosApp')
     });
 
     // chords processing
-    vm.toggleShowChords = function(rhymth){
-      if (!vm.selectedRythm || vm.selectedRythm == rhymth){
+    vm.toggleShowChords = function(rhythm){
+      if (!vm.selectedRythm || vm.selectedRythm == rhythm){
         vm.chordsVisible = !vm.chordsVisible;
         vm.bannerVisible = !vm.bannerVisible;
 
-        if (vm.selectedRythm == rhymth){
+        if (vm.selectedRythm == rhythm){
           vm.selectedRythm = undefined;
           return;
         }
       }
 
-      vm.chordsByRhymth = [];
+      vm.chordsByRhythm = [];
 
       for (var i = 0 ; i < vm.chords.length; i++){
-        if(vm.chords[i].rhymth == rhymth){
-          vm.chordsByRhymth.push(vm.chords[i]);
+
+        // if rythms includes or content of the song exists => due to scrawling
+        if(vm.chords[i].rhythms.indexOf(rhythm) > -1 && vm.chords[i].content.length > 3){
+          vm.chordsByRhythm.push(vm.chords[i]);
         }
       }
 
-      vm.selectedRythm = rhymth;
+      vm.selectedRythm = rhythm;
       console.log("showChords: " + vm.chordsVisible)
-      console.log("selectedChip: " + rhymth)
-      vm.chipRhythms[rhymth] = 'clickedRhymthChip';
-      console.log("vm.chipRhythms[rhymth]: " + rhymth + "  "+ vm.chipRhythms[rhymth])
+      console.log("selectedChip: " + rhythm)
+      vm.chipRhythms[rhythm] = 'clickedrhythmChip';
+      console.log("vm.chipRhythms[rhythm]: " + rhythm + "  "+ vm.chipRhythms[rhythm])
 
     }
 
+    vm.join = function(arr){
+      return arr.join(', ');
+    }
 
     // vm.hideChords = function(){
     //   vm.chordsVisible = false;
@@ -50,10 +55,10 @@ angular.module('guitariosApp')
 
     vm.getStandardDescLength = function(description) {
         console.log("getStandardDescLength " + description );
-        if ('' + description.length < 80) {
-          return description+" "+description+"...";
+        if ('' + description.length < 160) {
+          return description+"...";
         } else {
-          return description.substring(0, 80) + " " + description.substring(0, 80) + "...";
+          return description.substring(0, 160) + "...";
         }
       }
 
@@ -115,6 +120,5 @@ angular.module('guitariosApp')
 
     // test data
 
-    vm.rythms = ['Rhumba', 'Ballade', 'Flamenco', 'Disco', 'Slow Rock', 'Slow'];
-
+    vm.rythms = ['Rhumba', 'Ballade', 'Blues', 'Slow Rock', 'Chachacha', 'Tango', 'Boston', 'Slow',  'Valse', ];
   });
