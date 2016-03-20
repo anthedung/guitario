@@ -13,11 +13,11 @@ exports.recrawl = recrawl;
 exports.findAllTitlesLowerCase = findAllTitlesLowerCase;
 exports.findAllChords = findAllChords;
 
-var chords = [];
+// var chords = [];
 var rhythmMap = {
-  'rhumba': 'http://www.vnmylife.com/mychord/rhythm/rhumba/9',
-  'ballade': 'http://www.vnmylife.com/mychord/rhythm/ballade/6',
-  'slowrock': 'http://www.vnmylife.com/mychord/rhythm/slow-rock/3',
+  // 'rhumba': 'http://www.vnmylife.com/mychord/rhythm/rhumba/9',
+  // 'ballade': 'http://www.vnmylife.com/mychord/rhythm/ballade/6',
+  // 'slowrock': 'http://www.vnmylife.com/mychord/rhythm/slow-rock/3',
   'blues': 'http://www.vnmylife.com/mychord/rhythm/blues/5',
   'chachacha': 'http://www.vnmylife.com/mychord/rhythm/disco/8',
   'bosanova': 'http://www.vnmylife.com/mychord/rhythm/bossa-nova/15',
@@ -26,6 +26,7 @@ var rhythmMap = {
   'tango': 'http://www.vnmylife.com/mychord/rhythm/tango/10'
 };
 
+var titlesGlobal = [];
 
  /**
  * crawl existing pages
@@ -34,35 +35,51 @@ var rhythmMap = {
  * @param limitPaganiation
  */
 function crawlAll() {
-  var rythmsAll = Object.keys(rhythmMap)
+  findAllTitlesLowerCase().then(function (titles) {
+    // first load existing titles to avoid recrawl
+    titlesGlobal = titles;
+    console.log('Title Global onload: ' + titlesGlobal);
 
-  for (var i = 0 ; i < rythmsAll.length; i++){
-    var rhythm = rythmsAll[i];
 
-    console.log('start crawling....: ' + rhythmMap[rhythm] + ' pagination limit: ' + 20 + ' fromPage ' + 1);
-    var pagination = '?page=';
+    var rythmsAll = Object.keys(rhythmMap);
+    console.log(' rythmsAll: ' + rythmsAll);
 
-    for (var i = 0; i <= 20; i++) {
-      var url = rhythmMap[rhythm] + pagination + i;
-      console.log('start crawling....: ' + url);
+    var count = rythmsAll.length;
 
-      http.get(url, function (res) {
-        var str = '';
+    crawlRecursion(0, count, rythmsAll);
+  });
+}
 
-        //another chunk of data has been recieved, so append it to `str`
-        res.on('data', function (chunk) {
-          str += chunk;
-        });
+function crawlRecursion(step, rCount, rythmsAll){
+  if (step >= rCount) return;
 
-        //the whole response has been recieved, so we just print it out here
-        res.on('end', function () {
-          // console.log(str);
-          getListOfChordsFromRythmPage(str);
-        });
-      }).on('error', function(e) {
-        console.log('Error retrieving page: ' + url);
+  console.log(' rythm: ' + rythmsAll[step]);
+  var rhythm = rythmsAll[step];
+
+  console.log('start crawling all....: ' + rhythm + ' pagination limit: ' + 20 + ' fromPage ' + 1);
+  var pagination = '?page=';
+
+  for (var i = 0; i <= 20; i++) {
+    var url = rhythmMap[rhythm] + pagination + i;
+    console.log('start crawling....: ' + url);
+
+    http.get(url, function (res) {
+      var str = '';
+
+      //another chunk of data has been recieved, so append it to `str`
+      res.on('data', function (chunk) {
+        str += chunk;
       });
-    }
+
+      //the whole response has been recieved, so we just print it out here
+      res.on('end', function () {
+        // console.log(str);
+        getListOfChordsFromRythmPage(str);
+        crawlRecursion(++step, rCount, rythmsAll);
+      });
+    }).on('error', function(e) {
+      console.log('Error retrieving page: ' + url);
+    });
   }
 }
 
@@ -160,6 +177,7 @@ function getListOfChordsFromRythmPage(body) {
 
   // Tell Cherrio to load the HTML
   $ = cheerio.load(body);
+  var chords = [];
 
   console.log('Getting list of chords...');
   $('div#primary div.single-article').map(function (i, link) {
@@ -190,7 +208,6 @@ function getListOfChordsFromRythmPage(body) {
     if (!href.match('/mychord/lyric/')) return
     chord.creditUrl = (domain + href).trim();
 
-
     chords.push(chord);
     console.log('JSON.stringify(chord)): ' + JSON.stringify(chord));
   });
@@ -201,9 +218,9 @@ function getListOfChordsFromRythmPage(body) {
 
 
 function crawlingEachValidChord(chords){
-  findAllTitlesLowerCase().then(function (titles) {
+  // findAllTitlesLowerCase().then(function (titles) {
     var len = chords.length;
-    console.log("\n\nfindAllTitlesLowerCase.... titles.length: " + titles.length + " chords.length..." + len);
+    console.log("\n\nfindAllTitlesLowerCase.... titles.length: " + titlesGlobal.length + " chords.length..." + len);
     for (var i = 0; i < len; i++) {
       var c = chords[i];
       console.log("\nchecking if should retrieve for ~ c.title: " + c.title);
@@ -211,7 +228,7 @@ function crawlingEachValidChord(chords){
       var contentLongEnuf = (c.content != undefined && c.content.length > 2);
       console.log("contentLongEnuf > 2: " + contentLongEnuf);
 
-      var titleExist = isTitleExisted(c.title, titles);
+      var titleExist = isTitleExisted(c.title, titlesGlobal);
       if (titleExist && contentLongEnuf) {
         console.log(title + " exists && contentLongEnuf: " + titleExist);
       } else {
@@ -221,7 +238,7 @@ function crawlingEachValidChord(chords){
         getChord(c.creditUrl, c);
       }
     }
-  });
+  // });
 }
 
 function cleanArray(actual) {
@@ -304,3 +321,9 @@ function isTitleExisted(title, titles) {
   console.log(title + ' exists? : ' + isExist);
   return false;
 }
+
+findAllTitlesLowerCase().then(function (titles) {
+  titlesGlobal = titles;
+  console.log('Title Global onload: ' + titlesGlobal);
+})
+
