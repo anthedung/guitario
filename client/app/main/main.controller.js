@@ -45,7 +45,12 @@ angular.module('guitariosApp')
     }
 
     vm.join = function(arr){
-      return arr.join(', ');
+      var joined = arr.join(', ');
+
+      if (joined.length > 20) {
+        joined = joined.substring(0,20) + "...";
+      }
+      return joined;
     }
 
     // vm.hideChords = function(){
@@ -120,5 +125,7 @@ angular.module('guitariosApp')
 
     // test data
 
-    vm.rythms = ['Rhumba', 'Ballade', 'Blues', 'Slow Rock', 'Chachacha', 'Tango', 'Boston', 'Slow',  'Valse', ];
+    vm.rythms = ['Rhumba', 'Ballade', 'Blues', 'Slow', 'Chachacha', 'Tango', 'Disco'];
+    vm.rythms34 = ['Boston', 'Slow Rock', 'Valse' ];
+
   });

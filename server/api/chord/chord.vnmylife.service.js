@@ -18,12 +18,14 @@ var rhythmMap = {
   // 'rhumba': 'http://www.vnmylife.com/mychord/rhythm/rhumba/9',
   // 'ballade': 'http://www.vnmylife.com/mychord/rhythm/ballade/6',
   // 'slowrock': 'http://www.vnmylife.com/mychord/rhythm/slow-rock/3',
-  'blues': 'http://www.vnmylife.com/mychord/rhythm/blues/5',
-  'chachacha': 'http://www.vnmylife.com/mychord/rhythm/disco/8',
+  // 'blues': 'http://www.vnmylife.com/mychord/rhythm/blues/5',
+  'chachacha': 'http://www.vnmylife.com/mychord/rhythm/chachacha/7',
   'bosanova': 'http://www.vnmylife.com/mychord/rhythm/bossa-nova/15',
   'valse': 'http://www.vnmylife.com/mychord/rhythm/valse/14',
   'boston': 'http://www.vnmylife.com/mychord/rhythm/boston/11',
-  'tango': 'http://www.vnmylife.com/mychord/rhythm/tango/10'
+  'tango': 'http://www.vnmylife.com/mychord/rhythm/tango/10',
+  'slow' : 'http://www.vnmylife.com/mychord/rhythm/slow/2',
+  'disco' : 'http://www.vnmylife.com/mychord/rhythm/disco/8'
 };
 
 var titlesGlobal = [];
@@ -74,7 +76,12 @@ function crawlRecursion(step, rCount, rythmsAll){
       //the whole response has been recieved, so we just print it out here
       res.on('end', function () {
         // console.log(str);
-        getListOfChordsFromRythmPage(str);
+
+        // if body is not empty
+        if (str.length > 10)
+          getListOfChordsFromRythmPage(str);
+
+
         crawlRecursion(++step, rCount, rythmsAll);
       });
     }).on('error', function(e) {
@@ -173,14 +180,32 @@ function findAllChords() {
 
 // helpers
 function getListOfChordsFromRythmPage(body) {
+  console.log('Getting list of chords... ~ body.length: ' + body.length);
+
   // if (err) return console.error(err);
 
   // Tell Cherrio to load the HTML
   $ = cheerio.load(body);
+  // console.log('body: ' + body);
+  // fight against cloudFare
+  var ddos = $('div.attribution a').text().toString();
+  if (ddos != undefined && ddos.length > 10){
+    console.log('ddos deteced: ' + ddos);
+    return;
+  }
+
+  var content = $('#content').toString();
+  console.log('#content: ' + content);
+
+  $ = cheerio.load(content);
+
+  
+  
+
   var chords = [];
 
-  console.log('Getting list of chords...');
-  $('div#primary div.single-article').map(function (i, link) {
+  console.log('Getting list of chords... ~ body.length: ' + body.length);
+  $('div.article-content').map(function (i, link) {
     temp = cheerio.load($(link).toString());
     var chord = new Chord();
 
@@ -220,7 +245,7 @@ function getListOfChordsFromRythmPage(body) {
 function crawlingEachValidChord(chords){
   // findAllTitlesLowerCase().then(function (titles) {
     var len = chords.length;
-    console.log("\n\nfindAllTitlesLowerCase.... titles.length: " + titlesGlobal.length + " chords.length..." + len);
+    // console.log("\n\crawlingEachValidChord.... titles.length: " + titlesGlobal.length + " chords.length..." + len);
     for (var i = 0; i < len; i++) {
       var c = chords[i];
       console.log("\nchecking if should retrieve for ~ c.title: " + c.title);
@@ -273,6 +298,7 @@ function getChord(url, chord) {
 
 function chordProcessing(body, chord) {
   $ = cheerio.load(body);
+  // console.log('chordProcessing.body: ' + body);
 
   chord.title = $('header h1.entry-title').text().trim();
   chord.content = $('div #cont pre').text().replace(/[\r\n]/, '').trim();
