@@ -1,0 +1,908 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","errorBeacon":"bam.nr-data.net","licenseKey":"4d86ce5308","applicationID":"6462354","transactionName":"IQsIRBcKDwgEShxaSgEMCUIBFkwXCVdE","queueTime":0,"applicationTime":1369,"agent":""}</script>
+<script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={xpid:"XAcAWVdbGwUEUlNRAgU="};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o||e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(t,e,n){function r(t){try{s.console&&console.log(t)}catch(e){}}var o,i=t("ee"),a=t(14),s={};try{o=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(s.console=!0,-1!==o.indexOf("dev")&&(s.dev=!0),-1!==o.indexOf("nr_dev")&&(s.nrDev=!0))}catch(c){}s.nrDev&&i.on("internal-error",function(t){r(t.stack)}),s.dev&&i.on("fn-err",function(t,e,n){r(n.stack)}),s.dev&&(r("NR AGENT IN DEVELOPMENT MODE"),r("flags: "+a(s,function(t,e){return t}).join(", ")))},{}],2:[function(t,e,n){function r(t,e,n,r,o){try{d?d-=1:i("err",[o||new UncaughtException(t,e,n)])}catch(s){try{i("ierr",[s,(new Date).getTime(),!0])}catch(c){}}return"function"==typeof f?f.apply(this,a(arguments)):!1}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function o(t){i("err",[t,(new Date).getTime()])}var i=t("handle"),a=t(15),s=t("ee"),c=t("loader"),f=window.onerror,u=!1,d=0;c.features.err=!0,t(1),window.onerror=r;try{throw new Error}catch(l){"stack"in l&&(t(8),t(7),"addEventListener"in window&&t(5),c.xhrWrappable&&t(9),u=!0)}s.on("fn-start",function(t,e,n){u&&(d+=1)}),s.on("fn-err",function(t,e,n){u&&(this.thrown=!0,o(n))}),s.on("fn-end",function(){u&&!this.thrown&&d>0&&(d-=1)}),s.on("internal-error",function(t){i("ierr",[t,(new Date).getTime(),!0])})},{}],3:[function(t,e,n){t("loader").features.ins=!0},{}],4:[function(t,e,n){function r(t){}if(window.performance&&window.performance.timing&&window.performance.getEntriesByType){var o=t("ee"),i=t("handle"),a=t(8),s=t(7);t("loader").features.stn=!0,t(6);var c=NREUM.o.EV;o.on("fn-start",function(t,e){var n=t[0];n instanceof c&&(this.bstStart=Date.now())}),o.on("fn-end",function(t,e){var n=t[0];n instanceof c&&i("bst",[n,e,this.bstStart,Date.now()])}),a.on("fn-start",function(t,e,n){this.bstStart=Date.now(),this.bstType=n}),a.on("fn-end",function(t,e){i("bstTimer",[e,this.bstStart,Date.now(),this.bstType])}),s.on("fn-start",function(){this.bstStart=Date.now()}),s.on("fn-end",function(t,e){i("bstTimer",[e,this.bstStart,Date.now(),"requestAnimationFrame"])}),o.on("pushState-start",function(t){this.time=Date.now(),this.startPath=location.pathname+location.hash}),o.on("pushState-end",function(t){i("bstHist",[location.pathname+location.hash,this.startPath,this.time])}),"addEventListener"in window.performance&&(window.performance.clearResourceTimings?window.performance.addEventListener("resourcetimingbufferfull",function(t){i("bstResource",[window.performance.getEntriesByType("resource")]),window.performance.clearResourceTimings()},!1):window.performance.addEventListener("webkitresourcetimingbufferfull",function(t){i("bstResource",[window.performance.getEntriesByType("resource")]),window.performance.webkitClearResourceTimings()},!1)),document.addEventListener("scroll",r,!1),document.addEventListener("keypress",r,!1),document.addEventListener("click",r,!1)}},{}],5:[function(t,e,n){function r(t){for(var e=t;e&&!e.hasOwnProperty("addEventListener");)e=Object.getPrototypeOf(e);e&&o(e)}function o(t){s.inPlace(t,["addEventListener","removeEventListener"],"-",i)}function i(t,e){return t[1]}var a=t("ee").get("events"),s=t(16)(a),c=t("gos");e.exports=a,o(window),"getPrototypeOf"in Object?(r(document),r(XMLHttpRequest.prototype)):XMLHttpRequest.prototype.hasOwnProperty("addEventListener")&&o(XMLHttpRequest.prototype),a.on("addEventListener-start",function(t,e){if(t[1]){var n=t[1];if("function"==typeof n){var r=c(n,"nr@wrapped",function(){return s(n,"fn-",null,n.name||"anonymous")});this.wrapped=t[1]=r}else"function"==typeof n.handleEvent&&s.inPlace(n,["handleEvent"],"fn-")}}),a.on("removeEventListener-start",function(t){var e=this.wrapped;e&&(t[1]=e)})},{}],6:[function(t,e,n){var r=t("ee").get("history"),o=t(16)(r);e.exports=r,o.inPlace(window.history,["pushState","replaceState"],"-")},{}],7:[function(t,e,n){var r=t("ee").get("raf"),o=t(16)(r);e.exports=r,o.inPlace(window,["requestAnimationFrame","mozRequestAnimationFrame","webkitRequestAnimationFrame","msRequestAnimationFrame"],"raf-"),r.on("raf-start",function(t){t[0]=o(t[0],"fn-")})},{}],8:[function(t,e,n){function r(t,e,n){t[0]=a(t[0],"fn-",null,n)}function o(t,e,n){this.method=n,this.timerDuration="number"==typeof t[1]?t[1]:0,t[0]=a(t[0],"fn-",this,n)}var i=t("ee").get("timer"),a=t(16)(i);e.exports=i,a.inPlace(window,["setTimeout","setImmediate"],"setTimer-"),a.inPlace(window,["setInterval"],"setInterval-"),a.inPlace(window,["clearTimeout","clearImmediate"],"clearTimeout-"),i.on("setInterval-start",r),i.on("setTimer-start",o)},{}],9:[function(t,e,n){function r(t,e){e=e||this;var n=a.context(e);e.readyState>3&&!n.resolved&&(n.resolved=!0,a.emit("xhr-resolved",[],e));try{f.inPlace(e,p,"fn-",o)}catch(r){}}function o(t,e){return e}function i(t,e){for(var n in t)e[n]=t[n];return e}var a=t("ee").get("xhr"),s=t(5),c=t(16),f=c(a),u=c(s),d=NREUM.o,l=d.XHR,p=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout","onreadystatechange"];e.exports=a,window.XMLHttpRequest=function(t){var e=new l(t);try{a.emit("new-xhr",[e],e),e.hasOwnProperty("addEventListener")&&u.inPlace(e,["addEventListener","removeEventListener"],"-",o),e.addEventListener("readystatechange",r,!1)}catch(n){try{a.emit("internal-error",[n])}catch(i){}}return e},i(l,XMLHttpRequest),XMLHttpRequest.prototype=l.prototype,f.inPlace(XMLHttpRequest.prototype,["open","send"],"-xhr-",o),a.on("send-xhr-start",r),a.on("open-xhr-start",r)},{}],10:[function(t,e,n){function r(t){var e=this.params,n=this.metrics;if(!this.ended){this.ended=!0;for(var r=0;l>r;r++)t.removeEventListener(d[r],this.listener,!1);if(!e.aborted){if(n.duration=(new Date).getTime()-this.startTime,4===t.readyState){e.status=t.status;var i=o(t,this.lastSize);if(i&&(n.rxSize=i),this.sameOrigin){var a=t.getResponseHeader("X-NewRelic-App-Data");a&&(e.cat=a.split(", ").pop())}}else e.status=0;n.cbTime=this.cbTime,u.emit("xhr-done",[t],t),c("xhr",[e,n,this.startTime])}}}function o(t,e){var n=t.responseType;if("json"===n&&null!==e)return e;var r="arraybuffer"===n||"blob"===n||"json"===n?t.response:t.responseText;return i(r)}function i(t){if("string"==typeof t&&t.length)return t.length;if("object"==typeof t){if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if(!("undefined"!=typeof FormData&&t instanceof FormData))try{return JSON.stringify(t).length}catch(e){return}}}function a(t,e){var n=f(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.sameOrigin=n.sameOrigin}var s=t("loader");if(s.xhrWrappable){var c=t("handle"),f=t(11),u=t("ee"),d=["load","error","abort","timeout"],l=d.length,p=t("id"),h=t(13),m=window.XMLHttpRequest;s.features.xhr=!0,t(5),t(9),u.on("new-xhr",function(t){var e=this;e.totalCbs=0,e.called=0,e.cbTime=0,e.end=r,e.ended=!1,e.xhrGuids={},e.lastSize=null,h&&(h>34||10>h)||window.opera||t.addEventListener("progress",function(t){e.lastSize=t.loaded},!1)}),u.on("open-xhr-start",function(t){this.params={method:t[0]},a(this,t[1]),this.metrics={}}),u.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid)}),u.on("send-xhr-start",function(t,e){var n=this.metrics,r=t[0],o=this;if(n&&r){var a=i(r);a&&(n.txSize=a)}this.startTime=(new Date).getTime(),this.listener=function(t){try{"abort"===t.type&&(o.params.aborted=!0),("load"!==t.type||o.called===o.totalCbs&&(o.onloadCalled||"function"!=typeof e.onload))&&o.end(e)}catch(n){try{u.emit("internal-error",[n])}catch(r){}}};for(var s=0;l>s;s++)e.addEventListener(d[s],this.listener,!1)}),u.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),u.on("xhr-load-added",function(t,e){var n=""+p(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),u.on("xhr-load-removed",function(t,e){var n=""+p(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),u.on("addEventListener-end",function(t,e){e instanceof m&&"load"===t[0]&&u.emit("xhr-load-added",[t[1],t[2]],e)}),u.on("removeEventListener-end",function(t,e){e instanceof m&&"load"===t[0]&&u.emit("xhr-load-removed",[t[1],t[2]],e)}),u.on("fn-start",function(t,e,n){e instanceof m&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=(new Date).getTime()))}),u.on("fn-end",function(t,e){this.xhrCbStart&&u.emit("xhr-cb-time",[(new Date).getTime()-this.xhrCbStart,this.onload,e],e)})}},{}],11:[function(t,e,n){e.exports=function(t){var e=document.createElement("a"),n=window.location,r={};e.href=t,r.port=e.port;var o=e.href.split("://");!r.port&&o[1]&&(r.port=o[1].split("/")[0].split("@").pop().split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=e.hostname||n.hostname,r.pathname=e.pathname,r.protocol=o[0],"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname);var i=!e.protocol||":"===e.protocol||e.protocol===n.protocol,a=e.hostname===document.domain&&e.port===n.port;return r.sameOrigin=i&&(!e.hostname||a),r}},{}],12:[function(t,e,n){function r(t,e){return function(){o(t,[(new Date).getTime()].concat(a(arguments)),null,e)}}var o=t("handle"),i=t(14),a=t(15);"undefined"==typeof window.newrelic&&(newrelic=NREUM);var s=["setPageViewName","addPageAction","setCustomAttribute","finished","addToTrace","inlineHit"],c=["addPageAction"],f="api-";i(s,function(t,e){newrelic[e]=r(f+e,"api")}),i(c,function(t,e){newrelic[e]=r(f+e)}),e.exports=newrelic,newrelic.noticeError=function(t){"string"==typeof t&&(t=new Error(t)),o("err",[t,(new Date).getTime()])}},{}],13:[function(t,e,n){var r=0,o=navigator.userAgent.match(/Firefox[\/\s](\d+\.\d+)/);o&&(r=+o[1]),e.exports=r},{}],14:[function(t,e,n){function r(t,e){var n=[],r="",i=0;for(r in t)o.call(t,r)&&(n[i]=e(r,t[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;e.exports=r},{}],15:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=r},{}],16:[function(t,e,n){function r(t){return!(t&&"function"==typeof t&&t.apply&&!t[a])}var o=t("ee"),i=t(15),a="nr@original",s=Object.prototype.hasOwnProperty,c=!1;e.exports=function(t){function e(t,e,n,o){function nrWrapper(){var r,a,s,c;try{a=this,r=i(arguments),s="function"==typeof n?n(r,a):n||{}}catch(u){d([u,"",[r,a,o],s])}f(e+"start",[r,a,o],s);try{return c=t.apply(a,r)}catch(l){throw f(e+"err",[r,a,l],s),l}finally{f(e+"end",[r,a,c],s)}}return r(t)?t:(e||(e=""),nrWrapper[a]=t,u(t,nrWrapper),nrWrapper)}function n(t,n,o,i){o||(o="");var a,s,c,f="-"===o.charAt(0);for(c=0;c<n.length;c++)s=n[c],a=t[s],r(a)||(t[s]=e(a,f?s+o:o,i,s))}function f(e,n,r){if(!c){c=!0;try{t.emit(e,n,r)}catch(o){d([o,e,n,r])}c=!1}}function u(t,e){if(Object.defineProperty&&Object.keys)try{var n=Object.keys(t);return n.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(r){d([r])}for(var o in t)s.call(t,o)&&(e[o]=t[o]);return e}function d(e){try{t.emit("internal-error",e)}catch(n){}}return t||(t=o),e.inPlace=n,e.flag=a,e}},{}],ee:[function(t,e,n){function r(){}function o(t){function e(t){return t&&t instanceof r?t:t?s(t,a,i):i()}function n(n,r,o){t&&t(n,r,o);for(var i=e(o),a=l(n),s=a.length,c=0;s>c;c++)a[c].apply(i,r);var u=f[v[n]];return u&&u.push([w,n,r,i]),i}function d(t,e){m[t]=l(t).concat(e)}function l(t){return m[t]||[]}function p(t){return u[t]=u[t]||o(n)}function h(t,e){c(t,function(t,n){e=e||"feature",v[n]=e,e in f||(f[e]=[])})}var m={},v={},w={on:d,emit:n,get:p,listeners:l,context:e,buffer:h};return w}function i(){return new r}var a="nr@context",s=t("gos"),c=t(14),f={},u={},d=e.exports=o();d.backlog=f},{}],gos:[function(t,e,n){function r(t,e,n){if(o.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return t[e]=r,r}var o=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){o.buffer([t],r),o.emit(t,e,n)}var o=t("ee").get("handle");e.exports=r,r.ee=o},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,i,function(){return o++})}var o=1,i="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!m++){var t=h.info=NREUM.info,e=u.getElementsByTagName("script")[0];if(t&&t.licenseKey&&t.applicationID&&e){c(l,function(e,n){t[e]||(t[e]=n)});var n="https"===d.split(":")[0]||t.sslForHttp;h.proto=n?"https://":"http://",s("mark",["onload",a()],null,"api");var r=u.createElement("script");r.src=h.proto+t.agent,e.parentNode.insertBefore(r,e)}}}function o(){"complete"===u.readyState&&i()}function i(){s("mark",["domContent",a()],null,"api")}function a(){return(new Date).getTime()}var s=t("handle"),c=t(14),f=window,u=f.document;NREUM.o={ST:setTimeout,XHR:f.XMLHttpRequest,REQ:f.Request,EV:f.Event,PR:f.Promise,MO:f.MutationObserver},t(12);var d=(""+location).split("?")[0],l={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-892.min.js"},p=window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&!/CriOS/.test(navigator.userAgent),h=e.exports={offset:a(),origin:d,features:{},xhrWrappable:p};u.addEventListener?(u.addEventListener("DOMContentLoaded",i,!1),f.addEventListener("load",r,!1)):(u.attachEvent("onreadystatechange",o),f.attachEvent("onload",r)),s("mark",["firstbyte",a()],null,"api");var m=0},{}]},{},["loader",2,10,4,3]);</script>
+<meta http-equiv="content-language" content="vi"/>
+<link rel="alternate" href="http://www.vnmylife.com/mychord/lyric/nu-hoa-va-cay-sung/12956" hreflang="vi-vn"/>
+<link rel="shortcut icon" type="image/x-icon" href="http://www.vnmylife.com/favicon.ico"/>
+<meta name='revisit-after' content='1 days'/>
+<meta content='VnMyLife' name='author'/>
+<meta property="fb:app_id" content="288173524692927"/>
+<meta property="fb:admins" content="hieulh89"/>
+<meta name="viewport" content="width=device-width, user-scalable=yes"/>
+<title>Hợp âm Guitar bài Nụ Hoa Và Cây Súng - VnMyLife.com</title>
+<meta name="description" content="Phía [Am]sau chùm hoa ấy là dấu chân lặng [Dm]thầm Cỏ mùa này non [Am]vậy mà đất nóng âm [E7]âm Phía [Am]sau chùm hoa ấy mũi súng canh đường [Dm]biên Chiến sĩ mình trẻ [C]quá đa..."/>
+<meta name="keywords" content="hop am Nụ Hoa Và Cây Súng, hợp âm Nụ Hoa Và Cây Súng, Nụ Hoa Và Cây Súng tab, Nụ Hoa Và Cây Súng guitar">
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="http://www.vnmylife.com/mychord/lyric/nu-hoa-va-cay-sung/12956"/>
+<meta property="og:site_name" content="VnMyLife"/>
+<meta property="og:title" content="Hợp âm Guitar bài Nụ Hoa Và Cây Súng - VnMyLife.com"/>
+<meta property="og:description" content="Phía [Am]sau chùm hoa ấy là dấu chân lặng [Dm]thầm Cỏ mùa này non [Am]vậy mà đất nóng âm [E7]âm Phía [Am]sau chùm hoa ấy mũi súng canh đường [Dm]biên Chiến sĩ mình trẻ [C]quá đa..."/>
+<meta property="og:url" content="http://www.vnmylife.com/mychord/lyric/nu-hoa-va-cay-sung/12956"/>
+<meta property="og:image" content="http://www.vnmylife.com/vnmylife_share.jpg"/>
+<meta property="og:type" content="website"/>
+<meta property="article:author" content="https://www.facebook.com/vnmylife"/>
+<link rel="stylesheet" media="all" href="/assets/v2/application-79a4552851dbdaef7cf2f7889a800676.css"/>
+<script src="/assets/jquery-1d06507d6a32f3fb4c56fdecb89015b9.js?body=1"></script>
+<script src="/assets/jquery_ujs-ded279e6515a5788494eb2dd4b00b08e.js?body=1"></script>
+<script src="/assets/chord/jquery.min_ver1-b7a51037918de59a0f6ed29af87855b1.js?body=1"></script>
+<script src="/assets/chord/jquery-ui-1.11.4-be5fa63640ae53dc4bd035856987dc55.js?body=1"></script>
+<script src="/assets/v2/colormag-custom-fd4dd474ca5eefd0f355b63995c8ec0b.js?body=1"></script>
+<script src="/assets/v2/custom-783ed69a017ba0505b05503ef4c17034.js?body=1"></script>
+<script src="/assets/v2/html5shiv.min-60f69bc3338036fb1cc4672e287e94be.js?body=1"></script>
+<script src="/assets/v2/imgcentering.min-0cb79218db039f894a0669579c8c64eb.js?body=1"></script>
+<script src="/assets/v2/jquery.columnizer-c498041e0d96d068c3c041525a7bc856.js?body=1"></script>
+<script src="/assets/v2/jquery.lazy-36d0f258fc5e5e5e4f4d9fba522ee39c.js?body=1"></script>
+<script src="/assets/v2/navigation-d26034451810bfa52daecc9b93010a81.js?body=1"></script>
+<script src="/assets/v2/page-480b43fa7875bf9b8b8091d958199041.js?body=1"></script>
+<script src="/assets/v2/slick.min-cb599b821d5b43a1e1ae4d4904c526cf.js?body=1"></script>
+<script src="/assets/v2/sticky/jquery.sticky-164f2d8c6ab24d45f2f81b748388e423.js?body=1"></script>
+<script src="/assets/v2/sticky/sticky-setting-0e53ca8d1afb27dcff28d076574ae0e1.js?body=1"></script>
+<script src="/assets/v2/application-b6c0f384d49a113c0159d7a75e710842.js?body=1"></script>
+<meta name="csrf-param" content="authenticity_token"/>
+<meta name="csrf-token" content="W98azZGrRMkrBwh9sdim/Mafn6R+yFh6X2u0McvPoksdlSJzZXOKOlX0AsxLEVS8b2vWpM1RnDH/dfusbXI8TA=="/>
+<meta name="google-site-verification" content="GqdWrpRAfPutVtpgZsU-XXHTZOop8WIEgnq63QuadNc"/>
+</head>
+<body class="wide">
+<div class="header-user"><div class="inner-wrap clearfix menu-category"><ul><li><a href="/user/login"><i class='fa fa-lock'></i> Đăng nhập</a><ul><li class="fb"><a href="/user/auth/facebook"><i class='fa fa-facebook'></i> Đăng nhập bằng <b>Facebook</b></a></li></ul></li><li><a href="/user/signup"><i class='fa fa-key'></i> Đăng ký</a></li></ul></div></div>
+<div id="page" class="hfeed site">
+<header id="masthead" class="site-header clearfix">
+<div id="header-text-nav-container" class="clearfix">
+<nav id="site-navigation" class="main-navigation clearfix" role="navigation">
+<div class="inner-wrap clearfix">
+<a href="/" title="VnMyLife" class="home-logo">
+<img src="/vnmylife_logo.png" alt="VnMyLife"/>
+</a>
+<h4 class="menu-toggle"></h4>
+<form class="frm-top-pc search-form-pc searchform clearfix" action="http://www.vnmylife.com/mychord/search" accept-charset="UTF-8" method="get" id="frm_search_chord" style="width:100%">
+<span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+<input value="" autofocus="" name="keyword" id="keyword" type="text" class="s field ui-autocomplete-input" title="Tìm kiếm" placeholder="Nhập tên bài hát cần tìm..." autocomplete="off">
+<button type="submit" class="search-icon"><i class="fa fa-search"></i><b> Tìm kiếm</b></button>
+</form>
+</div>
+</nav>
+</div> 
+</header>
+<div id="main" class="clearfix">
+<div class="inner-wrap clearfix">
+<div class="main-content-section clearfix" id="search-main">
+<div id="primary">
+<div id="scroll_holder">
+<div id="content" class="clearfix">
+<div id="whole_scroll" class="autoscroll_controller d_none">
+<div class="autoscroll_controller_header">
+<img class="ch_hm" src="http://img.ultimate-guitar.com/img/1x1.gif" alt=""/>
+Cuộn trang
+<img src="http://img.ultimate-guitar.com/img/1x1.gif" class="autoscroll_controller_exit" alt=""/>
+</div>
+<div id='scroll' style='position: absolute;'>
+<div class="ascr">
+<a id='dec_speed' class="pmpp1">chậm</a>
+<div class="autoscroll_table_handler">
+<div id='speed'><div id="spd_1"></div><div id="spd_2"></div><div id="spd_3"></div><div id="spd_4"></div><div id="spd_5"></div></div>
+</div>
+<a id='inc_speed' class="pmpp2">nhanh</a>
+<div class='scrollhint'>
+<div class="autoscroll_controller_left">+/-<br/>esc
+</div>
+<div class="autoscroll_controller_right">Tốc độ<br/>Dừng
+</div>
+</div>
+</div>
+</div>
+</div>
+<article class="post type-post status-publish format-standard has-post-thumbnail hentry category-featured category-general category-sports">
+<div class="article-content clearfix">
+<div class="text-right">
+<a href="javascript:void(0);" onclick="$('#whole_scroll').toggleClass('d_none');$('#whole_scroll').css('display', '');" rel="nofollow" class="btn btn-info btn-xs" style="padding:1px 10px">Cuộn trang</a>
+<a href="javascript:void(0)" class="zoom" onclick="full_view_content(2)" rel="nofollow">
+<b class="zoom_text">Phóng to màn hình</b>
+<i class="fa fa-hand-o-right"></i>
+</a>
+<a href="javascript:void(0)" class="zoom d_none" onclick="full_view_content(1)" rel="nofollow">
+<i class="fa fa-hand-o-left"></i>
+<b class="zoom_text">Thu nhỏ màn hình</b>
+</a>
+</div>
+<header class="entry-header">
+<h1 class="entry-title">
+Nụ Hoa Và Cây Súng
+</h1>
+<b class='author'><i class='fa fa-user'></i>
+<a href='/mychord/search/author/Nguyễn Ngọc Thiện' title='Các bài hát của nhạc sỹ Nguyễn Ngọc Thiện'>
+Nguyễn Ngọc Thiện
+</a>
+</b>
+<div align="center">
+<select class="styled-select" name="dieunhac" id="dieunhac" tabindex="1" onchange="UpdateDieuNhac(12956, $(this).val())">
+<option value="">--Bạn chọn giúp điệu nhạc cho bài này nhé--</option>
+<option value="Điệu Blues" selected="selected">Điệu Blues (2 người chọn)</option>
+<option value="Điệu Ballad">Điệu Ballad (1 người chọn)</option>
+<option value="Điệu Slow">Điệu Slow (0 người chọn)</option>
+<option value="Điệu Slow Rock">Điệu Slow Rock (1 người chọn)</option>
+<option value="Điệu Boston">Điệu Boston (0 người chọn)</option>
+<option value="Điệu Valse">Điệu Valse (0 người chọn)</option>
+<option value="Điệu Chachacha">Điệu Chachacha (0 người chọn)</option>
+<option value="Điệu Disco">Điệu Disco (0 người chọn)</option>
+<option value="Điệu Rhumba">Điệu Rhumba (1 người chọn)</option>
+<option value="Điệu Bollero">Điệu Bollero (0 người chọn)</option>
+<option value="Điệu Fox">Điệu Fox (0 người chọn)</option>
+<option value="Điệu Pop">Điệu Pop (0 người chọn)</option>
+<option value="Điệu Rock">Điệu Rock (1 người chọn)</option>
+<option value="Điệu Tango">Điệu Tango (0 người chọn)</option>
+<option value="Bossa Nova">Bossa Nova (0 người chọn)</option>
+</select>
+</div>
+</header>
+<div align="left">
+<div class="btn-group no-edit" role="group" aria-label="...">
+<button type="button" class="btn btn-info" data-btn_tone_minus onclick="changeTone('b');"><b>&nbsp;b&nbsp;</b></button>
+<button type="button" class="btn btn-default disabled">Đổi Tone</button>
+<button type="button" class="btn btn-info" data-btn_tone_plus onclick="changeTone('#');"><b>&nbsp;#&nbsp;</b></button>
+</div>
+<div class="btn-group no-edit" role="group" aria-label="...">
+<button type="button" class="btn btn-info fa fa-minus" data-btn_font_minus></button>
+<button type="button" class="btn btn-default disabled">Cỡ chữ</button>
+<button type="button" class="btn btn-info fa fa-plus" data-btn_font_plus></button>
+</div>
+<span class="span-version-beta"></span>
+<span class="btn-fork">
+<button type="button" class="btn btn-info btn-version version-alpha d_none" onclick="chord_load(12956)"><i class="fa fa-file-text-o"></i> Xem bản gốc</button>
+</span>
+<button type="button" class="btn btn-warning btn-fork no-edit" onclick="fork_edit()"><i class="fa fa-edit"></i> Sửa bài này</button>
+</div>
+<div id="cont" class="highlight entry-content clearfix" data-chord_description>
+<pre>Phía <span class="hl-chord">[<span class="d-chord">Am</span>]</span>sau chùm hoa ấy là dấu chân lặng <span class="hl-chord">[<span class="d-chord">Dm</span>]</span>thầm
+Cỏ mùa này non <span class="hl-chord">[<span class="d-chord">Am</span>]</span>vậy mà đất nóng âm <span class="hl-chord">[<span class="d-chord">E7</span>]</span>âm
+Phía <span class="hl-chord">[<span class="d-chord">Am</span>]</span>sau chùm hoa ấy mũi súng canh đường <span class="hl-chord">[<span class="d-chord">Dm</span>]</span>biên
+Chiến sĩ mình trẻ <span class="hl-chord">[<span class="d-chord">C</span>]</span>quá đang bám trụ ngày <span class="hl-chord">[<span class="d-chord">Am</span>]</span>đêm.
+Chùm hoa ấy không <span class="hl-chord">[<span class="d-chord">Dm</span>]</span>hương thơ ngây bên lá <span class="hl-chord">[<span class="d-chord">C</span>]</span>cỏ
+Cánh mỏng mượt hơi <span class="hl-chord">[<span class="d-chord">E7</span>]</span>sương và hồn nhiên sắc đỏ
+Nụ hoa <span class="hl-chord">[<span class="d-chord">Am</span>]</span>đó là cột mốc biên <span class="hl-chord">[<span class="d-chord">Dm</span>]</span>cương
+Nụ hoa và cây <span class="hl-chord">[<span class="d-chord">C</span>]</span>súng khói lửa vẫn bên <span class="hl-chord">[<span class="d-chord">Am</span>]</span>nhau.
+Nụ hoa đó là cột mốc biên cương
+Nụ hoa và cây súng khói lửa vẫn bên nhau
+Nụ hoa và cây súng khói lửa vẫn bên nhau
+Nụ hoa và cây súng khói lửa vẫn bên nhau.</pre>
+</div>
+<form class="new_fork" id="new_fork" action="/mychord/fork" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;"/><input type="hidden" name="authenticity_token" value="qMxTXvYY7sn+3C/YSeS79tkQfoEM/XEkurbAXoC0En/uhmvgAsAgOoAvJWmzLUm2cOQ3gb9ktW8aqI/DJgmMeA=="/>
+<div id="fork" class="d_none">
+<div class="pull-right">
+<button name="button" type="button" class="btn" onclick="location.href=&#39;/user/login&#39;;" rel="nofollow"><i class="fa fa-save"></i> Đăng nhập để Lưu lại</button>
+<button name="button" type="button" class="btn btn-default" onclick="fork_close()"><i class="fa fa-close"></i> Hủy bỏ</button>
+</div>
+<div class="clearfix"></div>
+<p class="hint">
+Hướng dẫn: Đặt hợp âm trong dấu ngoặc vuông, ngay trước (hoặc phía trên) chữ nhấn mạnh.<br/>
+VD: Tuổi hồng thơ [C]ngây dưới mái [Am]trường...
+<br/>
+<i class="red">Chú ý: Hiện tại bạn không thể lưu vì chưa
+<a href="/user/login" rel="nofollow">Đăng nhập</a>
+</i>
+</p>
+<div id="fork_content"></div>
+</div>
+</form>
+<div align="center">
+<a target="_blank" class="btn btn-info" rel="nofollow" href="/mychord/lyric/nu-hoa-va-cay-sung/12956.pdf"><i class="fa fa-print"></i> In bài hát</a>
+</div>
+<div align="center">
+<div id="R-9324096438">
+ 
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-9406698092283661" data-ad-slot="9324096438"></ins>
+<script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      setInterval(function(){$("#R-9324096438").html($("#R-9324096438").html())}, 30000);
+    </script>
+</div>
+</div>
+<br/>
+<div class='refer'>Nguồn: hopamchuan</div>
+<div class="share-social"><span class="favorite-chord-12956"><a class="link-favorite" href="/user/login"><i class="fa fa-paperclip"></i>&nbsp;Ghim bài</a></span><div class="fb-like" data-action="like" data-href="http://www.vnmylife.com/mychord/lyric/nu-hoa-va-cay-sung/12956" data-layout="button_count" data-share="true" data-show-faces="true"></div><div class="fb-send" data-href="http://www.vnmylife.com/mychord/lyric/nu-hoa-va-cay-sung/12956"></div></div>
+<div align="center" class="fanpage-show"><div class="fb-page" data-hide-cover="true" data-href="https://www.facebook.com/vnmylife" data-show-facepile="true" data-show-posts="false" data-small-header="true" data-width="500"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/vnmylife"><a href="VnMyLife">https://www.facebook.com/vnmylife</a></blockquote></div></div></div>
+<div class="fb-comments" data-href="http://www.vnmylife.com/mychord/lyric/nu-hoa-va-cay-sung/12956" data-width="100%" data-numposts="5" data-colorscheme="light"></div>
+</div>
+</article>
+</div>
+</div>
+<h4 class="related-posts-main-title"><span><i class="fa fa-youtube"></i> Video hướng dẫn</span></h4>
+<div class="related-posts clearfix">
+<div class="single-related-posts">
+<div class="related-posts-thumbnail list-related-posts thumb">
+<a rel="nofollow" title="[MV HD] NỤ HOA VÀ CÂY SÚNG - LONG NHẬT" href="/video/mv-hd-nu-hoa-va-cay-sung-long-nhat/optJTPy2WkQ" class='attachment-colormag-featured-post-medium wp-post-image'>
+<img src="https://i.ytimg.com/vi/optJTPy2WkQ/mqdefault.jpg" alt="[MV HD] NỤ HOA VÀ CÂY SÚNG - LONG NHẬT" width="250"/>
+<span class="overlay"></span>
+</a>
+</div>
+<div class="article-content">
+<h3 class="entry-title">
+<a title="[MV HD] NỤ HOA VÀ CÂY SÚNG - LONG NHẬT" rel="nofollow" href="/video/mv-hd-nu-hoa-va-cay-sung-long-nhat/optJTPy2WkQ">[MV HD] NỤ HOA VÀ CÂY SÚNG - LONG NHẬT</a>
+</h3> 
+</div>
+</div> 
+<div class="single-related-posts">
+<div class="related-posts-thumbnail list-related-posts thumb">
+<a rel="nofollow" title="Nụ hoa và cây súng Ls Thanh Năm" href="/video/nu-hoa-va-cay-sung-ls-thanh-nam/zgOyLqakbm4" class='attachment-colormag-featured-post-medium wp-post-image'>
+<img src="https://i.ytimg.com/vi/zgOyLqakbm4/mqdefault.jpg" alt="Nụ hoa và cây súng Ls Thanh Năm" width="250"/>
+<span class="overlay"></span>
+</a>
+</div>
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Nụ hoa và cây súng Ls Thanh Năm" rel="nofollow" href="/video/nu-hoa-va-cay-sung-ls-thanh-nam/zgOyLqakbm4">Nụ hoa và cây súng Ls Thanh Năm</a>
+</h3> 
+</div>
+</div> 
+<div class="single-related-posts">
+<div class="related-posts-thumbnail list-related-posts thumb">
+<a rel="nofollow" title="Hướng dẫn Guitar Nhánh Lan Rừng  - vechaitiensinh" href="/video/huong-dan-guitar-nhanh-lan-rung-vechaitiensinh/llDmAWf0vTg" class='attachment-colormag-featured-post-medium wp-post-image'>
+<img src="https://i.ytimg.com/vi/llDmAWf0vTg/mqdefault.jpg" alt="Hướng dẫn Guitar Nhánh Lan Rừng  - vechaitiensinh" width="250"/>
+<span class="overlay"></span>
+</a>
+</div>
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Hướng dẫn Guitar Nhánh Lan Rừng  - vechaitiensinh" rel="nofollow" href="/video/huong-dan-guitar-nhanh-lan-rung-vechaitiensinh/llDmAWf0vTg">Hướng dẫn Guitar Nhánh Lan Rừng - vechaitiensinh</a>
+</h3> 
+</div>
+</div> 
+<div class="single-related-posts">
+<div class="related-posts-thumbnail list-related-posts thumb">
+<a rel="nofollow" title="Hướng dẫn làm Hoa tulip từ giấy nhún - vietflower.info" href="/video/huong-dan-lam-hoa-tulip-tu-giay-nhun-vietflower-dot-info/SVbrPA86CIA" class='attachment-colormag-featured-post-medium wp-post-image'>
+<img src="https://i.ytimg.com/vi/SVbrPA86CIA/mqdefault.jpg" alt="Hướng dẫn làm Hoa tulip từ giấy nhún - vietflower.info" width="250"/>
+<span class="overlay"></span>
+</a>
+</div>
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Hướng dẫn làm Hoa tulip từ giấy nhún - vietflower.info" rel="nofollow" href="/video/huong-dan-lam-hoa-tulip-tu-giay-nhun-vietflower-dot-info/SVbrPA86CIA">Hướng dẫn làm Hoa tulip từ giấy nhún - vietflower.info</a>
+</h3> 
+</div>
+</div> 
+<div class="single-related-posts">
+<div class="related-posts-thumbnail list-related-posts thumb">
+<a rel="nofollow" title="Hướng dẫn làm Lan Hồ điệp bằng vải voan (HD) - vietflower.info" href="/video/huong-dan-lam-lan-ho-diep-bang-vai-voan-hd-vietflower-dot-info/SDBobfn9OyY" class='attachment-colormag-featured-post-medium wp-post-image'>
+<img src="https://i.ytimg.com/vi/SDBobfn9OyY/mqdefault.jpg" alt="Hướng dẫn làm Lan Hồ điệp bằng vải voan (HD) - vietflower.info" width="250"/>
+<span class="overlay"></span>
+</a>
+</div>
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Hướng dẫn làm Lan Hồ điệp bằng vải voan (HD) - vietflower.info" rel="nofollow" href="/video/huong-dan-lam-lan-ho-diep-bang-vai-voan-hd-vietflower-dot-info/SDBobfn9OyY">Hướng dẫn làm Lan Hồ điệp bằng vải voan (HD) - vietflower.info</a>
+</h3> 
+</div>
+</div> 
+<div class="single-related-posts">
+<div class="related-posts-thumbnail list-related-posts thumb">
+<a rel="nofollow" title="HỢP ÂM GUITAR :Ngày Tựu Trường - Điệu Boéro - ST: Thanh Sơn" href="/video/hop-am-guitar-ngay-tuu-truong-dieu-boero-st-thanh-son/1MXaDvQhPMs" class='attachment-colormag-featured-post-medium wp-post-image'>
+<img src="https://i.ytimg.com/vi/1MXaDvQhPMs/mqdefault.jpg" alt="HỢP ÂM GUITAR :Ngày Tựu Trường - Điệu Boéro - ST: Thanh Sơn" width="250"/>
+<span class="overlay"></span>
+</a>
+</div>
+<div class="article-content">
+<h3 class="entry-title">
+<a title="HỢP ÂM GUITAR :Ngày Tựu Trường - Điệu Boéro - ST: Thanh Sơn" rel="nofollow" href="/video/hop-am-guitar-ngay-tuu-truong-dieu-boero-st-thanh-son/1MXaDvQhPMs">HỢP ÂM GUITAR :Ngày Tựu Trường - Điệu Boéro - ST: Thanh Sơn</a>
+</h3> 
+</div>
+</div> 
+<div class="single-related-posts">
+<div class="related-posts-thumbnail list-related-posts thumb">
+<a rel="nofollow" title="Hoa Hồng Trong Bóng Đêm   Guitar  HD 720p" href="/video/hoa-hong-trong-bong-dem-guitar-hd-720p/yqMGKAGk7ak" class='attachment-colormag-featured-post-medium wp-post-image'>
+<img src="https://i.ytimg.com/vi/yqMGKAGk7ak/mqdefault.jpg" alt="Hoa Hồng Trong Bóng Đêm   Guitar  HD 720p" width="250"/>
+<span class="overlay"></span>
+</a>
+</div>
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Hoa Hồng Trong Bóng Đêm   Guitar  HD 720p" rel="nofollow" href="/video/hoa-hong-trong-bong-dem-guitar-hd-720p/yqMGKAGk7ak">Hoa Hồng Trong Bóng Đêm Guitar HD 720p</a>
+</h3> 
+</div>
+</div> 
+<div class="single-related-posts">
+<div class="related-posts-thumbnail list-related-posts thumb">
+<a rel="nofollow" title="Cây Hoa Hồng Ri Đẹp" href="/video/cay-hoa-hong-ri-dep/NuyAgGoy7z8" class='attachment-colormag-featured-post-medium wp-post-image'>
+<img src="https://i.ytimg.com/vi/NuyAgGoy7z8/mqdefault.jpg" alt="Cây Hoa Hồng Ri Đẹp" width="250"/>
+<span class="overlay"></span>
+</a>
+</div>
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Cây Hoa Hồng Ri Đẹp" rel="nofollow" href="/video/cay-hoa-hong-ri-dep/NuyAgGoy7z8">Cây Hoa Hồng Ri Đẹp</a>
+</h3> 
+</div>
+</div> 
+<div class="single-related-posts">
+<div class="related-posts-thumbnail list-related-posts thumb">
+<a rel="nofollow" title="Mẫu hoa sen (lotus) bằng vải voan mới nhất" href="/video/mau-hoa-sen-lotus-bang-vai-voan-moi-nhat/van3X7qrHzM" class='attachment-colormag-featured-post-medium wp-post-image'>
+<img src="https://i.ytimg.com/vi/van3X7qrHzM/mqdefault.jpg" alt="Mẫu hoa sen (lotus) bằng vải voan mới nhất" width="250"/>
+<span class="overlay"></span>
+</a>
+</div>
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Mẫu hoa sen (lotus) bằng vải voan mới nhất" rel="nofollow" href="/video/mau-hoa-sen-lotus-bang-vai-voan-moi-nhat/van3X7qrHzM">Mẫu hoa sen (lotus) bằng vải voan mới nhất</a>
+</h3> 
+</div>
+</div> 
+<div class="single-related-posts">
+<div class="related-posts-thumbnail list-related-posts thumb">
+<a rel="nofollow" title="Cách làm hoa từ vỏ lon - vietflower.info" href="/video/cach-lam-hoa-tu-vo-lon-vietflower-dot-info/KPe4X08kk_w" class='attachment-colormag-featured-post-medium wp-post-image'>
+<img src="https://i.ytimg.com/vi/KPe4X08kk_w/mqdefault.jpg" alt="Cách làm hoa từ vỏ lon - vietflower.info" width="250"/>
+<span class="overlay"></span>
+</a>
+</div>
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Cách làm hoa từ vỏ lon - vietflower.info" rel="nofollow" href="/video/cach-lam-hoa-tu-vo-lon-vietflower-dot-info/KPe4X08kk_w">Cách làm hoa từ vỏ lon - vietflower.info</a>
+</h3> 
+</div>
+</div> 
+<div class="single-related-posts">
+<div class="related-posts-thumbnail list-related-posts thumb">
+<a rel="nofollow" title="Hướng dẫn ảo thuật 8 cách xé báo rách thành lành - CLip dạy 100%" href="/video/huong-dan-ao-thuat-8-cach-xe-bao-rach-thanh-lanh-clip-day-100-percent/gTCIeF53BrE" class='attachment-colormag-featured-post-medium wp-post-image'>
+<img src="https://i.ytimg.com/vi/gTCIeF53BrE/mqdefault.jpg" alt="Hướng dẫn ảo thuật 8 cách xé báo rách thành lành - CLip dạy 100%" width="250"/>
+<span class="overlay"></span>
+</a>
+</div>
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Hướng dẫn ảo thuật 8 cách xé báo rách thành lành - CLip dạy 100%" rel="nofollow" href="/video/huong-dan-ao-thuat-8-cach-xe-bao-rach-thanh-lanh-clip-day-100-percent/gTCIeF53BrE">Hướng dẫn ảo thuật 8 cách xé báo rách thành lành - CLip dạy 100%</a>
+</h3> 
+</div>
+</div> 
+<div class="single-related-posts">
+<div class="related-posts-thumbnail list-related-posts thumb">
+<a rel="nofollow" title="hot girl hướng dẫn chơi game trên giường" href="/video/hot-girl-huong-dan-choi-game-tren-giuong/jDEfxTP1O6M" class='attachment-colormag-featured-post-medium wp-post-image'>
+<img src="https://i.ytimg.com/vi/jDEfxTP1O6M/mqdefault.jpg" alt="hot girl hướng dẫn chơi game trên giường" width="250"/>
+<span class="overlay"></span>
+</a>
+</div>
+<div class="article-content">
+<h3 class="entry-title">
+<a title="hot girl hướng dẫn chơi game trên giường" rel="nofollow" href="/video/hot-girl-huong-dan-choi-game-tren-giuong/jDEfxTP1O6M">hot girl hướng dẫn chơi game trên giường</a>
+</h3> 
+</div>
+</div> 
+</div>
+</div>
+<div id="secondary">
+<aside class="widget clearfix">
+<div class="advertisement_300x250">
+<div class="advertisement-content">
+<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-9406698092283661" data-ad-slot="5449286831"></ins>
+</div>
+</div>
+</aside>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<script>
+   $(function(){
+    startTime();
+    setInterval(function(){
+      jQuery.ajax({
+        url: "/api/chord/realtime",
+        type: "GET",
+        data: {sidebar: true},
+        success: function(html) {
+         $('.aside-realtime').html(html)
+      }
+   });
+   }, 60000);
+ })
+</script>
+<aside class="widget widget_random_post_colormag widget_featured_posts clearfix">
+<div class="random-posts-widget">
+<h3 class="widget-title" style="border-bottom-color:#13306b;"><span style="background-color:#13306b;"><i class="fa fa-bar-chart"></i> Realtime <i id="clock-realtime"></i></span></h3>
+<div align="center">( Người khác đang xem )</div>
+<div class="random_posts_widget_inner_wrap aside-realtime aside-chord">
+<div class="single-article clearfix">
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Bóng chiều tà" href="/mychord/lyric/bong-chieu-ta/5115">Bóng chiều tà</a>
+</h3>
+<div class="below-entry-meta">
+<b class='author'><i class='fa fa-user'></i>
+<a href='/mychord/search/author/Nhật Bằng' title='Các bài hát của nhạc sỹ Nhật Bằng'>
+Nhật Bằng
+</a>
+</b> <b>|</b> <b class='singer'><i class='fa fa-microphone'></i>
+<a href='/mychord/search/singer/Trần Thái Hòa' title='Các bài hát của ca sỹ Trần Thái Hòa'>
+Trần Thái Hòa
+</a>
+</b>
+</div>
+</div>
+</div>
+<div class="single-article clearfix">
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Vẫn là của nhau thôi" href="/mychord/lyric/van-la-cua-nhau-thoi/31876">Vẫn là của nhau thôi</a>
+</h3>
+<div class="below-entry-meta">
+<b class='author'><i class='fa fa-user'></i>
+<a href='/mychord/search/author/Ngọc Thế' title='Các bài hát của nhạc sỹ Ngọc Thế'>
+Ngọc Thế
+</a>, <a href='/mychord/search/author/Thi Hạnh' title='Các bài hát của nhạc sỹ Thi Hạnh'>
+Thi Hạnh
+</a>
+</b> <b>|</b> <b class='singer'><i class='fa fa-microphone'></i>
+<a href='/mychord/search/singer/Ngọc Thế' title='Các bài hát của ca sỹ Ngọc Thế'>
+Ngọc Thế
+</a>
+</b>
+</div>
+</div>
+</div>
+<div class="single-article clearfix">
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Hương lúa " href="/mychord/lyric/huong-lua/1636">Hương lúa </a>
+</h3>
+<div class="below-entry-meta">
+<b class='singer'><i class='fa fa-microphone'></i>
+<a href='/mychord/search/singer/Châu Kiệt Luân' title='Các bài hát của ca sỹ Châu Kiệt Luân'>
+Châu Kiệt Luân
+</a>
+</b>
+</div>
+</div>
+</div>
+<div class="single-article clearfix">
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Anh là ai" href="/mychord/lyric/anh-la-ai/5045">Anh là ai</a>
+</h3>
+<div class="below-entry-meta">
+<b class='author'><i class='fa fa-user'></i>
+<a href='/mychord/search/author/Việt Khang' title='Các bài hát của nhạc sỹ Việt Khang'>
+Việt Khang
+</a>
+</b>
+</div>
+</div>
+</div>
+<div class="single-article clearfix">
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Hạt gạo làng ta" href="/mychord/lyric/hat-gao-lang-ta/13091">Hạt gạo làng ta</a>
+</h3>
+<div class="below-entry-meta">
+<b class='author'><i class='fa fa-user'></i>
+<a href='/mychord/search/author/Trần Viết Bính' title='Các bài hát của nhạc sỹ Trần Viết Bính'>
+Trần Viết Bính
+</a>, <a href='/mychord/search/author/Trần Đăng Khoa' title='Các bài hát của nhạc sỹ Trần Đăng Khoa'>
+Trần Đăng Khoa
+</a>
+</b> <b>|</b> <b class='singer'><i class='fa fa-microphone'></i>
+<a href='/mychord/search/singer/Trần Thu Hà' title='Các bài hát của ca sỹ Trần Thu Hà'>
+Trần Thu Hà
+</a>
+</b>
+</div>
+</div>
+</div>
+<div class="single-article clearfix">
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Chiều tà (Serenade)" href="/mychord/lyric/chieu-ta-serenade/14820">Chiều tà (Serenade)</a>
+</h3>
+<div class="below-entry-meta">
+<b class='author'><i class='fa fa-user'></i>
+<a href='/mychord/search/author/Nhạc Ngoại' title='Các bài hát của nhạc sỹ Nhạc Ngoại'>
+Nhạc Ngoại
+</a>, <a href='/mychord/search/author/Phạm Duy' title='Các bài hát của nhạc sỹ Phạm Duy'>
+Phạm Duy
+</a>
+</b> <b>|</b> <b class='singer'><i class='fa fa-microphone'></i>
+<a href='/mychord/search/singer/Khánh Hà' title='Các bài hát của ca sỹ Khánh Hà'>
+Khánh Hà
+</a>
+</b>
+</div>
+</div>
+</div>
+<div class="single-article clearfix">
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Mưa nhớ" href="/mychord/lyric/mua-nho/11797">Mưa nhớ</a>
+</h3>
+<div class="below-entry-meta">
+<b class='author'><i class='fa fa-user'></i>
+<a href='/mychord/search/author/Tiên Cookie' title='Các bài hát của nhạc sỹ Tiên Cookie'>
+Tiên Cookie
+</a>
+</b> <b>|</b> <b class='singer'><i class='fa fa-microphone'></i>
+<a href='/mychord/search/singer/Hòa Minzy' title='Các bài hát của ca sỹ Hòa Minzy'>
+Hòa Minzy
+</a>
+</b>
+</div>
+</div>
+</div>
+<div class="single-article clearfix">
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Hành Khúc Giáng Sinh" href="/mychord/lyric/hanh-khuc-giang-sinh/26701">Hành Khúc Giáng Sinh</a>
+</h3>
+<div class="below-entry-meta">
+<b class='author'><i class='fa fa-user'></i>
+<a href='/mychord/search/author/Đạt Đức' title='Các bài hát của nhạc sỹ Đạt Đức'>
+Đạt Đức
+</a>
+</b>
+</div>
+</div>
+</div>
+<div class="single-article clearfix">
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Ngây ngô" href="/mychord/lyric/ngay-ngo/5431">Ngây ngô</a>
+</h3>
+<div class="below-entry-meta">
+<b class='author'><i class='fa fa-user'></i>
+<a href='/mychord/search/author/Dương Cầm' title='Các bài hát của nhạc sỹ Dương Cầm'>
+Dương Cầm
+</a>
+</b> <b>|</b> <b class='singer'><i class='fa fa-microphone'></i>
+<a href='/mychord/search/singer/Hoàng Yến' title='Các bài hát của ca sỹ Hoàng Yến'>
+Hoàng Yến
+</a>
+</b>
+</div>
+</div>
+</div>
+<div class="single-article clearfix">
+<div class="article-content">
+<h3 class="entry-title">
+<a title="Tình Lỡ" href="/mychord/lyric/tinh-lo/6578">Tình Lỡ</a>
+</h3>
+<div class="below-entry-meta">
+<b class='singer'><i class='fa fa-microphone'></i>
+<a href='/mychord/search/singer/Lệ Quyên' title='Các bài hát của ca sỹ Lệ Quyên'>
+Lệ Quyên
+</a>
+</b>
+</div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<aside id="colormag_random_post_widget-2" class="widget widget_random_post_colormag widget_featured_posts clearfix" style="background:mintcream">
+<div class="random-posts-widget">
+<h3 class="widget-title" style="border-bottom-color:#0d6aa9;">
+<span style="background-color:#0d6aa9;"><i class="fa fa-music"></i> Nghe nhạc</span>
+</h3>
+<input type="text" placeholder="Tìm bài hát từ ChiaSeNhac..." onchange="get_nhaccuatui($(this).val())" class="search-music" id="search-music"/>
+<div id="audio_nhaccuatui">
+<div align="center"><img src="/assets/loading-06706a923cabb7933fc435b4a0180faf.gif"/></div>
+</div>
+<div class="pull-right">Nguồn: ChisSeNhac</div>
+</div>
+</aside>
+<script type="text/javascript">
+  get_nhaccuatui("Nụ Hoa Và Cây Súng");
+  function get_nhaccuatui(q){
+    $("#audio_nhaccuatui").html('<div align="center"><img src="/assets/loading-06706a923cabb7933fc435b4a0180faf.gif"/></div>');
+    if(q == '')
+      q = 'Nụ Hoa Và Cây Súng';
+    jQuery.ajax({
+      url: "/api/audio/chiasenhac",
+      type: "GET",
+      data: {q: q},
+      async: true,
+      success: function(html) {
+        $("#audio_nhaccuatui").html(html);
+      }
+    })
+  }
+</script>
+<aside class="widget widget_random_post_colormag widget_featured_posts clearfix" style="background:mintcream">
+<div class="random-posts-widget">
+<h3 class="widget-title" style="border-bottom-color:#206b4d;">
+<span style="background-color:#206b4d;"><i class="fa fa-music"></i> Điệu nhạc</span>
+</h3>
+<div class="article-content" style="padding:0">
+<div class="above-entry-meta">
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/bolero/1">Bolero</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/slow/2">Slow</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/slow-rock/3">Slow Rock</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/slow-surf/4">Slow Surf</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/blues/5">Blues</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/ballade/6">Ballade</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/chachacha/7">Chachacha</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/disco/8">Disco</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/rhumba/9">Rhumba</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/tango/10">Tango</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/boston/11">Boston</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/fox/12">Fox</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/rock/13">Rock</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/valse/14">Valse</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/bossa-nova/15">Bossa Nova</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/pop/16">Pop</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/habanera/17">Habanera</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/twist/18">Twist</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/march/19">March</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/pasodope/20">Pasodope</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/slow-ballad/21">Slow Ballad</a>
+</span>
+<span class="cat-links">
+<a style="background:#206b4d" rel="category tag" href="/mychord/rhythm/rap/22">Rap</a>
+</span>
+</div>
+</div>
+</div>
+<br/>
+</aside>
+<script>
+  $(document).ready(function(){
+    $("#R-5310869239").sticky({topSpacing:50});
+    $('#sticker').on('sticky-bottom-reached', function() { console.log("Bottom reached"); });
+  });
+</script>
+<aside class="widget clearfix" id="R-5310869239">
+<div class="advertisement_300x600">
+<div class="advertisement-content">
+<ins class="adsbygoogle" style="display:inline-block;width:300px;height:600px" data-ad-client="ca-pub-9406698092283661" data-ad-slot="5310869239"></ins>
+<script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+</div>
+</aside>
+</div>
+</div>
+<div class="d_none">
+<span id="disp_ch_highlight" class="on">highlight chords</span>
+<div class="one-column" id="cont2">
+<pre>Phía <span class="hl-chord">[<span class="d-chord">Am</span>]</span>sau chùm hoa ấy là dấu chân lặng <span class="hl-chord">[<span class="d-chord">Dm</span>]</span>thầm
+Cỏ mùa này non <span class="hl-chord">[<span class="d-chord">Am</span>]</span>vậy mà đất nóng âm <span class="hl-chord">[<span class="d-chord">E7</span>]</span>âm
+Phía <span class="hl-chord">[<span class="d-chord">Am</span>]</span>sau chùm hoa ấy mũi súng canh đường <span class="hl-chord">[<span class="d-chord">Dm</span>]</span>biên
+Chiến sĩ mình trẻ <span class="hl-chord">[<span class="d-chord">C</span>]</span>quá đang bám trụ ngày <span class="hl-chord">[<span class="d-chord">Am</span>]</span>đêm.
+Chùm hoa ấy không <span class="hl-chord">[<span class="d-chord">Dm</span>]</span>hương thơ ngây bên lá <span class="hl-chord">[<span class="d-chord">C</span>]</span>cỏ
+Cánh mỏng mượt hơi <span class="hl-chord">[<span class="d-chord">E7</span>]</span>sương và hồn nhiên sắc đỏ
+Nụ hoa <span class="hl-chord">[<span class="d-chord">Am</span>]</span>đó là cột mốc biên <span class="hl-chord">[<span class="d-chord">Dm</span>]</span>cương
+Nụ hoa và cây <span class="hl-chord">[<span class="d-chord">C</span>]</span>súng khói lửa vẫn bên <span class="hl-chord">[<span class="d-chord">Am</span>]</span>nhau.
+Nụ hoa đó là cột mốc biên cương
+Nụ hoa và cây súng khói lửa vẫn bên nhau
+Nụ hoa và cây súng khói lửa vẫn bên nhau
+Nụ hoa và cây súng khói lửa vẫn bên nhau.</pre>
+</div>
+<div id="chord_js_reload"></div>
+</div>
+<script type="text/javascript">var js_img_domain = 'cdn.ustatik.com';</script>
+<script src="/assets/chord/jquery.cookie-69b9aac2c27849812748c9600c902857.js?body=1"></script>
+<script src="/assets/chord/tabs_page_MIDI-64137adbedc53d881739b04dbdbaeab6.js?body=1"></script>
+<script src="/assets/chord/applicature_all-617980e172c18d5a522c9fd9e45a0a4c.js?body=1"></script>
+<script src="/assets/chord/tabs_page_ver14011720641-2f825c9940ca097be8eefc121d267207.js?body=1"></script>
+<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+<script type="text/javascript">
+  $( document ).ready(function() {
+    FB.Event.subscribe('comment.create', function(response) {
+      href = response['href'];
+      commentID = response['commentID'];
+      chord_id = "12956";
+      jQuery.ajax({
+        url: "/api/commentfb/add",
+        type: "POST",
+        data: {href:href,commentID:commentID,chord_id:chord_id,module:"chord"},
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        success: function(html) {
+
+        }
+      })
+    });
+    FB.Event.subscribe('comment.remove', function(response) {
+      href = response['href'];
+      commentID = response['commentID'];
+      chord_id = "12956";
+      jQuery.ajax({
+        url: "/api/commentfb/add",
+        type: "POST",
+        data: {href:href,commentID:commentID,chord_id:chord_id,module:"chord"},
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        success: function(html) {
+
+        }
+      })
+    });
+  });
+function UpdateDieuNhac(chord_id, key){
+  jQuery.ajax({
+    url: "/api/chord/updatedieunhac",
+    type: "POST",
+    data: {key:key, chord_id:chord_id},
+    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+    success: function(html) {
+    }
+  })
+}
+</script>
+</div> 
+</div> 
+<footer id="colophon" class="clearfix">
+<div class="footer-widgets-wrapper">
+<div class="inner-wrap">
+<div class="footer-widgets-area clearfix">
+<div class="tg-footer-main-widget">
+<div class="tg-first-footer-widget">
+<aside id="text-2" class="widget_text clearfix">
+<div class="textwidget">
+<a href="/" title="VnMyLife">
+<img src="/vnmylife_logo.png" alt="VnMyLife" title="VnMyLife">
+</a>
+<br>
+VnMyLife.Com là một hệ thống tìm kiếm hợp âm Guitar cung cấp hàng ngàn bài hát và sheet nhạc có hợp âm giúp người chơi dễ dàng tra cứu hợp âm ngay trên bài hát của mình.
+<p>
+<br/>
+Website: <a href="http://www.vnmylife.com" title="VnMyLife">http://www.vnmylife.com</a><br/>
+Email: <a title="Gởi mail tới vnmylife.com@gmail.com" href="/cdn-cgi/l/email-protection#99eff7f4e0f5f0fffcb7faf6f4d9fef4f8f0f5b7faf6f4"><span class="__cf_email__" data-cfemail="9debf3f0e4f1f4fbf8b3fef2f0ddfaf0fcf4f1b3fef2f0">[email&#160;protected]</span><script data-cfhash='f9e31' type="text/javascript">/* <![CDATA[ */!function(t,e,r,n,c,a,p){try{t=document.currentScript||function(){for(t=document.getElementsByTagName('script'),e=t.length;e--;)if(t[e].getAttribute('data-cfhash'))return t[e]}();if(t&&(c=t.previousSibling)){p=t.parentNode;if(a=c.getAttribute('data-cfemail')){for(e='',r='0x'+a.substr(0,2)|0,n=2;a.length-n;n+=2)e+='%'+('0'+('0x'+a.substr(n,2)^r).toString(16)).slice(-2);p.replaceChild(document.createTextNode(decodeURIComponent(e)),c)}p.removeChild(t)}}catch(u){}}()/* ]]> */</script></a>
+</p>
+</div>
+</aside>
+</div>
+</div>
+<div class="tg-footer-other-widgets">
+<div class="tg-second-footer-widget">
+<aside class="widget widget_nav_menu clearfix">
+<div class="menu-themes-container">
+<ul class="menu">
+<li class="menu-item menu-item-type-custom menu-item-object-custom">
+<a href="/banghopam">Bảng hợp âm Guitar</a>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom">
+<a href="/tuner">Lên dây đàn Online (Tuner)</a>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom">
+<a href="/thanhca">Thánh ca</a>
+</li>
+</ul>
+</div>
+</aside>
+</div>
+<div class="tg-second-footer-widget">
+<aside class="widget widget_nav_menu clearfix">
+<div class="menu-themes-container">
+<ul class="menu">
+<li class="menu-item menu-item-type-custom menu-item-object-custom">
+<a href="/karaoke">Karaoke</a>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom">
+<a href="/truyencuoi">Truyện Cười</a>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom">
+<a href="/gallery">Hình nền đẹp tuyển chọn</a>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom">
+<a href="/girlxinh">Hình Girl Xinh tuyển chọn</a>
+</li>
+</ul>
+</div>
+</aside>
+</div>
+<div class="tg-fourth-footer-widget">
+<aside class="widget widget_nav_menu clearfix">
+<div class="menu-themes-container">
+<ul class="menu">
+<li class="menu-item menu-item-type-custom menu-item-object-custom">
+<a href="/chinhsuaanh">Chụp hình - Chỉnh Sửa Ảnh</a>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom">
+<a href="/photoshop">Photoshop Online</a>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom">
+<a href="/chuphinhhanquoc">Chụp Hình HQ bằng Webcam</a>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom">
+<a href="/khunganh">Tạo Khung Ảnh Online</a>
+</li>
+</ul>
+</div>
+</aside>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer-socket-wrapper clearfix">
+<div class="inner-wrap">
+<div class="footer-socket-area">
+<div class="footer-socket-right-section">
+<div class="social-links clearfix">
+<ul>
+<li>
+<a href="https://www.facebook.com/vnmylife" target="_blank"><i class="fa fa-facebook"></i></a>
+</li>
+<li>
+<a href="javascript:void(0)" rel="nofollow"><i class="fa fa-twitter"></i></a>
+</li>
+<li><a href="javascript:void(0)" rel="nofollow"><i class="fa fa-google-plus"></i></a>
+</li>
+<li><a href="http://www.vnmylife.com/feed?format=rss" rel="nofollow"><i class="fa fa-rss"></i></a>
+</li>
+</ul>
+</div>
+<nav class="footer-menu">
+<div class="menu-footer-container">
+<ul id="menu-footer" class="menu">
+<li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home">
+<a rel="nofollow" href="/terms">Quy định sử dụng</a>
+</li>
+</ul>
+</div>
+</nav>
+</div>
+<div class="footer-socket-left-sectoin">
+<div class="copyright">Copyright &copy; 2015 <a href="http://www.vnmylife.com" title="VnMyLife"><span>VnMyLife</span></a>. All rights reserved.
+<br/>
+Bản quyền bài hát thuộc về tác giả.
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<a href="#masthead" id="scroll-up"><i class="fa fa-chevron-up"></i></a>
+</div>
+<script src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async defer></script>
+<script type="text/javascript" src="//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.4&appId=288173524692927" async defer></script>
+<script>
+    $(document).ready( function() {
+      $('.top-slide img').imgCentering({'forceSmart':true});
+    });
+  </script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-48994159-1' ,'auto');
+    ga('send', 'pageview');
+  </script>
+<script type="text/javascript">/* <![CDATA[ */(function(d,s,a,i,j,r,l,m,t){try{l=d.getElementsByTagName('a');t=d.createElement('textarea');for(i=0;l.length-i;i++){try{a=l[i].href;s=a.indexOf('/cdn-cgi/l/email-protection');m=a.length;if(a&&s>-1&&m>28){j=28+s;s='';if(j<m){r='0x'+a.substr(j,2)|0;for(j+=2;j<m&&a.charAt(j)!='X';j+=2)s+='%'+('0'+('0x'+a.substr(j,2)^r).toString(16)).slice(-2);j++;s=decodeURIComponent(s)+a.substr(j,m-j)}t.innerHTML=s.replace(/</g,'&lt;').replace(/>/g,'&gt;');l[i].href='mailto:'+t.value}}catch(e){}}}catch(e){}})(document);/* ]]> */</script></body>
+</html>

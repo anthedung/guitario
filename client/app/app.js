@@ -7,7 +7,8 @@ angular.module('guitariosApp', [
   'ngAnimate',
   'ngMessages',
   'ui.router',
-  'ngMaterial'
+  'ngMaterial',
+  'ngAnimate'
 ])
   .config(function($mdIconProvider) {
     $mdIconProvider

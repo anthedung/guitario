@@ -1,10 +1,10 @@
 <div layout="column" flex class="anthe-content">
 
 	<div layout="column" layout-padding='10px'>
-		<div layout="row" layout-align="center center" class="anthe-banner" data-ng-if="vm.bannerVisible">
+		<div layout="row" layout-align="center center" class="anthe-banner fade" data-ng-show="vm.bannerVisible">
 			<img src="/assets/images/guitarios.png">
 		</div>
-		<div layout="row" layout-align="center center" class="anthe-banner" data-ng-if="!vm.bannerVisible">
+		<div layout="row" layout-align="center center" class="anthe-banner fade" data-ng-show="!vm.bannerVisible">
 			<img src="/assets/images/guitarios_small.png">
 		</div>
 	</div>
@@ -50,7 +50,7 @@
 	<br>
 	<br>
 	<br>
-    <div class="anthe-quote" layout-align="center" ng-if="vm.chordsVisible">
+    <div class="anthe-quote fade" layout-align="center" data-ng-show="vm.chordsVisible" >
 	  <md-card ng-repeat="chord in vm.chordsByRhymth" layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card" >
 	    <md-card-title>
 	      <md-card-title-text>
