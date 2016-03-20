@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Chord = require('./chord.model');
+var Crawler = require('../chordCrawler/vnmylife_crawler')
 
 // Get list of chords
 exports.index = function(req, res) {
@@ -22,6 +23,7 @@ exports.show = function(req, res) {
 
 // Creates a new chord in the DB.
 exports.create = function(req, res) {
+  console.log("creating...." + req.body.title)
   Chord.create(req.body, function(err, chord) {
     if(err) { return handleError(res, err); }
     return res.status(201).json(chord);
@@ -56,4 +58,8 @@ exports.destroy = function(req, res) {
 
 function handleError(res, err) {
   return res.status(500).send(err);
+}
+
+exports.crawlVnMylife = function(req, res){
+  Crawler.crawl(req.params.rhythm);
 }
