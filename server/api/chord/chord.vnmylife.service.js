@@ -12,6 +12,7 @@ exports.crawl = crawl;
 exports.recrawl = recrawl;
 exports.findAllTitlesLowerCase = findAllTitlesLowerCase;
 exports.findAllChords = findAllChords;
+exports.cleanData = cleanData;
 
 // var chords = [];
 var rhythmMap = {
@@ -199,7 +200,7 @@ function getListOfChordsFromRythmPage(body) {
   }
 
   var content = $('#content').toString();
-  console.log('#content: ' + content);
+  // console.log('#content: ' + content);
 
   $ = cheerio.load(content);
 
@@ -310,7 +311,7 @@ function chordProcessing(body, chord) {
   // console.log('chordProcessing.body: ' + body);
 
   chord.title = $('header h1.entry-title').text().trim();
-  chord.content = $('div #cont pre').text().replace(/[\r\n]/, '').trim();
+  chord.content = $('div #cont pre').text().trim();
   chord.chordAuthor = 'vnmylife';
   chord.created = new Date();
 
@@ -335,7 +336,7 @@ function upsert(chord) {
       console.log('upsert err: ' + chord.title + ' ~err: ' + err.toString());
       return {code: 500, msg: err};
     }
-    console.log('upsert successfully: ' + chord.title + ' ~doc.creditUrl: ' + doc.creditUrl);
+    console.log('upsert successfully: ' + chord.title + ' ~doc.creditUrl: ' + doc.creditUrl + '\n' + doc.content);
     return {code: 200, msg: "succesfully saved"};
   });
 }
@@ -361,4 +362,79 @@ findAllTitlesLowerCase().then(function (titles) {
   titlesGlobal = titles;
   console.log('Title Global onload: ' + titlesGlobal);
 })
+
+
+/**
+* mistake when crawling. Only remove the first line .\n\r => now put it back for all chords.
+*/
+function cleanData(){
+
+  console.log("starting... chord's content to clean: ");
+
+  findAllChords().then(function (chords){
+    for (var k = 6; k < 7; k++ ){
+      var c = chords[k];
+      
+      if (!c.content || c.content.length < 2) 
+      {
+        console.log("\n\n this chord is empty: " + c.title);
+        continue;
+      }
+
+      var content = c.content;
+      console.log("\n\nchord's content to clean: " + content);
+
+      var contentInEn = transformtoEnChars(content);
+
+      console.log("\n\nchord's contentInEn to clean: " + contentInEn);
+
+      var i = contentInEn.regexIndexOf(/[a-z][A-Z]/);//aB
+
+      console.log("\n\nchord's index: " + i + ' character is: ' + content[i]);
+      if (i > 0) {
+        var c1 = content[i];
+        var c2 = content[i+1];
+
+        var processedContent = content.replace(c1+c2,c1+".\n"+c2);
+        c.content = processedContent;
+        console.log("\n\nchord's content cleaned: " + processedContent);
+
+        console.log("\n\n");
+
+        upsert(c);
+      }
+    }
+  });
+}
+
+String.prototype.regexIndexOf = function(regex, startpos) {
+    var indexOf = this.substring(startpos || 0).search(regex);
+    return (indexOf >= 0) ? (indexOf + (startpos || 0)) : indexOf;
+}
+
+transformtoEnChars = function(str){
+  str= str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a");
+  str= str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e");
+  str= str.replace(/ì|í|ị|ỉ|ĩ/g,"i");
+  str= str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o");
+  str= str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u");
+  str= str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y");
+  str= str.replace(/đ/g,"d");
+
+
+  str= str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g,"A")
+  str= str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g,"E")
+  str= str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g,"I")
+  str= str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g,"O")
+  str= str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g,"U")
+  str= str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g,"Y")
+  str= str.replace(/Đ/g,"D")
+  // str= str.replace(/!|@|\$|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\'| |\"|\&|\#|\[|\]|~/g,"-");
+  // str= str.replace(/-+-/g,"-"); //thay thế 2- thành 1-
+  // str= str.replace(/^\-+|\-+$/g,"");//cắt bỏ ký tự - ở đầu và cuối chuỗi
+
+  return str;
+}
+
+  // cleanData();
 

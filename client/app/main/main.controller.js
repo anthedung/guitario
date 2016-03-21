@@ -1,14 +1,19 @@
 'use strict';
 
 angular.module('guitariosApp')
-  .controller('MainCtrl', function ($http) {
+  .controller('MainCtrl', function ($http, ChordService, $log) {
     var vm = this;
     vm.chords = [];
     vm.bannerVisible = true;
     vm.chipRhythms = {};
 
     $http.get('/api/chords').success(function(chords) {
-      vm.chords = getOnlyValidChords(chords);
+
+      /*
+      1. keep only valid content chords
+      2. add no intonation to chords for search - remove Vietnamese songs
+      */
+      vm.chords = processChords(chords);
       // console.log(chords);
       // console.log('vm.chords: ' + vm.chords + "");
 
@@ -17,12 +22,17 @@ angular.module('guitariosApp')
 
     });
 
-    function getOnlyValidChords(chords){
+    function processChords(chords){
       // remove empty chords
       var refinedChords = [];
       for (var i = 0 ; i < chords.length; i++){
-        if (chords[i].content.length > 10)
-          refinedChords.push(chords[i]);
+        if (chords[i].content.length > 10){
+          var c = chords[i]
+          c.titleEnChar = ChordService.transformtoEnChars(c.title);
+          // c.contentEnChar = ChordService.transformtoEnChars(c.content);
+
+          refinedChords.push(c);
+        }
       }
 
       return refinedChords;
@@ -62,33 +72,18 @@ angular.module('guitariosApp')
 
     }
 
-    vm.join = function(arr){
-      var joined = arr.join(', ');
-
-      if (joined.length > 20) {
-        joined = joined.substring(0,20) + "...";
-      }
-      return joined;
-    }
+    vm.join = ChordService.join;
 
     // vm.hideChords = function(){
     //   vm.chordsVisible = false;
     //   console.log("hideChords: " + vm.chordsVisible)
     // }
 
-    vm.getStandardDescLength = function(description) {
-        // console.log("getStandardDescLength " + description );
-        if ('' + description.length < 160) {
-          return description+"...";
-        } else {
-          return description.substring(0, 160) + "...";
-        }
-      }
+    vm.getStandardDescLength = ChordService.getStandardDescLength;
 
     vm.deleteThing = function(thing) {
       $http.delete('/api/chords/' + thing._id);
     };
-
 
     vm.simulateQuery = false;
     vm.isDisabled    = false;
@@ -131,7 +126,9 @@ angular.module('guitariosApp')
     function createFilterFor(query) {
       var lowercaseQuery = angular.lowercase(query);
       return function filterFn(chord) {
-        return (chord.title.indexOf(lowercaseQuery) > -1);
+        return 
+          (chord.title.toLowerCase().indexOf(lowercaseQuery) > -1) 
+          || (chord.titleEnChar.toLowerCase().indexOf(lowercaseQuery) > -1)
       };
     }
 

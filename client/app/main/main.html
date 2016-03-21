@@ -1,3 +1,4 @@
+
 <div layout="column" flex class="anthe-content" ng-cloak>
 
 	<div ng-include="'app/components/banner/bannerSearchBar.html'"></div>
@@ -27,7 +28,7 @@
 	    </md-card-title>
 	    <br>
 	    <div .md-whiteframe-2dp layout-padding="10">
-	      <md-card-content ng-href="/#/#chordDetails/{{chord._id}}">
+	      <md-card-content ng-href="#chordDetails/{{chord._id}}">
 	        <div>
 	        	<p>"{{vm.getStandardDescLength(chord.content)}}"</p>
 	        	<span ng-if='chord.rhythms.length > 0'> <em>rythm: {{vm.join(chord.rhythms)}}</em> </span>  
@@ -36,7 +37,7 @@
 	        </div>
 	      </md-card-content>
 	      <md-card-actions layout="row" layout-align="end center">
-	          <md-button href="#chordDetails/{{chord._id}}">View chord</md-button>
+	          <md-button href="chordDetails/{{chord._id}}">View chord</md-button>
         </md-card-actions>
 	    </div>
 	  </md-card>
@@ -53,7 +54,7 @@
 	      <ul ng-cloak>
 	      	<!-- data only -->
 	      	<li data-ng-repeat="chord in vm.randomChordsForGlobe" data-ng-hide="true"><a>{{chord}}</a></li>
-	      	<li data-ng-hide="vm.randomChordsForGlobe.length > 0 " style="color:white"><a>I &hearts; Guitarios</a></li>
+	      	<li data-ng-hide="vm.randomChordsForGlobe.length > 0 "><a>I &hearts; Guitarios</a></li>
 	      </ul>
 	    </div>
 	    <br>
@@ -72,7 +73,22 @@
 	        </div>
 	    </footer>
 	</div>
-
-
-
 </div>
+
+
+<script type="text/javascript">
+  window.onload = function() {
+    try {
+      TagCanvas.Start('myCanvas','tags',{
+        textColour: '#ffffff',
+        outlineColour: '#A9A9A9',
+        reverse: true,
+        depth: 0.8,
+        maxSpeed: 0.05
+      });
+    } catch(e) {
+      // something went wrong, hide the canvas container
+      document.getElementById('myCanvasContainer').style.display = 'none';
+    }
+  };
+</script>

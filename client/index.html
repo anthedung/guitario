@@ -19,7 +19,9 @@
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
+      <link rel="stylesheet" href="app/aboutme/aboutme.css">
       <link rel="stylesheet" href="app/app.css">
+      <link rel="stylesheet" href="app/chordDetails/chordDetails.css">
       <link rel="stylesheet" href="app/components/sample/sample.css">
       <link rel="stylesheet" href="app/main/main.css">
       <link rel="stylesheet" href="components/shell/shell.css">
@@ -28,9 +30,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
 
     <script src="app/components/tagcanvas/tagcanvas.js"></script>
+    
     <script type="text/javascript">
       window.onload = function() {
-        try {
+
+        var startCanvas = function() {
           TagCanvas.Start('myCanvas','tags',{
             textColour: '#ffffff',
             outlineColour: '#A9A9A9',
@@ -38,9 +42,19 @@
             depth: 0.8,
             maxSpeed: 0.05
           });
+        };
+
+        try {
+          startCanvas();
         } catch(e) {
           // something went wrong, hide the canvas container
-          document.getElementById('myCanvasContainer').style.display = 'none';
+          // try one more time => very likely get it!
+          try {
+            startCanvas();
+          } catch(e) {
+            // something went wrong, hide the canvas container
+            document.getElementById('myCanvasContainer').style.display = 'none';
+          }
         }
       };
     </script>
@@ -95,7 +109,7 @@
     </md-toolbar>
 
     <!-- <div ng-include="'components/shell/shell.html'"></div> -->
-    <div flex layout="row" tabIndex="-1" role="main" layout-fill>
+    <div flex layout="row" role="main" layout-fill>
       <md-content flex id="content"  class="anthe-home">
         <div ui-view   style="background-color: transparent; height: 100%" layout-fill></div>
       </md-content>
@@ -136,15 +150,16 @@
         
         <script src="app/app.js"></script>
           <!-- injector:js -->
-          <script src="app/components/chordDetails/chordDetails.controller.js"></script>
-          <script src="app/components/chordDetails/chordDetails.js"></script>
+          <script src="app/aboutme/aboutme.controller.js"></script>
+          <script src="app/aboutme/aboutme.js"></script>
+          <script src="app/chordDetails/chordDetails.controller.js"></script>
+          <script src="app/chordDetails/chordDetails.js"></script>
+          <script src="app/chordService/chordService.service.js"></script>
           <script src="app/components/sample/sample.controller.js"></script>
           <script src="app/components/sample/sample.js"></script>
           <script src="app/components/tagcanvas/tagcanvas.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
-          <script src="app/tagcanvas.js"></script>
-          <script src="app/tagcanvas/tagcanvas.js"></script>
           <script src="components/shell/dialog/dialog.controller.js"></script>
           <script src="components/shell/shell.controller.js"></script>
           <!-- endinjector -->

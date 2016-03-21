@@ -231,8 +231,8 @@ function ShadowAlphaBroken() {
   if(!cv)
     return false;
   c = cv.getContext('2d');
-  c.strokeStyle = '#0000FF';
-  c.shadowColor = '#0000FF';
+  c.strokeStyle = '#000';
+  c.shadowColor = '#fff';
   c.shadowBlur = 3;
   c.globalAlpha = 0;
   c.strokeRect(2,2,2,2);
@@ -1434,7 +1434,7 @@ function TagCanvas(cid,lctr,opt) {
   this.ctxt = c.getContext('2d');
   this.z1 = 250 / max(this.depth, 0.001);
   this.z2 = this.z1 / this.zoom;
-  this.radius = min(c.height, c.width) * 0.075; // fits radius of 100 in canvas
+  this.radius = min(c.height, c.width) * 0.0075; // fits radius of 100 in canvas
   this.max_radius = 100;
   this.max_weight = [];
   this.min_weight = [];
@@ -2182,11 +2182,11 @@ weightSizeMin: null,
 weightSizeMax: null,
 weightGradient: {0:'#f00', 0.33:'#ff0', 0.66:'#0f0', 1:'#00f'},
 txtOpt: true,
-txtScale: 1.5,
+txtScale: 2,
 frontSelect: false,
 wheelZoom: true,
-zoomMin: 0.9,
-zoomMax: 2,
+zoomMin: 0.3,
+zoomMax: 3,
 zoomStep: 0.05,
 shape: 'sphere',
 lock: null,

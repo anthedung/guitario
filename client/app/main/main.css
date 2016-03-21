@@ -24,6 +24,23 @@
   }
 }
 
+@media only screen and (max-width: 800px) {
+  .anthe-quote {
+    display: flex;
+    flex-flow: row wrap
+  }
+
+  .anthe-quote md-card {
+    width: 100%;
+  }
+
+  .anthe-content {
+    padding-left: 5px!important;
+    padding-right: 5px!important;
+  }
+}
+
+
 .anthe-chord-card {
   background: rgba(255, 255, 255, 0.8);
 }

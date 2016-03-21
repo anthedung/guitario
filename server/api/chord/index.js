@@ -7,6 +7,7 @@ var router = express.Router();
 
 router.get('/', controller.index);
 
+// router.get('/cleanData', controller.cleanData);
 router.get('/titles', controller.findAllTitles);
 router.get('/titlesWithContent', controller.findAllTitlesWithContent);
 

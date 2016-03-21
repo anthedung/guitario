@@ -96,6 +96,10 @@ exports.recrawl = function (req, res) {
   Crawler.recrawl();
 }
 
+// exports.cleanData = function (req, res) {
+//   Crawler.cleanData();
+// }
+
 exports.findAllTitles = function (req, res) {
   Chord.find({}).select({title: 1, _id: 1}).exec(function (err, chords) {
     if (err) {
