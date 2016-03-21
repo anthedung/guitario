@@ -11,6 +11,9 @@ router.get('/', controller.index);
 router.get('/titles', controller.findAllTitles);
 router.get('/titlesWithContent', controller.findAllTitlesWithContent);
 
+// chords api
+router.get('/rhythms/:rhythm/:limit', controller.findChordsByRhythm)
+
 router.get('/crawlAll', controller.crawlVnMylifeAll);
 router.get('/recrawl', controller.recrawl);
 router.get('/crawl/:rhythm/:fromPage/:limitPaganiation', controller.crawlVnMylife);

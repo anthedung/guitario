@@ -1,9 +1,10 @@
 'use strict';
 
+var baseUrl = '/api/chords/';
+
 angular.module('guitariosApp')
   .service('ChordService', function () {
     // AngularJS will instantiate a singleton by calling "new" on this function
-
     this.join = function (arr) {
       var joined = arr.join(', ');
 
@@ -62,24 +63,44 @@ angular.module('guitariosApp')
       return content;
     }
 
-    this.selectChordsByRhythm = function (rhythm, chords) {
-      var chordsByRhythm = [];
+    this.selectChordsByRhythm = function (rhythm, limit) {
 
-      if (rhythm === 'Everything') {
-        chordsByRhythm = chords;
-      } else {
-        for (var i = 0; i < chords.length; i++) {
+      var limit = limit || 7;
 
-          // if rythms includes or content of the song exists => due to scrawling
-          if (chords[i].rhythms.indexOf(rhythm) > -1 && chords[i].content.length > 3) {
-            chordsByRhythm.push(chords[i]);
+      var url = baseUrl + rhythm + '/' + limit;
+      http.get(url).success(function (chords) {
+        var chordsByRhythm = [];
+
+        if (rhythm === 'Everything') {
+          chordsByRhythm = chords;
+        } else {
+          for (var i = 0; i < chords.length; i++) {
+
+            // if rythms includes or content of the song exists => due to scrawling
+            if (chords[i].rhythms.indexOf(rhythm) > -1 && chords[i].content.length > 3) {
+              chordsByRhythm.push(chords[i]);
+            }
           }
+        }
+
+        return chordsByRhythm;
+      })
+    }
+
+    this.processChords = function(chords) {
+      // remove empty chords
+      var refinedChords = [];
+      for (var i = 0; i < chords.length; i++) {
+        if (chords[i].content.length > 10) {
+          var c = chords[i]
+          c.content = this.removeInitialCounting(c.content);
+          // c.titleEnChar = ChordService.transformtoEnChars(c.title);
+          // c.contentEnChar = ChordService.transformtoEnChars(c.content);
+
+          refinedChords.push(c);
         }
       }
 
-      selectedRythm = rhythm;
-      return chordsByRhythm;
+      return refinedChords;
     }
-
-
-  });
+})

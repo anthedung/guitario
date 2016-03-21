@@ -32,30 +32,17 @@
     <script src="app/components/tagcanvas/tagcanvas.js"></script>
     
     <script type="text/javascript">
-      window.onload = function() {
-
-        var startCanvas = function() {
+      var startCanvas = function() {
           TagCanvas.Start('myCanvas','tags',{
             textColour: '#ffffff',
             outlineColour: '#A9A9A9',
             reverse: true,
             depth: 0.8,
-            maxSpeed: 0.05
+            maxSpeed: 0.05,
+            txtOpt: false,
+            initial: [0.2,-0.2],
+            fadeIn: 1000
           });
-        };
-
-        try {
-          startCanvas();
-        } catch(e) {
-          // something went wrong, hide the canvas container
-          // try one more time => very likely get it!
-          try {
-            startCanvas();
-          } catch(e) {
-            // something went wrong, hide the canvas container
-            document.getElementById('myCanvasContainer').style.display = 'none';
-          }
-        }
       };
     </script>
 

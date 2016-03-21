@@ -13,30 +13,20 @@ angular.module('guitariosApp')
        1. keep only valid content chords
        2. add no intonation to chords for search - remove Vietnamese songs
        */
-      vm.chords = processChords(chords);
+      vm.chords = ChordService.processChords(chords);
       // console.log(chords);
       // console.log('vm.chords: ' + vm.chords + "");
 
       vm.randomChordsForGlobe = getChordTitlesFromChords(getRandomSubarray(vm.chords, 6));
+      
+      // ensure canvas will start with some delays
+      setTimeout(function () {
+        startCanvas();
+      }, 500);
+
       console.log("vm.randomChordsForGlobe: " + vm.randomChordsForGlobe);
 
     });
-
-    function processChords(chords) {
-      // remove empty chords
-      var refinedChords = [];
-      for (var i = 0; i < chords.length; i++) {
-        if (chords[i].content.length > 10) {
-          var c = chords[i]
-          c.titleEnChar = ChordService.transformtoEnChars(c.title);
-          // c.contentEnChar = ChordService.transformtoEnChars(c.content);
-
-          refinedChords.push(c);
-        }
-      }
-
-      return refinedChords;
-    }
 
     // chords processing
     vm.toggleShowChords = function (rhythm) {
@@ -46,6 +36,7 @@ angular.module('guitariosApp')
 
         if (vm.selectedRythm == rhythm) {
           vm.selectedRythm = undefined;
+          // startCanvas();
           return;
         }
       }

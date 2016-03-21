@@ -144,3 +144,15 @@ exports.findAllTitlesWithContent = function (req, res) {
     return res.status(200).json(resMap);
   });
 }
+
+exports.findChordsByRhythm = function (req, res) {
+  var q = Chord.find({rhythms: req.params.rhythm}).sort({'date': -1}).limit(req.params.limit);
+
+  q.exec(function (err, chords) {
+    if (err) {
+      return handleError(res, err);
+    }
+
+    return res.status(200).json(chords);
+  });
+}

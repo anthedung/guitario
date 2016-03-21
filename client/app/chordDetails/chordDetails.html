@@ -43,6 +43,35 @@
       <div layout-align="center">
         <!--// wrapper md-card-->
         <md-card layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card">
+
+          <md-card layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card" data-ng-repeat="chord in vm.chordsByRhythm">
+            <md-card-title>
+              <md-card-title-text>
+                <div class="anthe-headline">
+                  <a data-ng-href="chordDetails/{{chord._id}}" class="anthe-link-button">
+                    <span>
+                      <strong>&#9834; {{chord.title}}</strong>
+                    </span>
+                    <br>
+                  <span ng-if='chord.songAuthors.length > 0'><em>&nbsp;&#127908; &nbsp;
+                    {{vm.join(chord.singers)}}</em></span>
+                  </a>
+                  <br></div>
+              </md-card-title-text>
+            </md-card-title>
+            <br>
+
+            <div .md-whiteframe-1dp>
+              <md-card-content ng-href="#vm.chordDetails/{{chord._id}}">
+                <div>
+                  <a data-ng-href="chordDetails/{{chord._id}}" class="anthe-link-button">
+                    <p>{{vm.getStandardDescLength(chord.content, 56)}}</p>
+                  </a>
+                </div>
+              </md-card-content>
+            </div>
+          </md-card>
+<!-- 
           <md-card layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card">
             <md-card-title>
               <md-card-title-text>
@@ -69,35 +98,7 @@
                 </div>
               </md-card-content>
             </div>
-          </md-card>
-
-          <md-card layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card">
-            <md-card-title>
-              <md-card-title-text>
-                <div class="anthe-headline">
-                  <a data-ng-href="chordDetails/{{vm.chord._id}}" class="anthe-link-button">
-                    <span>
-                      <strong>&#9834; {{vm.chord.title}}</strong>
-                    </span>
-                    <br>
-                  <span ng-if='vm.chord.songAuthors.length > 0'><em>&nbsp;&#127908; &nbsp;
-                    {{vm.join(vm.chord.singers)}}</em></span>
-                  </a>
-                  <br></div>
-              </md-card-title-text>
-            </md-card-title>
-            <br>
-
-            <div .md-whiteframe-2dp layout-padding="10">
-              <md-card-content ng-href="#vm.chordDetails/{{vm.chord._id}}">
-                <div>
-                  <a data-ng-href="chordDetails/{{vm.chord._id}}" class="anthe-link-button">
-                    <p>"{{vm.getStandardDescLength(vm.chord.content, 40)}}"</p>
-                  </a>
-                </div>
-              </md-card-content>
-            </div>
-          </md-card>
+          </md-card> -->
         </md-card>
       </div>
     </div>
