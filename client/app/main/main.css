@@ -13,15 +13,22 @@
     padding-left: 100px!important;
     padding-right: 100px!important;
   }
+
+  .anthe-searchbox{
+    min-width: 800px !important;
+  }
+
+  .anthe-global{
+    color: yellow !important;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black !important;
+  }
 }
 
 .anthe-chord-card {
   background: rgba(255, 255, 255, 0.8);
 }
 
-.anthe-searchbox{
-  min-width: 800px !important;
-}
+
 
 .anthe-banner{
 

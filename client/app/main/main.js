@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('guitariosApp')
-  .config(function ($stateProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
       .state('home', {
         url: '/',

@@ -26,8 +26,28 @@
       <!-- endinjector -->
     <!-- endbuild -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+
+    <script src="app/components/tagcanvas/tagcanvas.js"></script>
+    <script type="text/javascript">
+      window.onload = function() {
+        try {
+          TagCanvas.Start('myCanvas','tags',{
+            textColour: '#ffffff',
+            outlineColour: '#A9A9A9',
+            reverse: true,
+            depth: 0.8,
+            maxSpeed: 0.05
+          });
+        } catch(e) {
+          // something went wrong, hide the canvas container
+          document.getElementById('myCanvasContainer').style.display = 'none';
+        }
+      };
+    </script>
+
   </head>
-  <body ng-cloak layout="column">
+  <body ng-cloak layout="column" layout-fill>
+  
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -75,9 +95,9 @@
     </md-toolbar>
 
     <!-- <div ng-include="'components/shell/shell.html'"></div> -->
-    <div flex layout="column" tabIndex="-1" role="main">
+    <div flex layout="row" tabIndex="-1" role="main" layout-fill>
       <md-content flex id="content"  class="anthe-home">
-        <div ui-view   style="background-color: transparent"></div>
+        <div ui-view   style="background-color: transparent; height: 100%" layout-fill></div>
       </md-content>
     </div>
 
@@ -116,10 +136,15 @@
         
         <script src="app/app.js"></script>
           <!-- injector:js -->
+          <script src="app/components/chordDetails/chordDetails.controller.js"></script>
+          <script src="app/components/chordDetails/chordDetails.js"></script>
           <script src="app/components/sample/sample.controller.js"></script>
           <script src="app/components/sample/sample.js"></script>
+          <script src="app/components/tagcanvas/tagcanvas.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
+          <script src="app/tagcanvas.js"></script>
+          <script src="app/tagcanvas/tagcanvas.js"></script>
           <script src="components/shell/dialog/dialog.controller.js"></script>
           <script src="components/shell/shell.controller.js"></script>
           <!-- endinjector -->

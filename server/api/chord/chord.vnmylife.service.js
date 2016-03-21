@@ -15,10 +15,10 @@ exports.findAllChords = findAllChords;
 
 // var chords = [];
 var rhythmMap = {
-  // 'rhumba': 'http://www.vnmylife.com/mychord/rhythm/rhumba/9',
-  // 'ballade': 'http://www.vnmylife.com/mychord/rhythm/ballade/6',
-  // 'slowrock': 'http://www.vnmylife.com/mychord/rhythm/slow-rock/3',
-  // 'blues': 'http://www.vnmylife.com/mychord/rhythm/blues/5',
+  'rhumba': 'http://www.vnmylife.com/mychord/rhythm/rhumba/9',
+  'ballade': 'http://www.vnmylife.com/mychord/rhythm/ballade/6',
+  'slowrock': 'http://www.vnmylife.com/mychord/rhythm/slow-rock/3',
+  'blues': 'http://www.vnmylife.com/mychord/rhythm/blues/5',
   'chachacha': 'http://www.vnmylife.com/mychord/rhythm/chachacha/7',
   'bosanova': 'http://www.vnmylife.com/mychord/rhythm/bossa-nova/15',
   'valse': 'http://www.vnmylife.com/mychord/rhythm/valse/14',
@@ -61,36 +61,37 @@ function crawlRecursion(step, rCount, rythmsAll){
   console.log('start crawling all....: ' + rhythm + ' pagination limit: ' + 20 + ' fromPage ' + 1);
   var pagination = '?page=';
 
-  for (var i = 0; i <= 20; i++) {
-    var url = rhythmMap[rhythm] + pagination + i;
-    console.log('start crawling....: ' + url);
+  setTimeout(function() {
+    for (var i = 4; i <= 10; i++) {
+      var url = rhythmMap[rhythm] + pagination + i;
+      console.log('start crawling....: ' + url);
 
-    http.get(url, function (res) {
-      var str = '';
+      http.get(url, function (res) {
+        var str = '';
 
-      //another chunk of data has been recieved, so append it to `str`
-      res.on('data', function (chunk) {
-        str += chunk;
+        //another chunk of data has been recieved, so append it to `str`
+        res.on('data', function (chunk) {
+          str += chunk;
+        });
+
+        //the whole response has been recieved, so we just print it out here
+        res.on('end', function () {
+          // console.log(str);
+
+          // if body is not empty
+          if (str.length > 10) {
+            
+                getListOfChordsFromRythmPage(str);
+          }
+
+
+          crawlRecursion(++step, rCount, rythmsAll);
+        });
+      }).on('error', function(e) {
+        console.log('Error retrieving page: ' + url);
       });
-
-      //the whole response has been recieved, so we just print it out here
-      res.on('end', function () {
-        // console.log(str);
-
-        // if body is not empty
-        if (str.length > 10) {
-          setTimeout(function() {
-              getListOfChordsFromRythmPage(str);
-          }, 5000);
-        }
-
-
-        crawlRecursion(++step, rCount, rythmsAll);
-      });
-    }).on('error', function(e) {
-      console.log('Error retrieving page: ' + url);
-    });
-  }
+    }
+  }, 15000);
 }
 
 /**crawl existing pages
@@ -249,23 +250,28 @@ function crawlingEachValidChord(chords){
   // findAllTitlesLowerCase().then(function (titles) {
     var len = chords.length;
     // console.log("\n\crawlingEachValidChord.... titles.length: " + titlesGlobal.length + " chords.length..." + len);
-    for (var i = 0; i < len; i++) {
-      var c = chords[i];
-      console.log("\nchecking if should retrieve for ~ c.title: " + c.title);
+    setTimeout(function() { 
 
-      var contentLongEnuf = (c.content != undefined && c.content.length > 2);
-      console.log("contentLongEnuf > 2: " + contentLongEnuf);
+      for (var i = 0; i < len; i++) {
+        var c = chords[i];
+        console.log("\nchecking if should retrieve for ~ c.title: " + c.title);
 
-      var titleExist = isTitleExisted(c.title, titlesGlobal);
-      if (titleExist && contentLongEnuf) {
-        console.log(title + " exists && contentLongEnuf: " + titleExist);
-      } else {
-        console.log("retrieving for title: " + c.title);
-        console.log("retrieving for creditUrl: " + c.creditUrl);
+        var contentLongEnuf = (c.content != undefined && c.content.length > 2);
+        console.log("contentLongEnuf > 2: " + contentLongEnuf);
 
-        getChord(c.creditUrl, c);
+        var titleExist = isTitleExisted(c.title, titlesGlobal);
+        if (titleExist && contentLongEnuf) {
+          console.log(title + " exists && contentLongEnuf: " + titleExist);
+        } else {
+          console.log("retrieving for title: " + c.title);
+          console.log("retrieving for creditUrl: " + c.creditUrl);
+
+          setTimeout(function() { 
+            getChord(c.creditUrl, c);
+          }, 10000);
+        }
       }
-    }
+    }, 10000);
   // });
 }
 

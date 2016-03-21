@@ -8,11 +8,25 @@ angular.module('guitariosApp')
     vm.chipRhythms = {};
 
     $http.get('/api/chords').success(function(chords) {
-      vm.chords = chords;
+      vm.chords = getOnlyValidChords(chords);
       // console.log(chords);
-      console.log(vm.chords);
+      // console.log('vm.chords: ' + vm.chords + "");
+
+      vm.randomChordsForGlobe = getChordTitlesFromChords(getRandomSubarray(vm.chords, 6));
+      console.log("vm.randomChordsForGlobe: " + vm.randomChordsForGlobe );
 
     });
+
+    function getOnlyValidChords(chords){
+      // remove empty chords
+      var refinedChords = [];
+      for (var i = 0 ; i < chords.length; i++){
+        if (chords[i].content.length > 10)
+          refinedChords.push(chords[i]);
+      }
+
+      return refinedChords;
+    }
 
     // chords processing
     vm.toggleShowChords = function(rhythm){
@@ -28,11 +42,15 @@ angular.module('guitariosApp')
 
       vm.chordsByRhythm = [];
 
-      for (var i = 0 ; i < vm.chords.length; i++){
+      if(rhythm === 'Everything'){
+        vm.chordsByRhythm = vm.chords;
+      } else {
+        for (var i = 0 ; i < vm.chords.length; i++){
 
-        // if rythms includes or content of the song exists => due to scrawling
-        if(vm.chords[i].rhythms.indexOf(rhythm) > -1 && vm.chords[i].content.length > 3){
-          vm.chordsByRhythm.push(vm.chords[i]);
+          // if rythms includes or content of the song exists => due to scrawling
+          if(vm.chords[i].rhythms.indexOf(rhythm) > -1 && vm.chords[i].content.length > 3){
+            vm.chordsByRhythm.push(vm.chords[i]);
+          }
         }
       }
 
@@ -59,7 +77,7 @@ angular.module('guitariosApp')
     // }
 
     vm.getStandardDescLength = function(description) {
-        console.log("getStandardDescLength " + description );
+        // console.log("getStandardDescLength " + description );
         if ('' + description.length < 160) {
           return description+"...";
         } else {
@@ -126,6 +144,27 @@ angular.module('guitariosApp')
     // test data
 
     vm.rythms = ['Rhumba', 'Ballade', 'Blues', 'Slow', 'Chachacha', 'Tango', 'Disco'];
-    vm.rythms34 = ['Boston', 'Slow Rock', 'Valse' ];
+    vm.rythms34 = ['Everything', 'Boston', 'Slow Rock', 'Valse' ];
+    
+
+    // helpers
+    function getRandomSubarray(arr, size) {
+        var shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
+        while (i-- > min) {
+            index = Math.floor((i + 1) * Math.random());
+            temp = shuffled[index];
+            shuffled[index] = shuffled[i];
+            shuffled[i] = temp;
+        }
+        return shuffled.slice(min);
+    }
+
+    function getChordTitlesFromChords(arr) {
+        return arr.map(function(chord){
+          if (chord.title.length > 20)
+            return chord.title.substring(0, 17) + "...";
+          return chord.title;
+        });
+    }
 
   });

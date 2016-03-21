@@ -4,7 +4,6 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var ChordSchema = new Schema({
-	_id : Number,
 	title: String,
 	content: String,
 	rhythms: [],

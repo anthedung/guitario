@@ -10,6 +10,7 @@ exports.index = function (req, res) {
     if (err) {
       return handleError(res, err);
     }
+    console.log(".index chords: " + chords);
     return res.status(200).json(chords);
   });
 };
@@ -96,11 +97,12 @@ exports.recrawl = function (req, res) {
 }
 
 exports.findAllTitles = function (req, res) {
-  Chord.find({}).select({title: 1}).exec(function (err, chords) {
+  Chord.find({}).select({title: 1, _id: 1}).exec(function (err, chords) {
     if (err) {
       return handleError(res, err);
     }
 
+    console.log('findAllTitles: ' + chords);
     var count = 0;
     chords = chords.map(function (item) {
       count++;
