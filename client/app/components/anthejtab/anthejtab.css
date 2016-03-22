@@ -2247,23 +2247,24 @@
 
 .trans_space {
   display: inline-block;
-  width: 70px;
+  width: 40px;
 }
 
 .trans_back {
   display: inline-block;
   width: 20px;
   height: 20px;
-  background: url('/assets/icons/glass-back.png') center center;
+  background: center center; 
   border: none;
   cursor: pointer;
+   /*url('/assets/icons/glass-back.png')*/
 }
 
 .trans_next {
   display: inline-block;
   width: 20px;
   height: 20px;
-  background: url('/assets/icons/glass-next.png') center center;
+  background: center center;
   border: none;
   cursor: pointer;
 }

@@ -49,7 +49,7 @@ angular.module('guitariosApp')
       } else {
         console.log('ChordService.selectChordsByRhythm processing...' + vm.chordsByRhythm);
 
-        ChordService.selectChordsByRhythm(rhythm, 3).then(function(chords){
+        ChordService.selectChordsByRhythm(rhythm, 20).then(function(chords){
           vm.chordsByRhythm = chords;
           console.log('ChordService.selectChordsByRhythm - vm.chordsByRhythm ' + vm.chordsByRhythm);
           console.log("vm.chordsByRhythm.length: " + vm.chordsByRhythm.length)
