@@ -5,18 +5,56 @@ var baseUrl = '/api/chords/';
 angular.module('guitariosApp')
   .service('ChordService', function () {
     // AngularJS will instantiate a singleton by calling "new" on this function
-    this.join = function (arr) {
-      var joined = arr.join(', ');
+    this.join = function (arr, isJoinFull, separator, length) {
+      isJoinFull = isJoinFull || false;
+      length = length || 20;
+      separator = separator || ', ';
 
-      if (joined.length > 20) {
-        joined = joined.substring(0, 20) + "...";
+      var joined = arr.join(separator);
+
+      if (!isJoinFull) {
+        if (joined.length > length) {
+          joined = joined.substring(0, length) + "...";
+        }
       }
-      return joined;
-    }
 
+      return joined;
+    };
+
+    this.findAllChords = function (content) {
+      var regex = /\[\w*]/gi, result, indices = [];
+      while ((result = regex.exec(content))) {
+        // only set, no duplicate
+        if (indices.indexOf(result.toString()) < 0) {
+          indices.push(result.toString());
+        }
+      }
+
+      console.log('this.findAllChords: ' + indices);
+      return indices;
+    };
+
+    this.findAllChordsWithClass = function (chords) {
+      chords = chords.map(function (chord) {
+        return addClassToChord(chord);
+      });
+
+      return chords;
+    };
+
+
+    function addClassToChord(chord) {
+      chord = '' + chord;
+      var value = chord.replace(/[\[\]]/g, '');
+      //console.log('addClassToChord.value: ' + value);
+
+      chord = '<span class="guitarios_chord_drawing" value="' + value + '">' + chord + ' </span>';
+
+      //console.log('this.findAllChords: ' + chord);
+      return chord;
+    };
 
     this.getStandardDescLength = function (description, length) {
-      // console.log("getStandardDescLength " + description );
       length = length || 160;
       description = '' + description;
       if (description.length < length) {
@@ -24,7 +62,7 @@ angular.module('guitariosApp')
       } else {
         return description.substring(0, length) + "...";
       }
-    }
+    };
 
     this.transformtoEnChars = function (str) {
       str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
@@ -38,21 +76,30 @@ angular.module('guitariosApp')
       // str= str.replace(/-+-/g,"-"); //thay thế 2- thành 1-
       // str= str.replace(/^\-+|\-+$/g,"");//cắt bỏ ký tự - ở đầu và cuối chuỗi
 
+      str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A")
+      str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E")
+      str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I")
+      str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O")
+      str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U")
+      str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y")
+      str = str.replace(/Đ/g, "D")
+
       return str;
-    }
+    };
 
     this.decorateContent = function (content) {
-      content = this.breakContentIntoLines(content);
       content = this.removeInitialCounting(content);
+      content = this.breakContentIntoLines(content);
+      content = this.addSpanClassForChords(content);
 
       return content;
-    }
+    };
 
     // 1.   2.
     this.removeInitialCounting = function (content) {
-      content = ('' + content).replace(/[0-9]\. /, '');
+      content = ('' + content).replace(/[0-9]\. /g, '');
       return content;
-    }
+    };
 
 
     this.breakContentIntoLines = function (content) {
@@ -61,7 +108,16 @@ angular.module('guitariosApp')
       content = ('' + content).replace(/[\.\n\r]/g, '<br>').toString();
 
       return content;
-    }
+    };
+
+    this.addSpanClassForChords = function (content) {
+      console.log(content);
+
+      content = ('' + content).replace(/\[/g, '[<span class="guitarios_chord">').toString();
+      content = ('' + content).replace(/\]/g, '</span>]').toString();
+
+      return content;
+    };
 
     this.selectChordsByRhythm = function (rhythm, limit) {
 
@@ -87,15 +143,13 @@ angular.module('guitariosApp')
       })
     }
 
-    this.processChords = function(chords) {
+    this.processChords = function (chords) {
       // remove empty chords
       var refinedChords = [];
       for (var i = 0; i < chords.length; i++) {
         if (chords[i].content.length > 10) {
           var c = chords[i]
           c.content = this.removeInitialCounting(c.content);
-          // c.titleEnChar = ChordService.transformtoEnChars(c.title);
-          // c.contentEnChar = ChordService.transformtoEnChars(c.content);
 
           refinedChords.push(c);
         }
@@ -103,4 +157,4 @@ angular.module('guitariosApp')
 
       return refinedChords;
     }
-})
+  });

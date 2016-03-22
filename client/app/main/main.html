@@ -6,12 +6,12 @@
   <br data-ng-show="!vm.chordsVisible">
   <div layout="row" layout-align="center center" class="anthe-rythms-chips">
     <md-chips data-ng-repeat="rythm in vm.rythms34">
-      <md-chip ng-click="vm.toggleShowChords(rythm)" data-ng-class="vm.chipRhythms[rythm]">{{rythm}}</md-chip>
+      <md-chip class="anthe-chip" ng-click="vm.toggleShowChords(rythm)" data-ng-class="vm.chipRhythms[rythm]">{{rythm}}</md-chip>
     </md-chips>
   </div>
   <div layout="row" layout-align="center center" class="anthe-rythms-chips">
     <md-chips data-ng-repeat="rythm in vm.rythms">
-      <md-chip ng-click="vm.toggleShowChords(rythm)" data-ng-class="vm.chipRhythms[rythm]">{{rythm}}</md-chip>
+      <md-chip class="anthe-chip" ng-click="vm.toggleShowChords(rythm)" data-ng-class="vm.chipRhythms[rythm]">{{rythm}}</md-chip>
     </md-chips>
   </div>
   <br>

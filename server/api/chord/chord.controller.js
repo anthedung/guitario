@@ -155,4 +155,20 @@ exports.findChordsByRhythm = function (req, res) {
 
     return res.status(200).json(chords);
   });
-}
+};
+
+exports.findChordsByGeneric = function (req, res) {
+  var category = req.params.category;
+  var query = {};
+  query[category] = req.params.categoryValue;
+  console.log('findChordsByGeneric ~ query: ' + query);
+  var q = Chord.find(query).sort({'date': -1}).limit(req.params.limit);
+
+  q.exec(function (err, chords) {
+    if (err) {
+      return handleError(res, err);
+    }
+
+    return res.status(200).json(chords);
+  });
+};
