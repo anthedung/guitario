@@ -6,13 +6,15 @@ var Crawler = require('./chord.vnmylife.service')
 
 // Get list of chords
 exports.index = function (req, res) {
+  var limit = req.query.limit || 20;
+  console.log('chords limit: '  + limit);
   Chord.find(function (err, chords) {
     if (err) {
       return handleError(res, err);
     }
     console.log(".index chords: " + chords);
     return res.status(200).json(chords);
-  });
+  }).limit(limit);
 };
 
 // Get a single chord

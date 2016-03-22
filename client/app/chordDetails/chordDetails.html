@@ -52,7 +52,7 @@
       <div layout-align="center">
         <md-card layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card">
           <md-chips class="anthe-chords-category anthe-chip">
-            <md-chip> &nbsp;&#127908; &nbsp; {{vm.selectedRhythm}}</md-chip>
+            <md-chip> <strong>&#9836;</strong> {{vm.selectedRhythm}}</md-chip>
           </md-chips>
           <div layout-padding="70px"
                data-ng-repeat="chord in vm.chordsByRhythm">
@@ -62,7 +62,7 @@
                       <strong>&#9834; {{chord.title}}</strong>
                     </span>
                 <!--<br>-->
-                  <span ng-if='chord.songAuthors.length > 0'><em> ~ 
+                  <span ng-if='chord.songAuthors.length > 0'><em> ~
                     {{vm.join(chord.singers)}}</em></span>
               </a>
             </div>

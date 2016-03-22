@@ -3,7 +3,7 @@
 var baseUrl = '/api/chords/';
 
 angular.module('guitariosApp')
-  .service('ChordService', function () {
+  .service('ChordService', function ($q, $http) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     this.join = function (arr, isJoinFull, separator, length) {
       isJoinFull = isJoinFull || false;
@@ -96,7 +96,11 @@ angular.module('guitariosApp')
     };
 
     // 1.   2.
-    this.removeInitialCounting = function (content) {
+    this.removeInitialCounting = function(content){
+      return removeInitialCounting(content);
+    }
+
+    var removeInitialCounting = function (content) {
       content = ('' + content).replace(/[0-9]\. /g, '');
       return content;
     };
@@ -111,7 +115,7 @@ angular.module('guitariosApp')
     };
 
     this.addSpanClassForChords = function (content) {
-      console.log(content);
+      // console.log(content);
 
       content = ('' + content).replace(/\[/g, '[<span class="guitarios_chord">').toString();
       content = ('' + content).replace(/\]/g, '</span>]').toString();
@@ -120,36 +124,36 @@ angular.module('guitariosApp')
     };
 
     this.selectChordsByRhythm = function (rhythm, limit) {
-
       var limit = limit || 7;
+      var url = baseUrl + 'rhythms' + '/' + rhythm + '/' + limit;
+      var deferred = $q.defer();
 
-      var url = baseUrl + rhythm + '/' + limit;
-      http.get(url).success(function (chords) {
-        var chordsByRhythm = [];
-
-        if (rhythm === 'Everything') {
-          chordsByRhythm = chords;
-        } else {
-          for (var i = 0; i < chords.length; i++) {
-
-            // if rythms includes or content of the song exists => due to scrawling
-            if (chords[i].rhythms.indexOf(rhythm) > -1 && chords[i].content.length > 3) {
-              chordsByRhythm.push(chords[i]);
-            }
-          }
-        }
-
-        return chordsByRhythm;
+      $http.get(url).success(function (chords) {
+        // console.log('Service - selectChordsByRhythm: ' + chords);
+        chords = processChords(chords);
+        deferred.resolve(chords);
       })
+
+      // var url = baseUrl + rhythm + '/' + limit;
+      // http.get(url).success(function (chords) {
+
+      //   return chords;
+      // })
+
+      return deferred.promise;
     }
 
     this.processChords = function (chords) {
+      return processChords(chords);
+    }
+
+    var processChords = function(chords) {
       // remove empty chords
       var refinedChords = [];
       for (var i = 0; i < chords.length; i++) {
         if (chords[i].content.length > 10) {
           var c = chords[i]
-          c.content = this.removeInitialCounting(c.content);
+          c.content = removeInitialCounting(c.content);
 
           refinedChords.push(c);
         }

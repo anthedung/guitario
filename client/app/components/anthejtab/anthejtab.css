@@ -1,3 +1,13 @@
+.jtab {
+  height:218px;
+}
+.jtab.chordonly {
+  height:118px;
+}
+.jtab.tabonly {
+  height:100px;
+}
+
 /*!**/
 /*@font-face {*/
   /*font-family: 'uvn_gio_may_nheregular';*/

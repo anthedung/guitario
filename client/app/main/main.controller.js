@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('guitariosApp')
-  .controller('MainCtrl', function ($http, ChordService, $log) {
+  .controller('MainCtrl', function ($http, ChordService, $log, $q) {
     var vm = this;
     vm.chords = [];
     vm.bannerVisible = true;
@@ -24,7 +24,7 @@ angular.module('guitariosApp')
         startCanvas();
       }, 500);
 
-      console.log("vm.randomChordsForGlobe: " + vm.randomChordsForGlobe);
+      // console.log("vm.randomChordsForGlobe: " + vm.randomChordsForGlobe);
 
     });
 
@@ -40,19 +40,28 @@ angular.module('guitariosApp')
           return;
         }
       }
+      console.log("toggleShowChords: " + vm.chordsVisible)
 
       vm.chordsByRhythm = [];
 
       if (rhythm === 'Everything') {
         vm.chordsByRhythm = vm.chords;
       } else {
-        for (var i = 0; i < vm.chords.length; i++) {
+        console.log('ChordService.selectChordsByRhythm processing...' + vm.chordsByRhythm);
 
-          // if rythms includes or content of the song exists => due to scrawling
-          if (vm.chords[i].rhythms.indexOf(rhythm) > -1 && vm.chords[i].content.length > 3) {
-            vm.chordsByRhythm.push(vm.chords[i]);
-          }
-        }
+        ChordService.selectChordsByRhythm(rhythm, 3).then(function(chords){
+          vm.chordsByRhythm = chords;
+          console.log('ChordService.selectChordsByRhythm - vm.chordsByRhythm ' + vm.chordsByRhythm);
+          console.log("vm.chordsByRhythm.length: " + vm.chordsByRhythm.length)
+
+        });
+
+        // var promise = ChordService.selectChordsByRhythm(rhythm, 20);
+        // promise.then(function(greeting) {
+        //   alert('Success: ' + greeting);
+        // }, function(reason) {
+        //   alert('Failed: ' + reason);
+        // });
       }
 
       vm.selectedRythm = rhythm;
@@ -60,7 +69,6 @@ angular.module('guitariosApp')
       console.log("selectedChip: " + rhythm)
       vm.chipRhythms[rhythm] = 'clickedrhythmChip';
       console.log("vm.chipRhythms[rhythm]: " + rhythm + "  " + vm.chipRhythms[rhythm])
-
     }
 
     vm.join = ChordService.join;
@@ -84,7 +92,7 @@ angular.module('guitariosApp')
     vm.searchTextChange = searchTextChange;
     vm.randomChord = randomChord;
     function randomChord(state) {
-      alert("Sorry! You'll need to create a Constituion for " + state + " first!");
+      // alert("Sorry! You'll need to create a Constituion for " + state + " first!");
     }
 
     // ******************************
