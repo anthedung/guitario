@@ -30,10 +30,19 @@ angular.module('guitariosApp', [
       .iconSet('toggle', '../assets/iconsets/toggle-icons.svg', 24)
       .iconSet('avatar', '../assets/iconsets/avatar-icons.svg', 128);
   })
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $sceDelegateProvider) {
     $urlRouterProvider
       .otherwise('/');
 
+    $sceDelegateProvider.resourceUrlWhitelist(
+      ['self','http://*.chiasenhac.com/**']
+    )
+
 
     $locationProvider.html5Mode(true);
-  });
+  })
+  .filter('trustUrl', function ($sce) {
+    return function(url) {
+      return $sce.trustAsResourceUrl(url);
+    };
+  });;

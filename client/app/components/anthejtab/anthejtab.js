@@ -3622,7 +3622,7 @@ jtab.render = function (element, notation_text, cha, val, spanOrDiv) {
   jQuery(element).attr('layout', 'column');
   jQuery(element).attr('layout-align', 'center center');
 
-  jQuery(element).append('<input id="trans_code" value="' + val + '" type="hidden"/>' + '<input id="trans_char" value="' + cha + '" type="hidden"/>' + '<' + spanOrDiv + ' class="trans_" layout="row" layout-align="center center" align="center">' + '<' + spanOrDiv + ' class="trans_back" onclick="jtab.trans_back(this)"></' + spanOrDiv + '>' + '<' + spanOrDiv + ' onclick="jtab.trans_default(this)" class="trans_space">Position</' + spanOrDiv + '>' + '<' + spanOrDiv + ' class="trans_next" onclick="jtab.trans_next(this)"></' + spanOrDiv + '>' + '</' + spanOrDiv + '>' + '<' + spanOrDiv + ' class="trans_" layout="row" layout-align="center center" align="center">' + '<' + spanOrDiv + ' class="trans_back" onclick="changeAllChord(-1);"></' + spanOrDiv + '>' + '<' + spanOrDiv + ' class="trans_space">Tune</' + spanOrDiv + '>' + '<' + spanOrDiv + ' class="trans_next" onclick="changeAllChord(1);"></' + spanOrDiv + '>' + '</' + spanOrDiv + '>');
+  jQuery(element).append('<input id="trans_code" value="' + val + '" type="hidden"/>' + '<input id="trans_char" value="' + cha + '" type="hidden"/>' + '<' + spanOrDiv + ' class="trans_" layout="row" layout-align="center center" align="center">' + '<' + spanOrDiv + ' class="trans_back" onclick="jtab.trans_back(this)">&#45;</' + spanOrDiv + '>' + '<' + spanOrDiv + ' onclick="jtab.trans_default(this)" class="trans_space">frets</' + spanOrDiv + '>' + '<' + spanOrDiv + ' class="trans_next" onclick="jtab.trans_next(this)">&#43;</' + spanOrDiv + '>' + '</' + spanOrDiv + '>' + '<' + spanOrDiv + ' class="trans_" layout="row" layout-align="center center" align="center">' + '<' + spanOrDiv + ' class="trans_back" onclick="changeAllChord(-1);">&#9837;</' + spanOrDiv + '>' + '<' + spanOrDiv + ' class="trans_space">tune</' + spanOrDiv + '>' + '<' + spanOrDiv + ' class="trans_next" onclick="changeAllChord(1);">&#9839;</' + spanOrDiv + '>' + '</' + spanOrDiv + '>');
 
 };
 jtab.renderimplicit = function (within_scope) {
@@ -3719,7 +3719,7 @@ function changeAllChord(amount) {
   if (currentAmount == 12) currentAmount = 0;
   if (currentAmount == -1) currentAmount = 11;
 
-  jQuery('.guitarios_chord').each(function () {
+  jQuery('.guitarios_chord_drawing').each(function () {
     jQuery(this).attr("value", jtab.transposeChord(jQuery(this).attr("value"), amount));
   });
   jQuery('#chord_view #draw_chord').each(function () {
@@ -3784,4 +3784,16 @@ function prepareChordView(){
     jQuery('#chord_view').slideUp();
   });
   //}
+
+  // searchable canvas
+  jQuery('.anthe-canvas-searchable').click(function (e) {
+    // jQuery('#chord_view').slideUp();
+    console.log('openCanvasSong: clicked');
+
+  });
+}
+
+function openCanvasSong(ele){
+  console.log('openCanvasSong: clicked');
+  jQuery(ele).href.click();
 }

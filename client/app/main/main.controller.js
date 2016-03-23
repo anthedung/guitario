@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('guitariosApp')
-  .controller('MainCtrl', function ($http, ChordService, $log) {
+  .controller('MainCtrl', function ($http, ChordService, $log, $q) {
     var vm = this;
     vm.chords = [];
     vm.bannerVisible = true;
@@ -14,22 +14,31 @@ angular.module('guitariosApp')
        2. add no intonation to chords for search - remove Vietnamese songs
        */
       vm.chords = ChordService.processChords(chords);
+      console.log("vm.chords.length: " + vm.chords.length)
+      
       // console.log(chords);
       // console.log('vm.chords: ' + vm.chords + "");
 
-      vm.randomChordsForGlobe = getChordTitlesFromChords(getRandomSubarray(vm.chords, 6));
-      
+      vm.randomChordsForGlobe = getRandomSubarray(vm.chords, 6);
+
       // ensure canvas will start with some delays
       setTimeout(function () {
         startCanvas();
       }, 500);
 
-      console.log("vm.randomChordsForGlobe: " + vm.randomChordsForGlobe);
+      // console.log("vm.randomChordsForGlobe: " + vm.randomChordsForGlobe);
 
     });
 
+    vm.addSelected = function(ele){
+      angular.element(ele).addClass('selected');
+    }
+
     // chords processing
-    vm.toggleShowChords = function (rhythm) {
+    vm.toggleShowChords = function (rhythm, ele) {
+      angular.element(ele).addClass('anthe-selected hihi');
+      $(ele).addClass('selected');
+      //console.log('  added selected: ' + Object.keys(ele));
       if (!vm.selectedRythm || vm.selectedRythm == rhythm) {
         vm.chordsVisible = !vm.chordsVisible;
         vm.bannerVisible = !vm.bannerVisible;
@@ -37,30 +46,46 @@ angular.module('guitariosApp')
         if (vm.selectedRythm == rhythm) {
           vm.selectedRythm = undefined;
           // startCanvas();
+
+          // cleared selected chips
+          vm.chipRhythms = {}
+
           return;
         }
       }
+      console.log("toggleShowChords: " + vm.chordsVisible)
 
       vm.chordsByRhythm = [];
 
       if (rhythm === 'Everything') {
         vm.chordsByRhythm = vm.chords;
-      } else {
-        for (var i = 0; i < vm.chords.length; i++) {
 
-          // if rythms includes or content of the song exists => due to scrawling
-          if (vm.chords[i].rhythms.indexOf(rhythm) > -1 && vm.chords[i].content.length > 3) {
-            vm.chordsByRhythm.push(vm.chords[i]);
-          }
-        }
+      } else {
+        console.log('ChordService.selectChordsByRhythm processing...' + vm.chordsByRhythm);
+
+        ChordService.selectChordsByRhythm(rhythm, 20).then(function(chords){
+          vm.chordsByRhythm = chords;
+          console.log('ChordService.selectChordsByRhythm - vm.chordsByRhythm ' + vm.chordsByRhythm);
+          console.log("vm.chordsByRhythm.length: " + vm.chordsByRhythm.length)
+
+        });
+
+        // var promise = ChordService.selectChordsByRhythm(rhythm, 20);
+        // promise.then(function(greeting) {
+        //   alert('Success: ' + greeting);
+        // }, function(reason) {
+        //   alert('Failed: ' + reason);
+        // });
       }
+
+      console.log("vm.chordsByRhythm.length: " + vm.chordsByRhythm.length)
 
       vm.selectedRythm = rhythm;
       console.log("showChords: " + vm.chordsVisible)
       console.log("selectedChip: " + rhythm)
+      vm.chipRhythms = {}
       vm.chipRhythms[rhythm] = 'clickedrhythmChip';
       console.log("vm.chipRhythms[rhythm]: " + rhythm + "  " + vm.chipRhythms[rhythm])
-
     }
 
     vm.join = ChordService.join;
@@ -84,7 +109,7 @@ angular.module('guitariosApp')
     vm.searchTextChange = searchTextChange;
     vm.randomChord = randomChord;
     function randomChord(state) {
-      alert("Sorry! You'll need to create a Constituion for " + state + " first!");
+      // alert("Sorry! You'll need to create a Constituion for " + state + " first!");
     }
 
     // ******************************

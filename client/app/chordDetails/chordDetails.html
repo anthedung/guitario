@@ -15,7 +15,7 @@
             <md-card-title-text>
               <div class="anthe-headline">
                 <strong>&#9834; {{vm.chord.title}}</strong>
-                <span ng-if='vm.chord.songAuthors.length > 0'><em>&nbsp;&#127908; &nbsp;
+                <span ng-if='vm.chord.songAuthors.length > 0'><em>&nbsp;&#x2606;
                   {{vm.join(vm.chord.singers)}}</em></span>
               </div>
             </md-card-title-text>
@@ -24,17 +24,13 @@
           <div .md-whiteframe-2dp layout-padding="10">
             <md-card-content ng-href="#vm.chordDetails/{{vm.chord._id}}">
               <div>
-                <div ng-bind-html="vm.trustedContentHtml" class="anthe-song-content"></div>
+                <div ng-bind-html="vm.trustedContentHtml" class="anthe-song-content" clickable></div>
                 <br>
                 <br>
-
-                <span ng-if='vm.chord.rhythms.length > 0'> <em>rhythm: {{vm.join(vm.chord.rhythms)}}</em> </span>
-                <span ng-if='vm.chord.chordAuthor.length > 0'> <em> | chord: {{vm.chord.chordAuthor}}</em> </span>
+              <span ng-if='vm.chord.rhythms.length > 0'> <em>&nbsp;&#119074;&nbsp;{{vm.join(vm.chord.rhythms)}}</em> </span>
+              <span ng-if='vm.chord.chordAuthor.length > 0'> <em>&nbsp;&#119083;&nbsp;{{vm.chord.chordAuthor}}</em> </span>
               </div>
             </md-card-content>
-            <!-- <md-card-actions layout="row" layout-align="end center">
-                      <md-button href="vm.chordDetails/{{vm.chord._id}}">View vm.chord</md-button>
-                  </md-card-actions> -->
           </div>
         </md-card>
       </div>
@@ -48,11 +44,35 @@
     <!-- 2nd col -->
     <div layout="column" flex="33">
 
-       <!--by rhythm-->
+      <!--songs-->
+      <div layout-align="center" ng-if='vm.chord.mp3s.length > 0'>
+        <md-card layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card">
+          <md-chips class="anthe-chords-category anthe-chip">
+            <md-chip> <strong>&#9836;</strong> Music</md-chip>
+          </md-chips>
+          <div data-ng-repeat="mp3 in vm.chord.mp3s">
+            <div class="anthe-headline" column="column" layout-align="center center">
+
+                  <div>
+                    <strong>&#9834; {{vm.join(mp3.singers)}}</strong>
+                  </div>
+                  <div>
+                    <audio controls preload="none">
+                    <source ng-src='{{mp3.musicLink | trustUrl}}'/>
+                    Your 'lousy' browser not supported music :( >:)
+                    </audio>
+                  </div>
+            </div>
+           
+          </div>
+        </md-card>
+      </div>
+
+      <!--by rhythm-->
       <div layout-align="center">
         <md-card layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card">
           <md-chips class="anthe-chords-category anthe-chip">
-            <md-chip> &nbsp;&#127908; &nbsp; {{vm.selectedRhythm}}</md-chip>
+            <md-chip> <strong>&#9836;</strong> {{vm.selectedRhythm}}</md-chip>
           </md-chips>
           <div layout-padding="70px"
                data-ng-repeat="chord in vm.chordsByRhythm">
@@ -62,7 +82,7 @@
                       <strong>&#9834; {{chord.title}}</strong>
                     </span>
                 <!--<br>-->
-                  <span ng-if='chord.songAuthors.length > 0'><em> ~ 
+                  <span ng-if='chord.songAuthors.length > 0'><em> ~
                     {{vm.join(chord.singers)}}</em></span>
               </a>
             </div>
@@ -76,7 +96,7 @@
       <div layout-align="center">
         <md-card layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card">
           <md-chips class="anthe-chords-category anthe-chip">
-            <md-chip> &nbsp;&#127908; &nbsp; {{vm.selectedSinger}}</md-chip>
+            <md-chip> &nbsp;&#x2606; {{vm.selectedSinger}}</md-chip>
           </md-chips>
           <div data-ng-repeat="chord in vm.chordsBySinger">
             <div class="anthe-headline">

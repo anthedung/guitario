@@ -4,12 +4,16 @@ var Q = require("q");
 var bl = require('bl');
 var Chord = require('./chord.model');
 var http = require('http');
-var domain = 'http://www.vnmylife.com'
+var domain = 'http://www.vnmylife.com';
+var queryString = require('querystring');
 
 // services exposed
-exports.crawlAll = crawlAll;
-exports.crawl = crawl;
-exports.recrawl = recrawl;
+
+// deprecated
+// exports.crawlAll = crawlAll;
+// exports.crawl = crawl;
+// exports.recrawl = recrawl;
+
 exports.findAllTitlesLowerCase = findAllTitlesLowerCase;
 exports.findAllChords = findAllChords;
 exports.cleanData = cleanData;
@@ -32,20 +36,25 @@ var rhythmMap = {
 var titlesGlobal = [];
 
 /**
- * crawl existing pages
+ * crawl existing pages, avoid putting heavy load and ddos attach on the target website with good strategy
+ * 1. building rhythm pages (with paging)
+ * 2. recursively retrieve list of song pages from each rhythm page to build a song list
+ * 3. recursively retrieve songs whose creditUrls are not yet stored
  * @param rhythm
  * @param fromPage
  * @param limitPaganiation
  */
+
+// deprecated
 function crawlAll() {
   findAllTitlesLowerCase().then(function (titles) {
     // first load existing titles to avoid recrawl
     titlesGlobal = titles;
-    console.log('Title Global onload: ' + titlesGlobal);
+    //console.log('Title Global onload: ' + titlesGlobal);
 
 
     var rythmsAll = Object.keys(rhythmMap);
-    console.log(' rythmsAll: ' + rythmsAll);
+    //console.log(' rythmsAll: ' + rythmsAll);
 
     var count = rythmsAll.length;
 
@@ -62,8 +71,8 @@ function crawlRecursion(step, rCount, rythmsAll) {
   console.log('start crawling all....: ' + rhythm + ' pagination limit: ' + 20 + ' fromPage ' + 1);
   var pagination = '?page=';
 
-  setTimeout(function () {
-    for (var i = 4; i <= 10; i++) {
+  // setTimeout(function () {
+    // for (var i = 4; i <= 10; i++) {
       var url = rhythmMap[rhythm] + pagination + i;
       console.log('start crawling....: ' + url);
 
@@ -91,8 +100,8 @@ function crawlRecursion(step, rCount, rythmsAll) {
       }).on('error', function (e) {
         console.log('Error retrieving page: ' + url);
       });
-    }
-  }, 15000);
+    // }
+  // }, 15000);
 }
 
 /**crawl existing pages
@@ -147,7 +156,6 @@ function recrawl() {
     }
   })
 }
-
 
 function findAllTitlesLowerCase() {
   var deferred = Q.defer();
@@ -244,7 +252,6 @@ function getListOfChordsFromRythmPage(body) {
   crawlingEachValidChord(chords);
 }
 
-
 function crawlingEachValidChord(chords) {
   // findAllTitlesLowerCase().then(function (titles) {
   var len = chords.length;
@@ -273,6 +280,8 @@ function crawlingEachValidChord(chords) {
   }, 10000);
   // });
 }
+
+exports.cleanArray = cleanArray;
 
 function cleanArray(actual) {
   var newArray = [];
@@ -358,7 +367,7 @@ function isTitleExisted(title, titles) {
 
 findAllTitlesLowerCase().then(function (titles) {
   titlesGlobal = titles;
-  console.log('Title Global onload: ' + titlesGlobal);
+  // console.log('Title Global onload: ' + titlesGlobal);
 })
 
 

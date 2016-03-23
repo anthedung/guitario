@@ -2,17 +2,21 @@
 
 var _ = require('lodash');
 var Chord = require('./chord.model');
-var Crawler = require('./chord.vnmylife.service')
+var Crawler = require('./chord.vnmylife.service');
+var VnMylifeCrawler = require('./chord.vnmylife.crawl.service');
+var VnMylifeMP3Crawler = require('./chord.vnmylife.mp3.crawl.service');
 
 // Get list of chords
 exports.index = function (req, res) {
+  var limit = req.query.limit || 20;
+  console.log('chords limit: '  + limit);
   Chord.find(function (err, chords) {
     if (err) {
       return handleError(res, err);
     }
-    console.log(".index chords: " + chords);
+    // console.log(".index chords: " + chords);
     return res.status(200).json(chords);
-  });
+  }).limit(limit);
 };
 
 // Get a single chord
@@ -96,6 +100,10 @@ exports.recrawl = function (req, res) {
   Crawler.recrawl();
 }
 
+exports.crawlMp3 = function (req, res) {
+  VnMylifeMP3Crawler.crawlMp3(req.params.fromPage, req.params.limitPaganiation);
+}
+
 // exports.cleanData = function (req, res) {
 //   Crawler.cleanData();
 // }
@@ -146,7 +154,7 @@ exports.findAllTitlesWithContent = function (req, res) {
 }
 
 exports.findChordsByRhythm = function (req, res) {
-  var q = Chord.find({rhythms: req.params.rhythm}).sort({'date': -1}).limit(req.params.limit);
+  var q = Chord.find({rhythms: req.params.rhythm}).sort({'created': -1}).limit(req.params.limit);
 
   q.exec(function (err, chords) {
     if (err) {
@@ -162,7 +170,7 @@ exports.findChordsByGeneric = function (req, res) {
   var query = {};
   query[category] = req.params.categoryValue;
   console.log('findChordsByGeneric ~ query: ' + query);
-  var q = Chord.find(query).sort({'date': -1}).limit(req.params.limit);
+  var q = Chord.find(query).sort({'created': -1}).limit(req.params.limit);
 
   q.exec(function (err, chords) {
     if (err) {
@@ -172,3 +180,9 @@ exports.findChordsByGeneric = function (req, res) {
     return res.status(200).json(chords);
   });
 };
+
+exports.crawlAllValidChordsToUpsert = function(req, res){
+  if (req.params.target == 'vnmylife'){
+    VnMylifeCrawler.crawlAndPersist();
+  }
+}

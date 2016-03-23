@@ -12,10 +12,11 @@ angular.module('guitariosApp')
       refreshUsedChords();
     };
 
+
     $http.get(baseUrl + $stateParams.id).success(function (chord) {
       vm.chord = chord;
       // console.log(chords);
-      console.log('vm.chord: ' + vm.chord);
+      //console.log('vm.chord: ' + vm.chord);
       vm.brokenContent = ChordService.decorateContent(vm.chord.content);
       //console.log('vm.brokenContent: ' + vm.brokenContent);
 
@@ -55,8 +56,12 @@ angular.module('guitariosApp')
 
     });
 
+
+
     vm.join = ChordService.join;
     vm.getStandardDescLength = ChordService.getStandardDescLength;
     vm.decorateContent = ChordService.decorateContent;
     vm.selectChordsByRhythm = ChordService.selectChordsByRhythm;
+    vm.trustAsHtml = ChordService.trustAsHtml;
+    
   });
