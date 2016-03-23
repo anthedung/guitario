@@ -3,9 +3,13 @@
 var baseUrl = '/api/chords/';
 
 angular.module('guitariosApp')
-  .service('ChordService', function ($q, $http) {
+  .service('ChordService', function ($q, $http, $sce,) {
     // AngularJS will instantiate a singleton by calling "new" on this function
-    this.join = function (arr, isJoinFull, separator, length) {
+    this.join = function join(arr, isJoinFull, separator, length) {
+      if (!arr) return;
+      
+      // console.log(arr);
+      var arr = arr;
       isJoinFull = isJoinFull || false;
       length = length || 20;
       separator = separator || ', ';
@@ -30,7 +34,7 @@ angular.module('guitariosApp')
         }
       }
 
-      console.log('this.findAllChords: ' + indices);
+      // console.log('this.findAllChords: ' + indices);
       return indices;
     };
 
@@ -107,7 +111,7 @@ angular.module('guitariosApp')
 
 
     this.breakContentIntoLines = function (content) {
-      console.log(content);
+      // console.log(content);
 
       content = ('' + content).replace(/[\.\n\r]/g, '<br>').toString();
 
@@ -160,5 +164,9 @@ angular.module('guitariosApp')
       }
 
       return refinedChords;
+    }
+
+    this.trustAsHtml = function(url){
+      return $sce.trustAsResourceUrl(url);
     }
   });

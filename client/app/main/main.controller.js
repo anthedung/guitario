@@ -14,11 +14,13 @@ angular.module('guitariosApp')
        2. add no intonation to chords for search - remove Vietnamese songs
        */
       vm.chords = ChordService.processChords(chords);
+      console.log("vm.chords.length: " + vm.chords.length)
+      
       // console.log(chords);
       // console.log('vm.chords: ' + vm.chords + "");
 
-      vm.randomChordsForGlobe = getChordTitlesFromChords(getRandomSubarray(vm.chords, 6));
-      
+      vm.randomChordsForGlobe = getRandomSubarray(vm.chords, 6);
+
       // ensure canvas will start with some delays
       setTimeout(function () {
         startCanvas();
@@ -28,8 +30,15 @@ angular.module('guitariosApp')
 
     });
 
+    vm.addSelected = function(ele){
+      angular.element(ele).addClass('selected');
+    }
+
     // chords processing
-    vm.toggleShowChords = function (rhythm) {
+    vm.toggleShowChords = function (rhythm, ele) {
+      angular.element(ele).addClass('anthe-selected hihi');
+      $(ele).addClass('selected');
+      //console.log('  added selected: ' + Object.keys(ele));
       if (!vm.selectedRythm || vm.selectedRythm == rhythm) {
         vm.chordsVisible = !vm.chordsVisible;
         vm.bannerVisible = !vm.bannerVisible;
@@ -37,6 +46,10 @@ angular.module('guitariosApp')
         if (vm.selectedRythm == rhythm) {
           vm.selectedRythm = undefined;
           // startCanvas();
+
+          // cleared selected chips
+          vm.chipRhythms = {}
+
           return;
         }
       }
@@ -46,6 +59,7 @@ angular.module('guitariosApp')
 
       if (rhythm === 'Everything') {
         vm.chordsByRhythm = vm.chords;
+
       } else {
         console.log('ChordService.selectChordsByRhythm processing...' + vm.chordsByRhythm);
 
@@ -64,9 +78,12 @@ angular.module('guitariosApp')
         // });
       }
 
+      console.log("vm.chordsByRhythm.length: " + vm.chordsByRhythm.length)
+
       vm.selectedRythm = rhythm;
       console.log("showChords: " + vm.chordsVisible)
       console.log("selectedChip: " + rhythm)
+      vm.chipRhythms = {}
       vm.chipRhythms[rhythm] = 'clickedrhythmChip';
       console.log("vm.chipRhythms[rhythm]: " + rhythm + "  " + vm.chipRhythms[rhythm])
     }

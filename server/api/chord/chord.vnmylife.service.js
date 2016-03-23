@@ -4,7 +4,8 @@ var Q = require("q");
 var bl = require('bl');
 var Chord = require('./chord.model');
 var http = require('http');
-var domain = 'http://www.vnmylife.com'
+var domain = 'http://www.vnmylife.com';
+var queryString = require('querystring');
 
 // services exposed
 exports.crawlAll = crawlAll;
@@ -13,6 +14,7 @@ exports.recrawl = recrawl;
 exports.findAllTitlesLowerCase = findAllTitlesLowerCase;
 exports.findAllChords = findAllChords;
 exports.cleanData = cleanData;
+exports.crawlMp3 = crawlMp3;
 
 // var chords = [];
 var rhythmMap = {
@@ -32,7 +34,10 @@ var rhythmMap = {
 var titlesGlobal = [];
 
 /**
- * crawl existing pages
+ * crawl existing pages, avoid putting heavy load and ddos attach on the target website with good strategy
+ * 1. building rhythm pages (with paging)
+ * 2. recursively retrieve list of song pages from each rhythm page to build a song list
+ * 3. recursively retrieve songs whose creditUrls are not yet stored
  * @param rhythm
  * @param fromPage
  * @param limitPaganiation
@@ -41,11 +46,11 @@ function crawlAll() {
   findAllTitlesLowerCase().then(function (titles) {
     // first load existing titles to avoid recrawl
     titlesGlobal = titles;
-    console.log('Title Global onload: ' + titlesGlobal);
+    //console.log('Title Global onload: ' + titlesGlobal);
 
 
     var rythmsAll = Object.keys(rhythmMap);
-    console.log(' rythmsAll: ' + rythmsAll);
+    //console.log(' rythmsAll: ' + rythmsAll);
 
     var count = rythmsAll.length;
 
@@ -62,8 +67,8 @@ function crawlRecursion(step, rCount, rythmsAll) {
   console.log('start crawling all....: ' + rhythm + ' pagination limit: ' + 20 + ' fromPage ' + 1);
   var pagination = '?page=';
 
-  setTimeout(function () {
-    for (var i = 4; i <= 10; i++) {
+  // setTimeout(function () {
+    // for (var i = 4; i <= 10; i++) {
       var url = rhythmMap[rhythm] + pagination + i;
       console.log('start crawling....: ' + url);
 
@@ -91,8 +96,8 @@ function crawlRecursion(step, rCount, rythmsAll) {
       }).on('error', function (e) {
         console.log('Error retrieving page: ' + url);
       });
-    }
-  }, 15000);
+    // }
+  // }, 15000);
 }
 
 /**crawl existing pages
@@ -146,6 +151,116 @@ function recrawl() {
       }
     }
   })
+}
+
+
+// [{singer: a, link: l}]
+/**
+* recursively crawl data to avoid putting heavy load on server
+*/
+function crawlMp3(fromPage, limitPaganiation) {
+  console.log('preparing  crawlMp3Recursive:' + fromPage + '   ' + limitPaganiation);
+  fromPage = parseInt(fromPage, 10);
+  limitPaganiation = parseInt(limitPaganiation, 10);
+
+
+
+  findAllChords().then(function (chords) {
+    if (limitPaganiation >= chords.length) {
+      limitPaganiation = chords.length - 1;
+    }
+    console.log('starting  crawlMp3Recursive:' + fromPage + '   ' + limitPaganiation);
+
+    crawlMp3Recursive(chords, fromPage, limitPaganiation);
+  });
+}
+
+function crawlMp3Recursive(chords, fromPage, limitPaganiation) {
+    // console.log('crawlMp3Recursive... fromPage: ' + fromPage + ' limitPaganiation: ' + limitPaganiation);
+    // console.log('crawlMp3Recursive... chords.length: ' + chords.length);
+    fromPage = parseInt(fromPage, 10);
+    limitPaganiation = parseInt(limitPaganiation, 10);
+
+    if (fromPage > limitPaganiation) {return;}
+
+    var chord = chords[fromPage];
+    console.log('crawlMp3Recursive... chord.content.length: ' + chord.content.length + ' mp3.length: ' + chord.mp3s.length);
+
+    if (chord.content.length > 10 && chord.mp3s.length < 1) {
+      console.log('crawlMp3 :' + chord.title);
+      console.log('crawlMp3 creditUrl: ' + chord.creditUrl);
+
+      var baseUrl = "http://www.vnmylife.com/api/audio/chiasenhac?q="+ encodeURIComponent(chord.title);
+      console.log('api url: ' + baseUrl);
+      http.get(baseUrl, function(res){
+        var str = '';
+
+            //another chunk of data has been recieved, so append it to `str`
+            res.on('data', function (chunk) {
+              str += chunk;
+            });
+
+            //the whole response has been recieved, so we just print it out here
+            res.on('end', function () {
+              //chordProcessing(str, chord);
+              // setTimeout(function() {
+                console.log("successfuly hitting url, now processing..mp3: " + chord.title);
+                processBodyGetMp3(str, chord);
+                crawlMp3Recursive(chords, ++fromPage, limitPaganiation);
+              // }, 1000);
+            });
+      }).on('error', function (e) {
+        console.log('Error retrieving page: ' + chord.title+'. Continues..');
+        crawlMp3Recursive(chords, ++fromPage, limitPaganiation);
+
+      });
+    } else {
+      crawlMp3Recursive(chords, ++fromPage, limitPaganiation);
+    }
+
+    // }
+}
+
+function processBodyGetMp3(body, chord) {
+
+  var $ = cheerio.load(body);
+  // console.log('processBodyGetMp3 - body:' + body);
+
+  var ddos = $('div.attribution a').text().toString();
+  if (ddos != undefined && ddos.length > 10) {
+    console.log('ddos deteced: ' + ddos);
+    return;
+  }
+
+  console.log('crawlMp3 successfully getting...processing: ');
+
+  var musicLinks = [];
+  $('div.article-content').map(function (i, link) {
+    var temp = cheerio.load($(link).toString());
+    var song = {};
+    song.singers = [];
+
+    var singersStr = temp('span.singer a').text().trim().split(/[\n\r,]+/);
+    var cleaned = cleanArray(singersStr);
+    cleaned.forEach(function (a) {
+        if (a.toLowerCase().indexOf('thơ') > -1) return;
+        song.singers.push(a);
+      }
+    );
+    console.log('processBodyGetMp3 singer: ' + song.singers);
+
+    song.musicLink = temp('audio source').attr('src').toString();
+    console.log('processBodyGetMp3 source: ' + song.musicLink);
+
+    musicLinks.push(song);
+    //console.log('processBodyGetMp3 song: ' + song);
+  });
+
+  chord.mp3s = musicLinks;
+
+  //return chord;
+  upsert(chord);
+  //chord.
 }
 
 
@@ -244,7 +359,6 @@ function getListOfChordsFromRythmPage(body) {
   crawlingEachValidChord(chords);
 }
 
-
 function crawlingEachValidChord(chords) {
   // findAllTitlesLowerCase().then(function (titles) {
   var len = chords.length;
@@ -273,6 +387,8 @@ function crawlingEachValidChord(chords) {
   }, 10000);
   // });
 }
+
+exports.cleanArray = cleanArray;
 
 function cleanArray(actual) {
   var newArray = [];
@@ -358,7 +474,7 @@ function isTitleExisted(title, titles) {
 
 findAllTitlesLowerCase().then(function (titles) {
   titlesGlobal = titles;
-  console.log('Title Global onload: ' + titlesGlobal);
+  // console.log('Title Global onload: ' + titlesGlobal);
 })
 
 

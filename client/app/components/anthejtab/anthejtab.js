@@ -3719,7 +3719,7 @@ function changeAllChord(amount) {
   if (currentAmount == 12) currentAmount = 0;
   if (currentAmount == -1) currentAmount = 11;
 
-  jQuery('.guitarios_chord').each(function () {
+  jQuery('.guitarios_chord_drawing').each(function () {
     jQuery(this).attr("value", jtab.transposeChord(jQuery(this).attr("value"), amount));
   });
   jQuery('#chord_view #draw_chord').each(function () {
@@ -3784,4 +3784,16 @@ function prepareChordView(){
     jQuery('#chord_view').slideUp();
   });
   //}
+
+  // searchable canvas
+  jQuery('.anthe-canvas-searchable').click(function (e) {
+    // jQuery('#chord_view').slideUp();
+    console.log('openCanvasSong: clicked');
+
+  });
+}
+
+function openCanvasSong(ele){
+  console.log('openCanvasSong: clicked');
+  jQuery(ele).href.click();
 }

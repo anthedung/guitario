@@ -6,12 +6,12 @@
   <br data-ng-show="!vm.chordsVisible">
   <div layout="row" layout-align="center center" class="anthe-rythms-chips">
     <md-chips data-ng-repeat="rythm in vm.rythms34">
-      <md-chip class="anthe-chip" ng-click="vm.toggleShowChords(rythm)" data-ng-class="vm.chipRhythms[rythm]">{{rythm}}</md-chip>
+      <md-chip clickable class="anthe-chip" ng-click="vm.toggleShowChords(rythm, this)" data-ng-class="vm.chipRhythms[rythm]">{{rythm}}</md-chip>
     </md-chips>
   </div>
   <div layout="row" layout-align="center center" class="anthe-rythms-chips">
     <md-chips data-ng-repeat="rythm in vm.rythms">
-      <md-chip class="anthe-chip" ng-click="vm.toggleShowChords(rythm)" data-ng-class="vm.chipRhythms[rythm]">{{rythm}}</md-chip>
+      <md-chip clickable class="anthe-chip" ng-click="vm.toggleShowChords(rythm, this)" data-ng-class="vm.chipRhythms[rythm]">{{rythm}}</md-chip>
     </md-chips>
   </div>
   <br>
@@ -22,21 +22,20 @@
           <div class="anthe-headline">
             <a data-ng-href="chordDetails/{{chord._id}}" class="anthe-link-button">
               <strong>&#9834; {{chord.title}}</strong>
-              <span ng-if='chord.songAuthors.length > 0'><em>&nbsp;&#127908; &nbsp;
+              <span ng-if='chord.songAuthors.length > 0'><em>&nbsp;&#x2606;
                 {{vm.join(chord.singers)}}</em></span>
             </a>
           </div>
         </md-card-title-text>
       </md-card-title>
       <!-- <br> -->
-      <div .md-whiteframe-2dp layout-padding="10">
+      <div .md-whiteframe-2dp >
         <md-card-content ng-href="#chordDetails/{{chord._id}}">
           <div>
             <a data-ng-href="chordDetails/{{chord._id}}" class="anthe-link-button">
               <p>"{{vm.getStandardDescLength(chord.content)}}"</p>
-              <span ng-if='chord.rhythms.length > 0'> <em>rhythm: {{vm.join(chord.rhythms)}}</em> </span>
-              <br>
-              <span ng-if='chord.chordAuthor.length > 0'> <em>chord: {{chord.chordAuthor}}</em> </span>
+              <span ng-if='chord.rhythms.length > 0' > <em>&nbsp;&#119074;&nbsp;{{vm.join(chord.rhythms)}}</em> </span>
+              <span ng-if='chord.chordAuthor.length > 0'> <em>&nbsp;&#119083;&nbsp;{{chord.chordAuthor}}</em> </span>
             </a>
           </div>
         </md-card-content>
@@ -49,15 +48,16 @@
     <div class="anthe-canvas-globe" id="myCanvasContainer" data-ng-show="!vm.chordsVisible">
       <canvas min-height="400" id="myCanvas" class="anthe-global">
         <!-- <p>Anything in here will be replaced on browsers that support the canvas element</p> -->
+        <div id="tags">
+        <ul ng-cloak>
+          <!-- data only -->
+          <li data-ng-repeat="chord in vm.randomChordsForGlobe" data-ng-hide="true"  class="anthe-canvas-searchable" onlick="openCanvasSong(this);"><a data-ng-href="chordDetails/{{chord._id}}">{{chord.title}}</a></li>
+          <li data-ng-hide="vm.randomChordsForGlobe.length > 0 "><a>I &hearts; Guitarios</a></li>
+        </ul>
+    </div>
       </canvas>
     </div>
-    <div id="tags">
-      <ul ng-cloak>
-        <!-- data only -->
-        <li data-ng-repeat="chord in vm.randomChordsForGlobe" data-ng-hide="true"><a>{{chord}}</a></li>
-        <li data-ng-hide="vm.randomChordsForGlobe.length > 0 "><a>I &hearts; Guitarios</a></li>
-      </ul>
-    </div>
+    
     <br>
     <br>
 

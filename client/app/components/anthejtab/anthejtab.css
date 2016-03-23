@@ -470,23 +470,23 @@
   /*padding-bottom: 80px;*/
 /*}*/
 
-/*footer {*/
-  /*margin-top: -80px;*/
-  /*height: 80px;*/
-  /*position: relative;*/
-  /*width: 100%;*/
-  /*text-align: center;*/
-  /*padding: 1em;*/
-  /*font-size: 13px;*/
-  /*box-sizing: border-box;*/
-  /*-moz-box-sizing: border-box;*/
-  /*-webkit-box-sizing: border-box;*/
-  /*z-index: 9;*/
-/*}*/
+/*footer {
+  margin-top: -80px;
+  height: 80px;
+  /position: relative;
+  width: 100%;
+  text-align: center;
+  padding: 1em;
+  font-size: 13px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  z-index: 9;
+}
 
-/*footer p {*/
-  /*margin: 0;*/
-/*}*/
+footer p {
+  margin: 0;
+}*/
 
 /*section.songcontent {*/
   /*background-color: #fafafa;*/
@@ -2428,14 +2428,14 @@
   /*#mobilesidebar {*/
     /*display: none;*/
   /*}*/
+/*
+  #footer {
+    display: block;
+  }
 
-  /*#footer {*/
-    /*display: block;*/
-  /*}*/
-
-  /*#songpage footer {*/
-    /*padding-bottom: 3em;*/
-  /*}*/
+  #songpage footer {
+    padding-bottom: 3em;
+  }*/
 
   /*#songpage {*/
     /*padding-right: 0;*/
@@ -2527,17 +2527,17 @@
     /*display: inline-block!important;*/
   /*}*/
 
-  /*#footer {*/
-    /*display: none;*/
-  /*}*/
+  /*#footer {
+    display: none;
+  }*/
 
   /*#mobilesidebar {*/
     /*display: block;*/
   /*}*/
 
-  /*#songpage footer {*/
-    /*padding-bottom: 0;*/
-  /*}*/
+  /*#songpage footer {
+    padding-bottom: 0;
+  }*/
 
   /*#songpage {*/
     /*padding-right: 3em;*/
