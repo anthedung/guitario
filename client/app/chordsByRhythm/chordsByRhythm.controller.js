@@ -11,47 +11,46 @@ angular.module('guitariosApp')
     vm.chipRhythms[vm.selectedRhythm] = 'clickedrhythmChip';
 
     var rhythm = $stateParams.rhythm;
-    var LIMIT = 40, pageNoToScroll = 1;
+    var LIMIT = 20, pageNoToScroll = 1;
     vm.chordsByRhythm = [];
     loadRhythms(rhythm);
 
-
-    // pagination
-    startStopScroll();
-
-    function startStopScroll() {
-      vm.scrollShouldDisable = true;
-      vm.scrollShouldDisable = false;
-    }
-
+    //region pagination
+    vm.scrollShouldDisable = false;
 
     vm.nextPage = function () {
       // TODO: identify bottom page instead of stopping at 20 like this
-      if (vm.busy) return;
-      // temporary stop to retrieve data
-
-
-      // to stop scrolling if nolonger in same page
+      if (vm.scrollShouldDisable) return;
+      vm.scrollShouldDisable = true;
       vm.stillInScope = true;
-
       loadRhythms(vm.selectedRhythm)
+    };
+
+    function checkIfShouldStopScrolling(chords) {
+      console.log('pageNoToScroll: ' + pageNoToScroll);
+
+      if (chords.length < 1) {
+        console.log('vm.scrollShouldDisable: ' + vm.scrollShouldDisable);
+        vm.scrollShouldDisable = true;
+      } else {
+        vm.scrollShouldDisable = false;
+      }
     }
 
-    vm.addSelected = function (ele) {
-      angular.element(ele).addClass('selected');
+    function addMoreChordsToRhythm(chords) {
+      pageNoToScroll = pageNoToScroll + 1;
+      for (var i = 0; i < chords.length; i++) {
+        if (vm.chordsByRhythm.indexOf(chords[i]) < 0)
+          vm.chordsByRhythm.push(chords[i]);
+      }
     }
-
+    //endregion
 
     vm.toggleShowChords = function (rhythm) {
       if (vm.selectedRhythm == rhythm) {
         vm.scrollShouldDisable = true;
         return;
       }
-
-      //  	vm.scrollShouldDisable = true;
-      // $location.url('chordsByRhythm/'+rhythm);
-      // return;
-
 
       console.log("vm.rythm.selected: " + rhythm);
 
@@ -61,7 +60,7 @@ angular.module('guitariosApp')
 
       loadRhythms(rhythm);
       resetSelectedChips(rhythm);
-    }
+    };
 
     function resetSelectedChips(rhythm) {
       vm.selectedRhythm = rhythm;
@@ -71,6 +70,9 @@ angular.module('guitariosApp')
 
     function loadRhythms(rhythm) {
       // console.log('loadRhythms.rhythm: ' + rhythm);
+      // dont fire when start loading
+      vm.scrollShouldDisable = true;
+
       if (rhythm === 'Everything') {
         ChordService.selectChordsNoFilter(LIMIT, pageNoToScroll).then(function (chords) {
           console.log("vm.chordsByRhythm.length: " + rhythm + '  ' + vm.chordsByRhythm.length);
@@ -85,27 +87,6 @@ angular.module('guitariosApp')
           addMoreChordsToRhythm(chords);
           checkIfShouldStopScrolling(chords);
         });
-      }
-    }
-
-    function checkIfShouldStopScrolling(chords) {
-      console.log('pageNoToScroll: ' + pageNoToScroll);
-      // console.log('vm.scrollShouldDisable: ' + vm.scrollShouldDisable);
-      console.log('vm.stillInScope: ' + vm.stillInScope);
-
-      if (chords.length < 1 || pageNoToScroll > 20) {
-        console.log('vm.scrollShouldDisable: ' + vm.scrollShouldDisable);
-        vm.scrollShouldDisable = true;
-      } else {
-        vm.scrollShouldDisable = false;
-      }
-    }
-
-    function addMoreChordsToRhythm(chords) {
-      pageNoToScroll = pageNoToScroll + 1;
-      for (var i = 0; i < chords.length; i++) {
-        if (vm.chordsByRhythm.indexOf(chords[i]) < 0)
-          vm.chordsByRhythm.push(chords[i]);
       }
     }
 

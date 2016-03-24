@@ -5,7 +5,7 @@ angular.module('guitariosApp')
     var vm = this;
     vm.join = ChordService.join;
     vm.getStandardDescLength = ChordService.getStandardDescLength;
-    vm.selectedRhythm = $stateParams.rhythm;
+    vm.selectedRhythm = $stateParams.singer;
     vm.chords = [];
     vm.chipRhythms = {}
     vm.chipRhythms[vm.selectedRhythm] = 'clickedrhythmChip';
@@ -15,14 +15,47 @@ angular.module('guitariosApp')
     vm.chordsByRhythm = [];
     loadRhythms(rhythm);
 
+    //region pagination
+    vm.scrollShouldDisable = false;
+
+    vm.nextPage = function () {
+      // TODO: identify bottom page instead of stopping at 20 like this
+      if (vm.scrollShouldDisable) return;
+      vm.scrollShouldDisable = true;
+      vm.stillInScope = true;
+      loadRhythms(vm.selectedRhythm)
+    };
+
+
+    function checkIfShouldStopScrolling(chords) {
+      console.log('pageNoToScroll: ' + pageNoToScroll);
+
+      if (chords.length < 1 || pageNoToScroll > 20) {
+        console.log('vm.scrollShouldDisable: ' + vm.scrollShouldDisable);
+        vm.scrollShouldDisable = true;
+      } else {
+        vm.scrollShouldDisable = false;
+      }
+    }
+
+    function addMoreChordsToRhythm(chords) {
+      pageNoToScroll = pageNoToScroll + 1;
+      for (var i = 0; i < chords.length; i++) {
+        if (vm.chordsByRhythm.indexOf(chords[i]) < 0)
+          vm.chordsByRhythm.push(chords[i]);
+      }
+    }
+    //endregion
+
     // load chips
     ChordService.selectRandomSingers().then(function (singers) {
       vm.rythms34 = [];
       vm.rythms = [];
       var first = 6;
       var last = 14;
+      vm.rythms34.push($stateParams.singer);
 
-      for (var i = 0; i < first; i++) {
+      for (var i = 1; i < first; i++) {
         vm.rythms34.push(singers[i]);
       }
 
@@ -30,21 +63,6 @@ angular.module('guitariosApp')
         vm.rythms.push(singers[i]);
       }
     });
-
-    // pagination
-    vm.scrollShouldDisable = false;
-
-    vm.nextPage = function () {
-      // TODO: identify bottom page instead of stopping at 20 like this
-      if (vm.busy) return;
-      // temporary stop to retrieve data
-
-      // to stop scrolling if nolonger in same page
-      vm.stillInScope = true;
-
-      loadRhythms(vm.selectedRhythm)
-    }
-
 
     vm.toggleShowChords = function (rhythm) {
       if (vm.selectedRhythm == rhythm) {
@@ -92,26 +110,6 @@ angular.module('guitariosApp')
       }
     }
 
-    function checkIfShouldStopScrolling(chords) {
-      console.log('pageNoToScroll: ' + pageNoToScroll);
-      // console.log('vm.scrollShouldDisable: ' + vm.scrollShouldDisable);
-      console.log('vm.stillInScope: ' + vm.stillInScope);
-
-      if (chords.length < 1 || pageNoToScroll > 20) {
-        console.log('vm.scrollShouldDisable: ' + vm.scrollShouldDisable);
-        vm.scrollShouldDisable = true;
-      } else {
-        vm.scrollShouldDisable = false;
-      }
-    }
-
-    function addMoreChordsToRhythm(chords) {
-      pageNoToScroll = pageNoToScroll + 1;
-      for (var i = 0; i < chords.length; i++) {
-        if (vm.chordsByRhythm.indexOf(chords[i]) < 0)
-          vm.chordsByRhythm.push(chords[i]);
-      }
-    }
 
 
     // SEARCH

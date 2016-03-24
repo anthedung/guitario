@@ -5,7 +5,6 @@ var paginator = require('mongoose-paginator');
 var Schema = mongoose.Schema;
 
 
-
 var ChordSchema = new Schema({
   title: String,
   content: String,

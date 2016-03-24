@@ -11,7 +11,7 @@ router.get('/', controller.index);
 router.get('/titles', controller.findAllTitles);
 router.get('/titlesWithContent', controller.findAllTitlesWithContent);
 router.get('/search', controller.search);
-router.get('/randomSingers',  controller.findRandomSingers)
+router.get('/randomSingers', controller.findRandomSingers)
 
 // crawl
 router.get('/crawlMp3/:fromPage/:limitPaganiation', controller.crawlMp3);

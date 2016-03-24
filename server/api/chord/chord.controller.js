@@ -18,17 +18,17 @@ exports.index = function (req, res) {
 
   var options = {
     perPage: limit,
-    delta  : 3,
-    page   : req.query.p
+    delta: 3,
+    page: req.query.p
   };
 
   var query = Chord.find().sort(sort);
-  query.paginate(options, function(err, chords) {
-      if (err) {
-        return handleError(res, err);
-      }
+  query.paginate(options, function (err, chords) {
+    if (err) {
+      return handleError(res, err);
+    }
 
-      return res.status(200).json(chords.results);
+    return res.status(200).json(chords.results);
   });
 };
 
@@ -158,7 +158,7 @@ exports.findAllTitlesWithContent = function (req, res) {
 exports.findRandomSingers = function (req, res) {
   var limit = req.query.limit || 15;
 
-  Chord.find({}).select({title: 1, singers: 1}).exec(function (err, chords) {
+  Chord.find({}).select({title: 1, singers: 1, content: 1}).exec(function (err, chords) {
     if (err) {
       return handleError(res, err);
     }
@@ -166,12 +166,14 @@ exports.findRandomSingers = function (req, res) {
     var count = 0;
     var singers = chords.map(function (item) {
       var singer = item.singers[0];
-      return (!singer || singer.length > 15 || singer.indexOf('(') > -1) ?  '' : singer;
-    }).filter(function(singer){
+      return (!singer || singer.length > 15 || singer.indexOf('(') > -1 || item.content.length < 10) ? '' : singer.toString("utf8");
+    }).filter(function (singer) {
       return singer.length > 0;
-    })
+    });
 
-    singers = ChordGeneralService.removeDuplicatesBy(function(x){return x}, singers);
+    singers = ChordGeneralService.removeDuplicatesBy(function (x) {
+      return x
+    }, singers);
 
     singers = ChordGeneralService.getRandomSubarray(singers, limit);
 
@@ -189,39 +191,39 @@ exports.findChordsByGeneric = function (req, res) {
 
   var options = {
     perPage: limit,
-    delta  : 3,
-    page   : req.query.p
+    delta: 3,
+    page: req.query.p
   };
   var params = {}
   params[req.params.category] = req.params.categoryValue;
 
   var query = Chord.find(params).sort(sort);
-  query.paginate(options, function(err, chords) {
-      if (err) {
-        return handleError(res, err);
-      }
+  query.paginate(options, function (err, chords) {
+    if (err) {
+      return handleError(res, err);
+    }
 
-      return res.status(200).json(chords.results);
-      // console.log(res); // => res = {
-        //  options: options,               // paginate options
-        //  results: [Document, ...],       // mongoose results
-        //  current: 5,                     // current page number
-        //  last: 12,                       // last page number
-        //  prev: 4,                        // prev number or null
-        //  next: 6,                        // next number or null
-        //  pages: [ 2, 3, 4, 5, 6, 7, 8 ], // page numbers
-        //  count: 125                      // document count
-      //};
+    return res.status(200).json(chords.results);
+    // console.log(res); // => res = {
+    //  options: options,               // paginate options
+    //  results: [Document, ...],       // mongoose results
+    //  current: 5,                     // current page number
+    //  last: 12,                       // last page number
+    //  prev: 4,                        // prev number or null
+    //  next: 6,                        // next number or null
+    //  pages: [ 2, 3, 4, 5, 6, 7, 8 ], // page numbers
+    //  count: 125                      // document count
+    //};
   });
 };
 
-exports.crawlAllValidChordsToUpsert = function(req, res){
-  if (req.params.target == 'vnmylife'){
+exports.crawlAllValidChordsToUpsert = function (req, res) {
+  if (req.params.target == 'vnmylife') {
     VnMylifeCrawler.crawlAndPersist();
   }
 }
 
-exports.search = function(req, res){
+exports.search = function (req, res) {
   var query = req.query.q;
   var regQuery = new RegExp(query, "i")
   console.log('search.query: ' + regQuery);

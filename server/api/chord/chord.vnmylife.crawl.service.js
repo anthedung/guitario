@@ -10,14 +10,14 @@ var GeneralService = require('./chord.vnmylife.service');
 
 
 /**
-* Crawl strategy:
-* 1. building all rhythm pages from predefined Map (with site with identifiable patterned paging)
-* 2. building all 10-song pages recursively
-* 3. building list of individual song pages recursively
-* 4. validate against database to ensure only valid song url/page to be crawled
-* 5. crawl individual song page recursively
-* 6. persist into DB
-*/
+ * Crawl strategy:
+ * 1. building all rhythm pages from predefined Map (with site with identifiable patterned paging)
+ * 2. building all 10-song pages recursively
+ * 3. building list of individual song pages recursively
+ * 4. validate against database to ensure only valid song url/page to be crawled
+ * 5. crawl individual song page recursively
+ * 6. persist into DB
+ */
 
 var START_FROM = 1;
 var END_PAGE = 25;
@@ -41,9 +41,9 @@ var rhythmMap = {
   // 'fox' : 'http://www.vnmylife.com/mychord/rhythm/fox/12',
 
   // batch 3
-  'pop' : 'http://www.vnmylife.com/mychord/rhythm/pop/16',
-  'rock'  : 'http://www.vnmylife.com/mychord/rhythm/rock/13',
-  'twist' : 'http://www.vnmylife.com/mychord/rhythm/twist/18'
+  'pop': 'http://www.vnmylife.com/mychord/rhythm/pop/16',
+  'rock': 'http://www.vnmylife.com/mychord/rhythm/rock/13',
+  'twist': 'http://www.vnmylife.com/mychord/rhythm/twist/18'
 };
 
 
@@ -51,8 +51,8 @@ var rhythmMap = {
 exports.crawlAllValidChordsToUpsert = crawlAllValidChordsToUpsert;
 exports.crawlAndPersist = crawlAndPersist;
 
-function crawlAndPersist(){
-  crawlAllValidChordsToUpsert().then(function(chords){
+function crawlAndPersist() {
+  crawlAllValidChordsToUpsert().then(function (chords) {
     console.log('\n\nStarting to persist of docs persisted: ' + chords.length);
     console.log('\n\nStarting to persist of docs:\n ' + chords);
     // Chord.collection.insert(chords, function(err, docs){
@@ -63,8 +63,8 @@ function crawlAndPersist(){
     //   }
     // });
 
-    Chord.create(chords,function(err, docs){
-      if(err){
+    Chord.create(chords, function (err, docs) {
+      if (err) {
         console.log('persistValidChordToDB error: ' + err);
       } else {
         console.log('number of docs persisted: ' + docs.length);
@@ -74,31 +74,30 @@ function crawlAndPersist(){
 }
 
 
-
-function crawlAllValidChordsToUpsert(){
+function crawlAllValidChordsToUpsert() {
   var deferred = Q.defer();
   console.log('\npreparing to crawlAllValidChordsToUpsert...');
 
-  buildListOfBasicChordsFromWebsites().then(function (basicChordsCrawled){
-    GeneralService.findAllChords().then(function(chordsInDB){
+  buildListOfBasicChordsFromWebsites().then(function (basicChordsCrawled) {
+    GeneralService.findAllChords().then(function (chordsInDB) {
       console.log('start crawlAllValidChordsToUpsert... basicChordsCrawled: ' + basicChordsCrawled.length + '  chordsInDB: ' + chordsInDB.length);
 
       var validChordsToCrawl = getValidChordsToCrawl(basicChordsCrawled, chordsInDB);
       console.log('\ncrawlAllValidChordsToUpsert ended... length: ' + validChordsToCrawl.length);
       // start crawling
-      
+
       crawlFullChordRecursive(validChordsToCrawl, 0, deferred);
-    }).catch(function(e){
-        console.log('GeneralService.findAllChords() error: ' + e);
+    }).catch(function (e) {
+      console.log('GeneralService.findAllChords() error: ' + e);
     });
   })
 
   return deferred.promise;
 }
 
-function crawlFullChordRecursive(validChordsToCrawl, counter, deferred){
+function crawlFullChordRecursive(validChordsToCrawl, counter, deferred) {
 
-  if (counter >= validChordsToCrawl.length){
+  if (counter >= validChordsToCrawl.length) {
     deferred.resolve(validChordsToCrawl);
     console.log("Final number of chords about to persist: " + validChordsToCrawl.length);
     return;
@@ -109,40 +108,40 @@ function crawlFullChordRecursive(validChordsToCrawl, counter, deferred){
   var url = chord.creditUrl;
   console.log('startCrawling:' + url);
 
-  http.get(url, function(res){
+  http.get(url, function (res) {
     var str = '';
-      //another chunk of data has been recieved, so append it to `str`
-      res.on('data', function (chunk) {
-        str += chunk;
-      });
-
-      res.on('end', function () {
-        if (str.length > 10) {
-          // pars the basic info chords for each page: title + url
-          console.log('\nGetting individual chords from: ' + url);
-
-          processChord(str, chord);
-
-          // recursion
-          crawlFullChordRecursive(validChordsToCrawl, ++counter, deferred);
-
-        }
-      });
-    }).on('error', function (e) {
-      console.log('Error retrieving page: ' + url);
-
-      // recursion
-      crawlFullChordRecursive(validChordsToCrawl, ++counter, deferred);
+    //another chunk of data has been recieved, so append it to `str`
+    res.on('data', function (chunk) {
+      str += chunk;
     });
+
+    res.on('end', function () {
+      if (str.length > 10) {
+        // pars the basic info chords for each page: title + url
+        console.log('\nGetting individual chords from: ' + url);
+
+        processChord(str, chord);
+
+        // recursion
+        crawlFullChordRecursive(validChordsToCrawl, ++counter, deferred);
+
+      }
+    });
+  }).on('error', function (e) {
+    console.log('Error retrieving page: ' + url);
+
+    // recursion
+    crawlFullChordRecursive(validChordsToCrawl, ++counter, deferred);
+  });
 }
 
-function buildVnMylifePageList(){
+function buildVnMylifePageList() {
   var pagination = '?page=';
 
   var rythmsAllKeys = Object.keys(rhythmMap);
   var rhythmAllPages = [];
-  for (var i = 0; i < rythmsAllKeys.length; i++){
-    for (var j = START_FROM; j < END_PAGE; j++){
+  for (var i = 0; i < rythmsAllKeys.length; i++) {
+    for (var j = START_FROM; j < END_PAGE; j++) {
       var url = rhythmMap[rythmsAllKeys[i]] + pagination + j;
       rhythmAllPages.push(url);
       console.log("buildPageList.page: " + url);
@@ -153,28 +152,28 @@ function buildVnMylifePageList(){
 }
 
 
-function getValidChordsToCrawl(basicChordsCrawled, chordsInDB){
+function getValidChordsToCrawl(basicChordsCrawled, chordsInDB) {
   var chordsToCrawl = [];
   console.log('\nstart validating chords to crawl - getValidChordsToCrawl: ');
 
-  var chordsInDBCreditUrls = chordsInDB.filter(function(chord){
-    // non empty chords only 
+  var chordsInDBCreditUrls = chordsInDB.filter(function (chord) {
+    // non empty chords only
     var isValidInDb = chord.title.length > 0 && chord.content.length > 10;
     // console.log('getValidChordsToCrawl isValidInDb - title:' + chord.title + " valid: " + isValidInDb);
 
-    if (isValidInDb){
+    if (isValidInDb) {
       return chord;
     }
-  }).map(function (chord){
+  }).map(function (chord) {
 
     return chord.creditUrl;
   });
 
   console.log('chordsInDBCreditUrls.length: ' + chordsInDBCreditUrls.length);
 
-  for (var i = 0; i < basicChordsCrawled.length; i++){
+  for (var i = 0; i < basicChordsCrawled.length; i++) {
     // if not in DB or empty in DB then eligible to crawl
-    if (chordsInDBCreditUrls.indexOf(basicChordsCrawled[i].creditUrl) < 0){
+    if (chordsInDBCreditUrls.indexOf(basicChordsCrawled[i].creditUrl) < 0) {
       chordsToCrawl.push(basicChordsCrawled[i]);
       console.log('valid creditUrl to crawl:' + basicChordsCrawled[i].creditUrl);
     }
@@ -189,9 +188,9 @@ function getValidChordsToCrawl(basicChordsCrawled, chordsInDB){
 
 
 /*
-* Template Method
-*/
-function buildListOfBasicChordsFromWebsites(){
+ * Template Method
+ */
+function buildListOfBasicChordsFromWebsites() {
   var deferred = Q.defer();
 
   var songPages = buildVnMylifePageList();
@@ -203,10 +202,10 @@ function buildListOfBasicChordsFromWebsites(){
 }
 
 /**
-* build a full list of individual chords with title and credit urls
-* making it a promise
-*/
-function crawlPagesRecursive(songPages, counter, chords, deferred){
+ * build a full list of individual chords with title and credit urls
+ * making it a promise
+ */
+function crawlPagesRecursive(songPages, counter, chords, deferred) {
 
   if (counter >= songPages.length) {
     deferred.resolve(chords);
@@ -215,7 +214,7 @@ function crawlPagesRecursive(songPages, counter, chords, deferred){
 
   var curPageUrl = songPages[counter];
 
-  http.get(curPageUrl, function(res){
+  http.get(curPageUrl, function (res) {
     var str = '';
     //another chunk of data has been recieved, so append it to `str`
     res.on('data', function (chunk) {
@@ -241,7 +240,7 @@ function crawlPagesRecursive(songPages, counter, chords, deferred){
   });
 }
 
-function getListOfIndividualChordsBasicInfoVnMylife(body, chords){
+function getListOfIndividualChordsBasicInfoVnMylife(body, chords) {
   $ = cheerio.load(body);
 
   // stop when cloudFare wants me to stop!

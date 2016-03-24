@@ -23,7 +23,7 @@
   <br>
   <div layout="row" layout-align="center" ngCloak>
     <div class="anthe-canvas-globe" id="myCanvasContainer" ngCloak>
-      <canvas min-height="400" id="myCanvas" class="anthe-global">
+      <canvas min-height="600" min-width="600" id="myCanvas" class="anthe-global">
         <div id="tags">
           <ul ng-cloak>
             <li data-ng-repeat="chord in vm.randomChordsForGlobe" data-ng-hide="true" class="anthe-canvas-searchable"
@@ -35,19 +35,13 @@
     </div>
   </div>
 
-  <div layout="column">
-    <br>
-    <br>
-    <br>
-    <div class="anthe-spacer" style="clear: both;"></div>
-    <footer>
-      <div layout="row" layout-align="center center" id="anthe-footer">
-        <div class="anthe-copyright" layout="row" layout-align="center bottom">
-          <p style="color:white">Copyright © 2016 An The Dung - ABCStudio</p>
-        </div>
-      </div>
-    </footer>
-  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div ng-include="'app/components/banner/footer.html'" ng-cloak></div>
+
 
   <!-- pagination directive -->
 

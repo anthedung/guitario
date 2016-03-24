@@ -132,7 +132,7 @@ function upsert(chord) {
       console.log('upsert err: ' + chord.title + ' ~err: ' + err.toString());
       return {code: 500, msg: err};
     }
-    console.log('upsert successfully: ' + chord.title + ' ~doc.creditUrl: ' + doc.mp3s );
+    console.log('upsert successfully: ' + chord.title + ' ~doc.creditUrl: ' + doc.mp3s);
     return {code: 200, msg: "succesfully saved"};
   });
 }
@@ -239,7 +239,7 @@ function getRandomSubarray(arr, size) {
 
 function removeDuplicatesBy(keyFn, array) {
   var mySet = new Set();
-  return array.filter(function(x) {
+  return array.filter(function (x) {
     var key = keyFn(x), isNew = !mySet.has(key);
     if (isNew) mySet.add(key);
     return isNew;
