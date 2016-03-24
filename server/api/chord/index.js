@@ -16,7 +16,7 @@ router.get('/crawlMp3/:fromPage/:limitPaganiation', controller.crawlMp3);
 router.get('/crawlRecursiveStrategy/:target', controller.crawlAllValidChordsToUpsert);
 
 // chords api
-router.get('/:category/:categoryValue/:limit', controller.findChordsByGeneric);
+router.get('/:category/:categoryValue', controller.findChordsByGeneric);
 
 router.get('/:id', controller.show);
 router.post('/', controller.create);

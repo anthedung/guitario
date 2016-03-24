@@ -1,4 +1,4 @@
-<div layout="column" flex class="anthe-content" ng-cloak>
+<div layout="column" class="anthe-content" ng-cloak onscroll="alert('haha')">
 
   <div ng-include="'app/components/banner/bannerSearchBar.html'"></div>
 
@@ -15,7 +15,8 @@
     </md-chips>
   </div>
   <br>
-  <div class="anthe-quote fade" layout-align="center" data-ng-show="vm.chordsVisible">
+  <div class="anthe-quote" layout-align="center" data-if="vm.chordsVisible"
+        infinite-scroll='vm.nextPage()' infinite-scroll-disabled='vm.scrollShouldDisable' infinite-scroll-distance="100">
     <md-card ng-repeat="chord in vm.chordsByRhythm" layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card">
       <md-card-title>
         <md-card-title-text>
@@ -41,34 +42,30 @@
         </md-card-content>
       </div>
     </md-card>
+    <div class="spacer" style="clear: both;"></div>
   </div>
 
   <br>
   <div layout="row" layout-align="center">
     <div class="anthe-canvas-globe" id="myCanvasContainer" data-ng-show="!vm.chordsVisible">
       <canvas min-height="400" id="myCanvas" class="anthe-global">
-        <!-- <p>Anything in here will be replaced on browsers that support the canvas element</p> -->
         <div id="tags">
         <ul ng-cloak>
-          <!-- data only -->
           <li data-ng-repeat="chord in vm.randomChordsForGlobe" data-ng-hide="true"  class="anthe-canvas-searchable" onlick="openCanvasSong(this);"><a data-ng-href="chordDetails/{{chord._id}}">{{chord.title}}</a></li>
           <li data-ng-hide="vm.randomChordsForGlobe.length > 0 "><a>I &hearts; Guitarios</a></li>
         </ul>
     </div>
       </canvas>
     </div>
-    
     <br>
     <br>
 
   </div>
 
-  <!-- footer -->
   <div layout="column">
-    <br>
-    <br>
+    <div class="anthe-spacer" style="clear: both;"></div>
     <footer>
-      <div layout="row" layout-align="center center">
+      <div layout="row" layout-align="center center" id="anthe-footer">
         <div class="anthe-copyright" layout="row" layout-align="center bottom">
           <p style="color:white">Copyright © 2016 An The Dung - ABCStudio</p>
         </div>
@@ -76,6 +73,7 @@
     </footer>
   </div>
 
+  <!-- pagination directive -->
 
   <script type="text/javascript">
     window.onload = function () {

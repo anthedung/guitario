@@ -8,7 +8,9 @@ angular.module('guitariosApp', [
     'ngMessages',
     'ui.router',
     'ngMaterial',
-    'ngAnimate'
+    'ngAnimate',
+    'infinite-scroll'
+    
   ])
   .config(function ($mdIconProvider) {
     $mdIconProvider

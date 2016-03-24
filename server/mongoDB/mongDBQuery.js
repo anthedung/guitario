@@ -4,10 +4,10 @@
 var duplicates = [];
 result = db.chords.aggregate([
   { $match: { 
-    title: { "$ne": '' }  
+    creditUrl: { "$ne": '' }  
   }},
   { $group: { 
-    _id: { title: "$title"}, 
+    _id: { creditUrl: "$creditUrl"}, 
     dups: { "$addToSet": "$_id" }, 
     count: { "$sum": 1 } 
   }}, 
@@ -24,3 +24,7 @@ result.forEach(function(doc) {
 })
 printjson(duplicates);     
 db.chords.remove({_id:{$in:duplicates}})
+
+
+// create unique index on creditUrl - each creditUrl should exist only 1
+db.chords.createIndex( { creditUrl:1 }, { unique: true } )

@@ -127,26 +127,39 @@ angular.module('guitariosApp')
       return content;
     };
 
-    this.selectChordsByRhythm = function (rhythm, limit) {
+    this.selectChordsNoFilter = function (limit) {
       var limit = limit || 7;
-      var url = baseUrl + 'rhythms' + '/' + rhythm + '/' + limit;
+      var url = baseUrl + '?limit=' + limit;
       var deferred = $q.defer();
-
       $http.get(url).success(function (chords) {
-        // console.log('Service - selectChordsByRhythm: ' + chords);
         chords = processChords(chords);
+        
         deferred.resolve(chords);
       })
-
-      // var url = baseUrl + rhythm + '/' + limit;
-      // http.get(url).success(function (chords) {
-
-      //   return chords;
-      // })
 
       return deferred.promise;
     }
 
+    this.selectChordsByRhythm = function (rhythm, limit, pageNo) {
+      var limit = limit || 7;
+      var url = baseUrl + 'rhythms' + '/' + rhythm + '?p=' + pageNo + '&limit=' + limit;
+      console.log('selectChordsByRhythm: '  + url)
+      var deferred = $q.defer();
+
+      $http.get(url).success(function (chords) {
+        console.log('Service - selectChordsByRhythm: ' + chords);
+        chords = processChords(chords);
+
+        deferred.resolve(chords);
+      })
+
+      return deferred.promise;
+    }
+
+    /*
+     1. keep only valid content chords
+     2. add no intonation to chords for search - remove Vietnamese songs
+     */
     this.processChords = function (chords) {
       return processChords(chords);
     }
