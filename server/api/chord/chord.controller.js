@@ -2,11 +2,7 @@
 
 var _ = require('lodash');
 var Chord = require('./chord.model');
-<<<<<<< Updated upstream
-var Crawler = require('./chord.vnmylife.service');
-=======
 var ChordGeneralService = require('./chord.service.js');
->>>>>>> Stashed changes
 var VnMylifeCrawler = require('./chord.vnmylife.crawl.service');
 
 // Get list of chords
@@ -185,13 +181,6 @@ exports.findChordsByGeneric = function (req, res) {
   });
 };
 
-<<<<<<< Updated upstream
-exports.crawlAllValidChordsToUpsert = function(req, res){
-  if (req.params.target == 'vnmylife'){
-    VnMylifeCrawler.crawlAndPersist();
-  }
-}
-=======
 exports.crawlAllValidChordsToUpsert = function (req, res) {
   if (req.query.test) {
     console.log("\n\n crawl testing only");
@@ -212,5 +201,3 @@ exports.search = function (req, res) {
     return res.status(200).json(chords);
   });
 }
-
->>>>>>> Stashed changes

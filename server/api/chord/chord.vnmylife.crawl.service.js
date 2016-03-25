@@ -10,29 +10,6 @@ var GeneralService = require('./chord.service.js');
 
 
 /**
-<<<<<<< Updated upstream
-* Crawl strategy:
-* 1. building all rhythm pages from predefined Map (with site with identifiable patterned paging)
-* 2. building all 10-song pages recursively
-* 3. building list of individual song pages recursively
-* 4. validate against database to ensure only valid song url/page to be crawled
-* 5. crawl individual song page recursively
-* 6. persist into DB
-*/
-
-var rhythmMap = {
-  // 'rhumba': 'http://www.vnmylife.com/mychord/rhythm/rhumba/9',
-  'ballade': 'http://www.vnmylife.com/mychord/rhythm/ballade/6',
-  'slowrock': 'http://www.vnmylife.com/mychord/rhythm/slow-rock/3',
-  'blues': 'http://www.vnmylife.com/mychord/rhythm/blues/5',
-  'chachacha': 'http://www.vnmylife.com/mychord/rhythm/chachacha/7',
-  'bosanova': 'http://www.vnmylife.com/mychord/rhythm/bossa-nova/15',
-  'valse': 'http://www.vnmylife.com/mychord/rhythm/valse/14',
-  'boston': 'http://www.vnmylife.com/mychord/rhythm/boston/11',
-  'tango': 'http://www.vnmylife.com/mychord/rhythm/tango/10',
-  'slow': 'http://www.vnmylife.com/mychord/rhythm/slow/2',
-  'disco': 'http://www.vnmylife.com/mychord/rhythm/disco/8'
-=======
  * Crawl strategy:
  * 1. building all rhythm pages from predefined Map (with site with identifiable patterned paging)
  * 2. building all 10-song pages recursively
@@ -77,33 +54,22 @@ var rhythmMap = {
 
   // batch all 5
   'All': 'http://www.vnmylife.com/mychord/search/all'
->>>>>>> Stashed changes
 };
 
 // crawlAllValidChordsToUpsert();
 exports.crawlAllValidChordsToUpsert = crawlAllValidChordsToUpsert;
 exports.crawlAndPersist = crawlAndPersist;
 
-<<<<<<< Updated upstream
-function crawlAndPersist(){
-  crawlAllValidChordsToUpsert().then(function(chords){
-=======
 function crawlAndPersist() {
   var t0  = Date.now();
   console.log("\n\nCrawlAndPersist start: "  + t0);
 
   crawlAllValidChordsToUpsert().then(function (chords) {
->>>>>>> Stashed changes
     console.log('\n\nStarting to persist of docs persisted: ' + chords.length);
 
-<<<<<<< Updated upstream
-    Chord.create(chords,function(err, docs){
-      if(err){
-=======
     Chord.create(chords, function (err, docs) {
 
       if (err) {
->>>>>>> Stashed changes
         console.log('persistValidChordToDB error: ' + err);
       } else {
         console.log('number of docs persisted: ' + docs.length);
@@ -114,13 +80,7 @@ function crawlAndPersist() {
   })
 }
 
-<<<<<<< Updated upstream
-
-
-function crawlAllValidChordsToUpsert(){
-=======
 function crawlAllValidChordsToUpsert() {
->>>>>>> Stashed changes
   var deferred = Q.defer();
   console.log('\npreparing to crawlAllValidChordsToUpsert...');
 
@@ -161,18 +121,10 @@ function crawlFullChordRecursive(validChordsToCrawl, counter, deferred){
         str += chunk;
       });
 
-<<<<<<< Updated upstream
-      res.on('end', function () {
-        if (str.length > 10) {
-          // pars the basic info chords for each page: title + url
-          console.log('\nGetting individual chords from: ' + url);
-=======
     res.on('end', function () {
       if (str.length > 10) {
         // pars the basic info chords for each page: title + url
         console.log('Getting individual chords from: ' + url);
->>>>>>> Stashed changes
-
           processChord(str, chord);
 
           // recursion

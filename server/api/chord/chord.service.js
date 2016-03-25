@@ -14,14 +14,10 @@ exports.recrawl = recrawl;
 exports.findAllTitlesLowerCase = findAllTitlesLowerCase;
 exports.findAllChords = findAllChords;
 exports.cleanData = cleanData;
-<<<<<<< Updated upstream:server/api/chord/chord.vnmylife.service.js
-exports.crawlMp3 = crawlMp3;
-=======
 exports.getRandomSubarray = getRandomSubarray;
 exports.removeDuplicatesBy = removeDuplicatesBy;
 exports.upsert = upsert;
 exports.transformtoEnChars = transformtoEnChars;
->>>>>>> Stashed changes:server/api/chord/chord.service.js
 
 // var chords = [];
 var rhythmMap = {
@@ -557,4 +553,23 @@ function transformtoEnChars (str) {
 }
 
 // cleanData();
+function getRandomSubarray(arr, size) {
+  var shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
+  while (i-- > min) {
+    index = Math.floor((i + 1) * Math.random());
+    temp = shuffled[index];
+    shuffled[index] = shuffled[i];
+    shuffled[i] = temp;
+  }
+  return shuffled.slice(min);
+}
+
+function removeDuplicatesBy(keyFn, array) {
+  var mySet = new Set();
+  return array.filter(function (x) {
+    var key = keyFn(x), isNew = !mySet.has(key);
+    if (isNew) mySet.add(key);
+    return isNew;
+  });
+}
 
