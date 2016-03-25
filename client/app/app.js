@@ -8,7 +8,9 @@ angular.module('guitariosApp', [
     'ngMessages',
     'ui.router',
     'ngMaterial',
-    'ngAnimate'
+    'ngAnimate',
+    'infinite-scroll'
+
   ])
   .config(function ($mdIconProvider) {
     $mdIconProvider
@@ -35,14 +37,15 @@ angular.module('guitariosApp', [
       .otherwise('/');
 
     $sceDelegateProvider.resourceUrlWhitelist(
-      ['self','http://*.chiasenhac.com/**']
+      ['self', 'http://*.chiasenhac.com/**']
     )
 
 
     $locationProvider.html5Mode(true);
   })
   .filter('trustUrl', function ($sce) {
-    return function(url) {
+    return function (url) {
       return $sce.trustAsResourceUrl(url);
     };
-  });;
+  });
+;

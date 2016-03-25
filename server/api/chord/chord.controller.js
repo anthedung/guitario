@@ -201,3 +201,29 @@ exports.search = function (req, res) {
     return res.status(200).json(chords);
   });
 }
+
+exports.findRandomSingers = function (req, res) {
+  var limit = req.query.limit || 15;
+
+  Chord.find({}).select({title: 1, singers: 1, content: 1}).exec(function (err, chords) {
+    if (err) {
+      return handleError(res, err);
+    }
+
+    var count = 0;
+    var singers = chords.map(function (item) {
+      var singer = item.singers[0];
+      return (!singer || singer.length > 15 || singer.indexOf('(') > -1 || item.content.length < 10) ? '' : singer.toString("utf8");
+    }).filter(function (singer) {
+      return singer.length > 0;
+    });
+
+    singers = ChordGeneralService.removeDuplicatesBy(function (x) {
+      return x
+    }, singers);
+
+    singers = ChordGeneralService.getRandomSubarray(singers, limit);
+
+    return res.status(200).json(singers);
+  });
+}

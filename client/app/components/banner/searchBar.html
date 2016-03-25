@@ -8,18 +8,21 @@
                    md-selected-item-change="vm.selectedItemChange(item)"
                    md-items="item in vm.querySearch(vm.searchText)"
                    md-item-text="item.title"
-                   md-min-length="0"
+                   md-min-length="3"
                    placeholder="Search for your favorite songs?">
     <md-item-template>
-      <div layout="row">
-        <md-chips>
-          <md-chip class="anthe-chip"> {{vm.join(item.rhythms)}}</md-chip>
-        </md-chips>
-        <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.title}}</span>
-        <!-- <br> -->
-        <!-- <p md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.content}}</p> -->
+      <a class="anthe-link-button" href="chordDetails/{{item._id}}">
+        <div layout="row">
+          <md-chips>
+            <md-chip class="anthe-chip"> {{vm.join(item.rhythms)}}</md-chip>
+          </md-chips>
+          <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.title}}</span>
+          <!-- <br> -->
+          <!-- <p md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.content}}</p> -->
 
-      </div>
+        </div>
+      </a>
+
     </md-item-template>
     <md-not-found>
       Opps, not found.

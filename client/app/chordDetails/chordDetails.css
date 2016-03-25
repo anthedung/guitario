@@ -2,7 +2,7 @@
   min-width: 100% !important;
 }
 
-.anthe-guitarios-chord-card{
+.anthe-guitarios-chord-card {
   /*min-height: 170px;*/
   layout-padding: 70px;
   margin: 12px;
@@ -12,11 +12,11 @@
   color: dodgerblue;
 }
 
-.anthe-chords-category{
+.anthe-chords-category {
   padding: 1px !important;
 }
 
-.anthe-chip{
+.anthe-chip {
   color: rgb(45, 42, 42) !important;
   style: "cursor: pointer";
 }
