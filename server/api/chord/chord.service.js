@@ -14,7 +14,14 @@ exports.recrawl = recrawl;
 exports.findAllTitlesLowerCase = findAllTitlesLowerCase;
 exports.findAllChords = findAllChords;
 exports.cleanData = cleanData;
+<<<<<<< Updated upstream:server/api/chord/chord.vnmylife.service.js
 exports.crawlMp3 = crawlMp3;
+=======
+exports.getRandomSubarray = getRandomSubarray;
+exports.removeDuplicatesBy = removeDuplicatesBy;
+exports.upsert = upsert;
+exports.transformtoEnChars = transformtoEnChars;
+>>>>>>> Stashed changes:server/api/chord/chord.service.js
 
 // var chords = [];
 var rhythmMap = {
@@ -393,8 +400,7 @@ exports.cleanArray = cleanArray;
 function cleanArray(actual) {
   var newArray = [];
   for (var i = 0; i < actual.length; i++) {
-
-    if (actual[i] && actual[i].length > 1) {
+    if (actual[i] && actual[i].length > 1 && actual[i] !== '--Bạn chọn giúp điệu nhạc cho bài này nhé--') {
       newArray.push(actual[i]); // only valid names
     }
   }
@@ -526,7 +532,7 @@ String.prototype.regexIndexOf = function (regex, startpos) {
   return (indexOf >= 0) ? (indexOf + (startpos || 0)) : indexOf;
 }
 
-transformtoEnChars = function (str) {
+function transformtoEnChars (str) {
   str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
   str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
   str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");

@@ -6,7 +6,7 @@ var Chord = require('./chord.model');
 var http = require('http');
 var domain = 'http://www.vnmylife.com';
 var queryString = require('querystring');
-var GeneralService = require('./chord.vnmylife.service');
+var GeneralService = require('./chord.service.js');
 
 /*
 * crawl song links recursively

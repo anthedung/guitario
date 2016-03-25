@@ -6,10 +6,11 @@ var Chord = require('./chord.model');
 var http = require('http');
 var domain = 'http://www.vnmylife.com';
 var queryString = require('querystring');
-var GeneralService = require('./chord.vnmylife.service');
+var GeneralService = require('./chord.service.js');
 
 
 /**
+<<<<<<< Updated upstream
 * Crawl strategy:
 * 1. building all rhythm pages from predefined Map (with site with identifiable patterned paging)
 * 2. building all 10-song pages recursively
@@ -31,37 +32,95 @@ var rhythmMap = {
   'tango': 'http://www.vnmylife.com/mychord/rhythm/tango/10',
   'slow': 'http://www.vnmylife.com/mychord/rhythm/slow/2',
   'disco': 'http://www.vnmylife.com/mychord/rhythm/disco/8'
+=======
+ * Crawl strategy:
+ * 1. building all rhythm pages from predefined Map (with site with identifiable patterned paging)
+ * 2. building all 10-song pages recursively
+ * 3. building list of individual song pages recursively
+ * 4. validate against database to ensure only valid song url/page to be crawled
+ * 5. crawl individual song page recursively
+ * 6. persist into DB
+ */
+
+var START_FROM = 1;
+var END_PAGE = 300;
+
+var rhythmMap = {
+  // 'rhumba': 'http://www.vnmylife.com/mychord/rhythm/rhumba/9',
+  // 'ballade': 'http://www.vnmylife.com/mychord/rhythm/ballade/6',
+  // 'slowrock': 'http://www.vnmylife.com/mychord/rhythm/slow-rock/3',
+  // 'blues': 'http://www.vnmylife.com/mychord/rhythm/blues/5',
+  // 'chachacha': 'http://www.vnmylife.com/mychord/rhythm/chachacha/7',
+  // 'bosanova': 'http://www.vnmylife.com/mychord/rhythm/bossa-nova/15',
+  // 'valse': 'http://www.vnmylife.com/mychord/rhythm/valse/14',
+  // 'boston': 'http://www.vnmylife.com/mychord/rhythm/boston/11',
+  // 'tango': 'http://www.vnmylife.com/mychord/rhythm/tango/10',
+  // 'slow': 'http://www.vnmylife.com/mychord/rhythm/slow/2',
+  // 'disco': 'http://www.vnmylife.com/mychord/rhythm/disco/8',
+  //
+  // //batch 2
+  // 'slowsurf' : 'http://www.vnmylife.com/mychord/rhythm/slow-surf/4',
+  // 'bolero'  : 'http://www.vnmylife.com/mychord/rhythm/bolero/1',
+  // 'fox' : 'http://www.vnmylife.com/mychord/rhythm/fox/12',
+  //
+  // //batch 3
+  //'pop': 'http://www.vnmylife.com/mychord/rhythm/pop/16',
+  //'rock': 'http://www.vnmylife.com/mychord/rhythm/rock/13',
+  //'twist': 'http://www.vnmylife.com/mychord/rhythm/twist/18',
+  //
+  //// batch 4
+  //'habanera': 'http://www.vnmylife.com/mychord/rhythm/habanera/17',
+  //'March': 'http://www.vnmylife.com/mychord/rhythm/march/19',
+  //'Pasodope': 'http://www.vnmylife.com/mychord/rhythm/pasodope/20',
+  //'Slow Ballad': 'http://www.vnmylife.com/mychord/rhythm/slow-ballad/21',
+  //'Rap': 'http://www.vnmylife.com/mychord/rhythm/rap/22'
+
+  // batch all 5
+  'All': 'http://www.vnmylife.com/mychord/search/all'
+>>>>>>> Stashed changes
 };
 
 // crawlAllValidChordsToUpsert();
 exports.crawlAllValidChordsToUpsert = crawlAllValidChordsToUpsert;
 exports.crawlAndPersist = crawlAndPersist;
 
+<<<<<<< Updated upstream
 function crawlAndPersist(){
   crawlAllValidChordsToUpsert().then(function(chords){
-    console.log('\n\nStarting to persist of docs persisted: ' + chords.length);
-    console.log('\n\nStarting to persist of docs:\n ' + chords);
-    // Chord.collection.insert(chords, function(err, docs){
-    //   if(err){
-    //     console.log('persistValidChordToDB error: ' + err);
-    //   } else {
-    //     console.log('number of docs persisted: ' + docs.length);
-    //   }
-    // });
+=======
+function crawlAndPersist() {
+  var t0  = Date.now();
+  console.log("\n\nCrawlAndPersist start: "  + t0);
 
+  crawlAllValidChordsToUpsert().then(function (chords) {
+>>>>>>> Stashed changes
+    console.log('\n\nStarting to persist of docs persisted: ' + chords.length);
+
+<<<<<<< Updated upstream
     Chord.create(chords,function(err, docs){
       if(err){
+=======
+    Chord.create(chords, function (err, docs) {
+
+      if (err) {
+>>>>>>> Stashed changes
         console.log('persistValidChordToDB error: ' + err);
       } else {
         console.log('number of docs persisted: ' + docs.length);
       }
+      var t1 = Date.now();
+      console.log("\n\nCrawlAndPersist took " + (t1 - t0) + " milliseconds for " + chords.length + " chords");
     });
   })
 }
 
+<<<<<<< Updated upstream
 
 
 function crawlAllValidChordsToUpsert(){
+=======
+function crawlAllValidChordsToUpsert() {
+>>>>>>> Stashed changes
   var deferred = Q.defer();
   console.log('\npreparing to crawlAllValidChordsToUpsert...');
 
@@ -93,7 +152,7 @@ function crawlFullChordRecursive(validChordsToCrawl, counter, deferred){
   var chord = validChordsToCrawl[counter];
 
   var url = chord.creditUrl;
-  console.log('startCrawling:' + url);
+  console.log('\n\nstartCrawling:' + url);
 
   http.get(url, function(res){
     var str = '';
@@ -102,10 +161,17 @@ function crawlFullChordRecursive(validChordsToCrawl, counter, deferred){
         str += chunk;
       });
 
+<<<<<<< Updated upstream
       res.on('end', function () {
         if (str.length > 10) {
           // pars the basic info chords for each page: title + url
           console.log('\nGetting individual chords from: ' + url);
+=======
+    res.on('end', function () {
+      if (str.length > 10) {
+        // pars the basic info chords for each page: title + url
+        console.log('Getting individual chords from: ' + url);
+>>>>>>> Stashed changes
 
           processChord(str, chord);
 
@@ -164,10 +230,6 @@ function getValidChordsToCrawl(basicChordsCrawled, chordsInDB){
       chordsToCrawl.push(basicChordsCrawled[i]);
       console.log('valid creditUrl to crawl:' + basicChordsCrawled[i].creditUrl);
     }
-    // } else {
-    //   console.log('invalid creditUrl to crawl:' + basicChordsCrawled[i].creditUrl);
-    // }
-
   }
 
   return chordsToCrawl;
@@ -243,8 +305,11 @@ function getListOfIndividualChordsBasicInfoVnMylife(body, chords){
   $('div.article-content').map(function (i, link) {
     temp = cheerio.load($(link).toString());
     var chord = new Chord();
+    chord.version = 1;
 
     chord.title = temp('h3.entry-title').text().trim();
+
+    chord.titleEn = GeneralService.transformtoEnChars(chord.title);
 
     chord.songAuthors = [];
     var songAuthors = temp('b.author').text().trim().split(/[\n\r,]+/);
@@ -276,7 +341,7 @@ function getListOfIndividualChordsBasicInfoVnMylife(body, chords){
 }
 
 function processChord(body, chord) {
-  $ = cheerio.load(body);
+  var $ = cheerio.load(body);
   // console.log('chordProcessing.body: ' + body);
 
   chord.title = $('header h1.entry-title').text().trim();
@@ -286,9 +351,24 @@ function processChord(body, chord) {
 
   // rhythms
   chord.rhythms = [];
-  var rhythms = $('header.entry-header div.above-entry-meta span.cat-links a').text().replace('Điệu:', '').trim().split(/[\n\r,]+/);
+
+  var rhythms = $('header.entry-header select#dieunhac option:selected').map(function (i, link) {
+      return $(link).text().replace('Điệu', '').replace(':', '').replace(/\(.*\)/,'').trim().split(/[\n\r,]+/);
+  });
+  // console.log('processChord - select#dieunhac: ' + rhythms.length + ' ' + rhythms.join("-"));
+  rhythms = GeneralService.cleanArray(rhythms);
+  console.log('processChord - cleaned select#dieunhac: ' + rhythms.length + ' ' + rhythms.join("-"));
+
+  var invalid = (rhythms == null || rhythms.length < 1);
+  console.log('processChord - rhythms < 1 select#dieunhac: '+ invalid + ' ' + rhythms);
+  if (invalid){
+    rhythms = $('header.entry-header div.above-entry-meta span.cat-links a').text().replace('Điệu', '').replace(':','').trim().split(/[\n\r,]+/);
+    console.log('processChord - rhythms < 1: span.cat-links a: '+  rhythms);
+  }
+
   var cleaned = GeneralService.cleanArray(rhythms);
   cleaned.forEach(function (a) {
+    if (a !== '--Bạn chọn giúp điệu nhạc cho bài này nhé--')
       chord.rhythms.push(a);
     }
   );

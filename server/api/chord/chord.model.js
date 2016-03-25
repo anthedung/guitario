@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 
 var ChordSchema = new Schema({
   title: String,
+  titleEn: String,
   content: String,
   rhythms: [],
   songAuthors: [],

@@ -1,0 +1,63 @@
+<div layout="column" class="anthe-content" ng-cloak onscroll="alert('haha')">
+
+  <div ng-include="'app/components/banner/bannerSearchBar.html'" ng-cloak></div>
+
+  <br>
+  <div layout="row" layout-align="center center" class="anthe-rythms-chips" ng-cloak>
+    <md-chips data-ng-repeat="rythm in vm.rythms34" ng-cloak>
+      <md-chip clickable class="anthe-chip" ng-click="vm.toggleShowChords(rythm, this)"
+               data-ng-class="vm.chipRhythms[rythm]">
+        <!-- <a class="anthe-link-button" href="chordsByRhythm/{{rythm}}"> -->
+        {{rythm}}
+        <!-- </a> -->
+      </md-chip>
+    </md-chips>
+  </div>
+  <div layout="row" layout-align="center center" class="anthe-rythms-chips" ng-cloak>
+    <md-chips data-ng-repeat="rythm in vm.rythms">
+      <md-chip clickable class="anthe-chip" ng-click="vm.toggleShowChords(rythm, this)"
+               data-ng-class="vm.chipRhythms[rythm]">
+        <!-- <a class="anthe-link-button" href="chordsByRhythm/{{rythm}}"> -->
+        {{rythm}}
+        <!-- </a> -->
+      </md-chip>
+    </md-chips>
+  </div>
+  <br>
+  <div class="anthe-quote" layout-align="center" data-if="vm.chordsVisible"
+       infinite-scroll="vm.nextPage()" infinite-scroll-disabled="vm.scrollShouldDisable" infinite-scroll-distance="1">
+    <md-card ng-repeat="chord in vm.chordsByRhythm" layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card">
+      <md-card-title>
+        <md-card-title-text>
+          <div class="anthe-headline">
+            <a data-ng-href="chordDetails/{{chord._id}}" class="anthe-link-button">
+              <strong>&#9834; {{chord.title}}</strong>
+            </a>
+            <a class="anthe-link-button" href="chordsBySinger/{{chord.singers[0]}}">
+              <span ng-if='chord.songAuthors.length > 0'><em>&nbsp;&#x2606;
+                {{vm.join(chord.singers)}}</em></span>
+            </a>
+          </div>
+        </md-card-title-text>
+      </md-card-title>
+      <div .md-whiteframe-2dp>
+        <md-card-content ng-href="#chordDetails/{{chord._id}}">
+          <div>
+            <a data-ng-href="chordDetails/{{chord._id}}" class="anthe-link-button">
+              <p>"{{vm.getStandardDescLength(chord.content)}}"</p>
+              <span ng-if='chord.rhythms.length > 0'> <em>&nbsp;&#119074;&nbsp;{{vm.join(chord.rhythms)}}</em> </span>
+            </a>
+            <a class="anthe-link-button" href="{{chord.creditUrl}}">
+              <span ng-if='chord.chordAuthor.length > 0'> <em>&nbsp;&#119083;&nbsp;{{chord.chordAuthor}}</em> </span>
+            </a>
+          </div>
+        </md-card-content>
+      </div>
+    </md-card>
+    <div class="spacer" style="clear: both;"></div>
+  </div>
+
+  <div ng-include="'app/components/banner/footer.html'" ng-cloak></div>
+
+
+</div>
