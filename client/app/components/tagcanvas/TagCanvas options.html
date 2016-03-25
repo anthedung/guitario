@@ -1,353 +1,205 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>TagCanvas options</title>
-  <link rel="stylesheet" type="text/css" charset="utf-8" href="g.css"/>
-  <link rel="shortcut icon" href="favicon.ico"/>
-  <meta name="verify-v1" content="BBkjRefRXlA3Tf6oGjfzboK8pfgijneuUKOlkodlLuU="/>
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="news.rss"/>
-  <link rel="canonical" href="http://www.goat1000.com/tagcanvas-options.php"/>
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-7839831-1']);
-    _gaq.push(['_trackPageview']);
-    _gaq.push(['_trackPageLoadTime']);
+<meta charset="utf-8">
+<title>TagCanvas options</title>
+<link rel="stylesheet" type="text/css" charset="utf-8" href="g.css" />
+<link rel="shortcut icon" href="favicon.ico" />
+<meta name="verify-v1" content="BBkjRefRXlA3Tf6oGjfzboK8pfgijneuUKOlkodlLuU=" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="news.rss" />
+<link rel="canonical" href="http://www.goat1000.com/tagcanvas-options.php" />
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-7839831-1']);
+_gaq.push(['_trackPageview']);
+_gaq.push(['_trackPageLoadTime']);
 
-    (function () {
-      var ga = document.createElement('script');
-      ga.type = 'text/javascript';
-      ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-  <script type="text/javascript" src="monster.js"></script>
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<script type="text/javascript" src="monster.js"></script>
 
-  <style type="text/css">
-    <!--
-    /**
-     * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
-     * (http://qbnz.com/highlighter/ and http://geshi.org/)
-     */
-    .javascript {
-      font-family: 'Andale Mono', Consolas, monospace;
-      font-size: 11px
-    }
+<style type="text/css">
+<!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.javascript  {font-family: 'Andale Mono', Consolas, monospace; font-size: 11px}
+.javascript .imp {font-weight: bold; color: red;}
+.javascript .kw1 {color: #000066; font-weight: bold;}
+.javascript .kw2 {color: #003366; font-weight: bold;}
+.javascript .kw3 {color: #000066;}
+.javascript .kw5 {color: #FF0000;}
+.javascript .co1 {color: #006600; font-style: italic;}
+.javascript .co2 {color: #009966; font-style: italic;}
+.javascript .coMULTI {color: #006600; font-style: italic;}
+.javascript .es0 {color: #000099; font-weight: bold;}
+.javascript .br0 {color: #009900;}
+.javascript .sy0 {color: #339933;}
+.javascript .st0 {color: #3366CC;}
+.javascript .nu0 {color: #CC0000;}
+.javascript .me1 {color: #660066;}
+.javascript span.xtra { display:block; }
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.html4strict  {font-family: 'Andale Mono', Consolas, monospace; font-size: 11px}
+.html4strict .imp {font-weight: bold; color: red;}
+.html4strict .kw2 {color: #000000; font-weight: bold;}
+.html4strict .kw3 {color: #000066;}
+.html4strict .es0 {color: #000099; font-weight: bold;}
+.html4strict .br0 {color: #66cc66;}
+.html4strict .sy0 {color: #66cc66;}
+.html4strict .st0 {color: #ff0000;}
+.html4strict .nu0 {color: #cc66cc;}
+.html4strict .sc-2 {color: #404040;}
+.html4strict .sc-1 {color: #808080; font-style: italic;}
+.html4strict .sc0 {color: #00bbdd;}
+.html4strict .sc1 {color: #ddbb00;}
+.html4strict .sc2 {color: #009900;}
+.html4strict span.xtra { display:block; }
 
-    .javascript .imp {
-      font-weight: bold;
-      color: red;
-    }
-
-    .javascript .kw1 {
-      color: #000066;
-      font-weight: bold;
-    }
-
-    .javascript .kw2 {
-      color: #003366;
-      font-weight: bold;
-    }
-
-    .javascript .kw3 {
-      color: #000066;
-    }
-
-    .javascript .kw5 {
-      color: #FF0000;
-    }
-
-    .javascript .co1 {
-      color: #006600;
-      font-style: italic;
-    }
-
-    .javascript .co2 {
-      color: #009966;
-      font-style: italic;
-    }
-
-    .javascript .coMULTI {
-      color: #006600;
-      font-style: italic;
-    }
-
-    .javascript .es0 {
-      color: #000099;
-      font-weight: bold;
-    }
-
-    .javascript .br0 {
-      color: #009900;
-    }
-
-    .javascript .sy0 {
-      color: #339933;
-    }
-
-    .javascript .st0 {
-      color: #3366CC;
-    }
-
-    .javascript .nu0 {
-      color: #CC0000;
-    }
-
-    .javascript .me1 {
-      color: #660066;
-    }
-
-    .javascript span.xtra {
-      display: block;
-    }
-
-    /**
-     * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
-     * (http://qbnz.com/highlighter/ and http://geshi.org/)
-     */
-    .html4strict {
-      font-family: 'Andale Mono', Consolas, monospace;
-      font-size: 11px
-    }
-
-    .html4strict .imp {
-      font-weight: bold;
-      color: red;
-    }
-
-    .html4strict .kw2 {
-      color: #000000;
-      font-weight: bold;
-    }
-
-    .html4strict .kw3 {
-      color: #000066;
-    }
-
-    .html4strict .es0 {
-      color: #000099;
-      font-weight: bold;
-    }
-
-    .html4strict .br0 {
-      color: #66cc66;
-    }
-
-    .html4strict .sy0 {
-      color: #66cc66;
-    }
-
-    .html4strict .st0 {
-      color: #ff0000;
-    }
-
-    .html4strict .nu0 {
-      color: #cc66cc;
-    }
-
-    .html4strict .sc-2 {
-      color: #404040;
-    }
-
-    .html4strict .sc-1 {
-      color: #808080;
-      font-style: italic;
-    }
-
-    .html4strict .sc0 {
-      color: #00bbdd;
-    }
-
-    .html4strict .sc1 {
-      color: #ddbb00;
-    }
-
-    .html4strict .sc2 {
-      color: #009900;
-    }
-
-    .html4strict span.xtra {
-      display: block;
-    }
-
-    -->
-  </style>
+-->
+</style>
 
 </head>
-<body>
-<script type="text/javascript">ANCHORFREE_VERSION = "623161526"</script>
-<script type='text/javascript'>(function () {
-  if (typeof(_AF2$runned) != 'undefined' && _AF2$runned == true) {
-    return
-  }
-  _AF2$runned = true;
-  _AF2$ = {
-    'SN': 'HSSHIELD00SG',
-    'IP': '23.27.44.126',
-    'CH': 'HSSCNL100444',
-    'CT': 'z234',
-    'HST': '&isUpdated=0',
-    'AFH': 'hss152',
-    'RN': Math.floor(Math.random() * 999),
-    'TOP': (parent.location != document.location || top.location != document.location) ? 0 : 1,
-    'AFVER': '3.40',
-    'fbw': false,
-    'FBWCNT': 0,
-    'FBWCNTNAME': 'FBWCNT_CHROME',
-    'NOFBWNAME': 'NO_FBW_CHROME',
-    'B': 'c',
-    'VER': 'nonus'
-  };
-  if (_AF2$.TOP == 1) {
-    document.write("<scr" + "ipt src='http://box.anchorfree.net/insert/insert.php?sn=" + _AF2$.SN + "&ch=" + _AF2$.CH + "&v=" + ANCHORFREE_VERSION + 6 + "&b=" + _AF2$.B + "&ver=" + _AF2$.VER + "&afver=" + _AF2$.AFVER + "' type='text/javascript'></scr" + "ipt>");
-  }
-})();</script>
-<div id="logo">
-  <div style="width: 160px; position: absolute; top: 10px; left: 0; text-align: right">
-    <form action="http://www.google.com" id="cse-search-box">
-      <div>
-        <input type="hidden" name="cx" value="partner-pub-7519606359935719:5543126578"/>
-        <input type="hidden" name="ie" value="UTF-8"/>
-        <input type="text" name="q" size="20"/>
-        <input type="submit" name="sa" value="Search"/>
-      </div>
-    </form>
-
-    <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
+<body><script type="text/javascript">ANCHORFREE_VERSION="623161526"</script><script type='text/javascript'>(function(){if(typeof(_AF2$runned)!='undefined'&&_AF2$runned==true){return}_AF2$runned=true;_AF2$ = {'SN':'HSSHIELD00SG','IP':'23.27.44.126','CH':'HSSCNL100444','CT':'z234','HST':'&isUpdated=0','AFH':'hss152','RN':Math.floor(Math.random()*999),'TOP':(parent.location!=document.location||top.location!=document.location)?0:1,'AFVER':'3.40','fbw':false,'FBWCNT':0,'FBWCNTNAME':'FBWCNT_CHROME','NOFBWNAME':'NO_FBW_CHROME','B':'c','VER': 'nonus'};if(_AF2$.TOP==1){document.write("<scr"+"ipt src='http://box.anchorfree.net/insert/insert.php?sn="+_AF2$.SN+"&ch="+_AF2$.CH+"&v="+ANCHORFREE_VERSION+6+"&b="+_AF2$.B+"&ver="+_AF2$.VER+"&afver="+_AF2$.AFVER+"' type='text/javascript'></scr"+"ipt>");}})();</script><div id="logo">
+<div style="width: 160px; position: absolute; top: 10px; left: 0; text-align: right">
+<form action="http://www.google.com" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-7519606359935719:5543126578" />
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" name="q" size="20" />
+    <input type="submit" name="sa" value="Search" />
   </div>
-  <a href="./"><img src="images/logo2013.png" width="321" height="68" alt="Goat 1000"></a>
+</form>
+
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
+</div>
+<a href="./"><img src="images/logo2013.png" width="321" height="68" alt="Goat 1000"></a>
 </div>
 
 <div id="navigation">
-  <div id="navcontents">
-    <div id="menu">
-      <div><a href="./" title="Goat 1000 home">Goat 1000 home</a></div>
-      <div><a href="oldnews.php" title="Old News">Old News</a></div>
-      <div><a href="jpegsaver.php" title="JPEG Saver">JPEG Saver</a>
-        <div class="surround">
-          <div><a href="jpegsaver4.php" title="JPEG Saver 4.x">JPEG Saver 4.x</a></div>
-          <div><a href="jpegsaver-main.php" title="Main tab options">Main tab options</a></div>
-          <div><a href="jpegsaver-folders.php" title="Folders tab options">Folders tab options</a></div>
-          <div><a href="jpegsaver-position.php" title="Position/Resize tab options">Position/Resize tab options</a>
-          </div>
-          <div><a href="jpegsaver-background.php" title="Background tab options">Background tab options</a></div>
-          <div><a href="jpegsaver-styles.php" title="Styles tab options">Styles tab options</a></div>
-          <div><a href="jpegsaver-items.php" title="Items tab options">Items tab options</a></div>
-          <div><a href="jpegsaver-tokens.php" title="Item format tokens">Item format tokens</a></div>
-          <div><a href="jpegsaver-interactive.php" title="Interactive controls">Interactive controls</a></div>
-          <div><a href="jpegsaver-command-line.php" title="Command-line options">Command-line options</a></div>
-          <div><a href="jpegsaver-faq.php" title="Frequently asked questions">Frequently asked questions</a></div>
-        </div>
-      </div>
-      <div><a href="crcdropper.php" title="CRC Dropper">CRC Dropper</a></div>
-      <div><a href="svggraph.php" title="SVGGraph">SVGGraph</a>
-        <div class="surround">
-          <div><a href="svggraph-using.php" title="Using SVGGraph">Using SVGGraph</a></div>
-          <div><a href="svggraph-functions.php" title="Function reference">Function reference</a></div>
-          <div><a href="svggraph-colours.php" title="Colours, gradients and patterns">Colours, gradients and
-            patterns</a></div>
-          <div><a href="svggraph-embed.php" title="SVG in HTML">SVG in HTML</a></div>
-          <div><a href="svggraph-structured.php" title="Structured data">Structured data</a></div>
-          <div><a href="svggraph-settings.php" title="General settings">General settings</a></div>
-          <div><a href="svggraph-bar.php" title="Bar graphs">Bar graphs</a></div>
-          <div><a href="svggraph-bar3d.php" title="3D Bar graphs">3D Bar graphs</a></div>
-          <div><a href="svggraph-horizontal.php" title="Horizontal bar graphs">Horizontal bar graphs</a></div>
-          <div><a href="svggraph-line.php" title="Line graphs">Line graphs</a></div>
-          <div><a href="svggraph-scatter.php" title="Scatter graphs">Scatter graphs</a></div>
-          <div><a href="svggraph-radar.php" title="Radar graphs">Radar graphs</a></div>
-          <div><a href="svggraph-pie.php" title="Pie graphs">Pie graphs</a></div>
-          <div><a href="svggraph-misc.php" title="Other graphs">Other graphs</a></div>
-          <div><a href="svggraph-dimensions.php" title="Axis and grid options">Axis and grid options</a></div>
-          <div><a href="svggraph-axis-and-grid.php" title="Axis and grid styles">Axis and grid styles</a></div>
-          <div><a href="svggraph-dual-y-axis.php" title="Dual Y-axis graphs">Dual Y-axis graphs</a></div>
-          <div><a href="svggraph-titles.php" title="Titles and axis labels">Titles and axis labels</a></div>
-          <div><a href="svggraph-data-labels.php" title="Data labels">Data labels</a></div>
-          <div><a href="svggraph-legends.php" title="Legends">Legends</a></div>
-          <div><a href="svggraph-markers.php" title="Markers">Markers</a></div>
-          <div><a href="svggraph-guidelines.php" title="Guide or target lines">Guide or target lines</a></div>
-          <div><a href="svggraph-shapes.php" title="Shapes">Shapes</a></div>
-          <div><a href="svggraph-custom-labels.php" title="Custom labels">Custom labels</a></div>
-          <div><a href="svggraph-bgimage.php" title="Background images">Background images</a></div>
-          <div><a href="svggraph-responsive.php" title="Responsive design">Responsive design</a></div>
-          <div><a href="svggraph-errors.php" title="Error messages">Error messages</a></div>
-        </div>
-      </div>
-      <div><a href="tagcanvas.php" title="TagCanvas">TagCanvas</a>
-        <div class="surround open">
-          <div><a href="tagcanvas.php#links" title="Download links">Download links</a></div>
-          <div><a href="tagcanvas-install.php" title="Install instructions">Install instructions</a></div>
-          <div><a href="tagcanvas-functions.php" title="Function reference">Function reference</a></div>
-          <div><a href="tagcanvas-examples.php" title="Example pages">Example pages</a></div>
-          <div><span class=active><a href="tagcanvas-options.php" title="Options">Options</a></span></div>
-          <div><a href="tagcanvas-weighted.php" title="Weighted tags">Weighted tags</a></div>
-          <div><a href="tagcanvas-styling.php" title="Multiple colours and multiple fonts">Multiple colours and multiple
-            fonts</a></div>
-          <div><a href="tagcanvas-webfonts.php" title="Using web fonts">Using web fonts</a></div>
-          <div><a href="tagcanvas-drag.php" title="Drag control">Drag control</a></div>
-          <div><a href="tagcanvas-shapes.php" title="Cloud shapes">Cloud shapes</a></div>
-          <div><a href="tagcanvas-centre.php" title="Centre callback function">Centre callback function</a></div>
-          <div><a href="tagcanvas-faq.php" title="Frequently asked questions">Frequently asked questions</a></div>
-          <div><a href="tagcanvas-history.php" title="Version history">Version history</a></div>
-        </div>
-      </div>
-      <div><a href="downloads.php" title="Downloads">Downloads</a></div>
-      <div class="popup"><a href="" title="More...">More...</a>
-        <div class="surround">
-          <div><a href="trayblank.php" title="TrayBlank">TrayBlank</a></div>
-          <div><a href="accelerometer.php" title="Accelerometer">Accelerometer</a></div>
-          <div><a href="snow.php" title="Snow">Snow</a></div>
-          <div><a href="glowspot.php" title="Glowspot">Glowspot</a></div>
-          <div><a href="clock.php" title="March">March</a></div>
-        </div>
-      </div>
-      <div><a href="http://twitter.com/Goat1000" title="Twitter @Goat1000" rel="nofollow">Twitter @Goat1000</a></div>
-      <div><a href="donate.php" title="Donate!">Donate!</a></div>
-    </div>
-    <div id="under-menu">
-      <g:plusone></g:plusone>
-      <br/>
-      <span class='st_facebook' displayText='Facebook'></span>
-      <span class='st_twitter' displayText='Tweet'></span>
-      <span class='st_linkedin' displayText='LinkedIn'></span>
-      <span class='st_pinterest' displayText='Pinterest'></span>
-      <span class='st_stumbleupon' displayText='StumbleUpon'></span>
-      <span class='st_wordpress' displayText='WordPress'></span>
-      <span class='st_sharethis' displayText='ShareThis'></span>
-      <span class='st_email' displayText='Email'></span>
-    </div>
-  </div>
+<div id="navcontents">
+<div id="menu">
+<div><a href="./" title="Goat 1000 home">Goat 1000 home</a></div>
+<div><a href="oldnews.php" title="Old News">Old News</a></div>
+<div><a href="jpegsaver.php" title="JPEG Saver">JPEG Saver</a><div class="surround">
+<div><a href="jpegsaver4.php" title="JPEG Saver 4.x">JPEG Saver 4.x</a></div>
+<div><a href="jpegsaver-main.php" title="Main tab options">Main tab options</a></div>
+<div><a href="jpegsaver-folders.php" title="Folders tab options">Folders tab options</a></div>
+<div><a href="jpegsaver-position.php" title="Position/Resize tab options">Position/Resize tab options</a></div>
+<div><a href="jpegsaver-background.php" title="Background tab options">Background tab options</a></div>
+<div><a href="jpegsaver-styles.php" title="Styles tab options">Styles tab options</a></div>
+<div><a href="jpegsaver-items.php" title="Items tab options">Items tab options</a></div>
+<div><a href="jpegsaver-tokens.php" title="Item format tokens">Item format tokens</a></div>
+<div><a href="jpegsaver-interactive.php" title="Interactive controls">Interactive controls</a></div>
+<div><a href="jpegsaver-command-line.php" title="Command-line options">Command-line options</a></div>
+<div><a href="jpegsaver-faq.php" title="Frequently asked questions">Frequently asked questions</a></div>
+</div></div>
+<div><a href="crcdropper.php" title="CRC Dropper">CRC Dropper</a></div>
+<div><a href="svggraph.php" title="SVGGraph">SVGGraph</a><div class="surround">
+<div><a href="svggraph-using.php" title="Using SVGGraph">Using SVGGraph</a></div>
+<div><a href="svggraph-functions.php" title="Function reference">Function reference</a></div>
+<div><a href="svggraph-colours.php" title="Colours, gradients and patterns">Colours, gradients and patterns</a></div>
+<div><a href="svggraph-embed.php" title="SVG in HTML">SVG in HTML</a></div>
+<div><a href="svggraph-structured.php" title="Structured data">Structured data</a></div>
+<div><a href="svggraph-settings.php" title="General settings">General settings</a></div>
+<div><a href="svggraph-bar.php" title="Bar graphs">Bar graphs</a></div>
+<div><a href="svggraph-bar3d.php" title="3D Bar graphs">3D Bar graphs</a></div>
+<div><a href="svggraph-horizontal.php" title="Horizontal bar graphs">Horizontal bar graphs</a></div>
+<div><a href="svggraph-line.php" title="Line graphs">Line graphs</a></div>
+<div><a href="svggraph-scatter.php" title="Scatter graphs">Scatter graphs</a></div>
+<div><a href="svggraph-radar.php" title="Radar graphs">Radar graphs</a></div>
+<div><a href="svggraph-pie.php" title="Pie graphs">Pie graphs</a></div>
+<div><a href="svggraph-misc.php" title="Other graphs">Other graphs</a></div>
+<div><a href="svggraph-dimensions.php" title="Axis and grid options">Axis and grid options</a></div>
+<div><a href="svggraph-axis-and-grid.php" title="Axis and grid styles">Axis and grid styles</a></div>
+<div><a href="svggraph-dual-y-axis.php" title="Dual Y-axis graphs">Dual Y-axis graphs</a></div>
+<div><a href="svggraph-titles.php" title="Titles and axis labels">Titles and axis labels</a></div>
+<div><a href="svggraph-data-labels.php" title="Data labels">Data labels</a></div>
+<div><a href="svggraph-legends.php" title="Legends">Legends</a></div>
+<div><a href="svggraph-markers.php" title="Markers">Markers</a></div>
+<div><a href="svggraph-guidelines.php" title="Guide or target lines">Guide or target lines</a></div>
+<div><a href="svggraph-shapes.php" title="Shapes">Shapes</a></div>
+<div><a href="svggraph-custom-labels.php" title="Custom labels">Custom labels</a></div>
+<div><a href="svggraph-bgimage.php" title="Background images">Background images</a></div>
+<div><a href="svggraph-responsive.php" title="Responsive design">Responsive design</a></div>
+<div><a href="svggraph-errors.php" title="Error messages">Error messages</a></div>
+</div></div>
+<div><a href="tagcanvas.php" title="TagCanvas">TagCanvas</a><div class="surround open">
+<div><a href="tagcanvas.php#links" title="Download links">Download links</a></div>
+<div><a href="tagcanvas-install.php" title="Install instructions">Install instructions</a></div>
+<div><a href="tagcanvas-functions.php" title="Function reference">Function reference</a></div>
+<div><a href="tagcanvas-examples.php" title="Example pages">Example pages</a></div>
+<div><span class=active><a href="tagcanvas-options.php" title="Options">Options</a></span></div>
+<div><a href="tagcanvas-weighted.php" title="Weighted tags">Weighted tags</a></div>
+<div><a href="tagcanvas-styling.php" title="Multiple colours and multiple fonts">Multiple colours and multiple fonts</a></div>
+<div><a href="tagcanvas-webfonts.php" title="Using web fonts">Using web fonts</a></div>
+<div><a href="tagcanvas-drag.php" title="Drag control">Drag control</a></div>
+<div><a href="tagcanvas-shapes.php" title="Cloud shapes">Cloud shapes</a></div>
+<div><a href="tagcanvas-centre.php" title="Centre callback function">Centre callback function</a></div>
+<div><a href="tagcanvas-faq.php" title="Frequently asked questions">Frequently asked questions</a></div>
+<div><a href="tagcanvas-history.php" title="Version history">Version history</a></div>
+</div></div>
+<div><a href="downloads.php" title="Downloads">Downloads</a></div>
+<div class="popup"><a href="" title="More...">More...</a><div class="surround">
+<div><a href="trayblank.php" title="TrayBlank">TrayBlank</a></div>
+<div><a href="accelerometer.php" title="Accelerometer">Accelerometer</a></div>
+<div><a href="snow.php" title="Snow">Snow</a></div>
+<div><a href="glowspot.php" title="Glowspot">Glowspot</a></div>
+<div><a href="clock.php" title="March">March</a></div>
+</div></div>
+<div><a href="http://twitter.com/Goat1000" title="Twitter @Goat1000" rel="nofollow">Twitter @Goat1000</a></div>
+<div><a href="donate.php" title="Donate!">Donate!</a></div>
+</div>
+<div id="under-menu">
+<g:plusone></g:plusone>
+<br />
+<span class='st_facebook' displayText='Facebook'></span>
+<span class='st_twitter' displayText='Tweet'></span>
+<span class='st_linkedin' displayText='LinkedIn'></span>
+<span class='st_pinterest' displayText='Pinterest'></span>
+<span class='st_stumbleupon' displayText='StumbleUpon'></span>
+<span class='st_wordpress' displayText='WordPress'></span>
+<span class='st_sharethis' displayText='ShareThis'></span>
+<span class='st_email' displayText='Email'></span>
+</div>
+</div>
 </div>
 
 
 <div id="content">
 
-  <h1>TagCanvas options</h1>
-  <p><a href="tagcanvas.php">&laquo; Return to TagCanvas page</a></p>
+<h1>TagCanvas options</h1>
+<p><a href="tagcanvas.php">&laquo; Return to TagCanvas page</a></p>
 
-  <p>Skip to:</p>
-  <ul class="subnav">
-    <li><a href="#standalone">Stand-alone version</a></li>
-    <li><a href="#jquery">jQuery version</a></li>
-    <li><a href="#optionsList">Options list</a></li>
-  </ul>
+<p>Skip to:</p>
+<ul class="subnav">
+  <li><a href="#standalone">Stand-alone version</a></li>
+  <li><a href="#jquery">jQuery version</a></li>
+  <li><a href="#optionsList">Options list</a></li>
+</ul>
 
-  <p>There are a number of options for modifying the way the cloud looks and
-    behaves. This page explains how to set the options for your clouds to use and
-    provides a list of all the available options.</p>
+<p>There are a number of options for modifying the way the cloud looks and
+behaves. This page explains how to set the options for your clouds to use and
+provides a list of all the available options.</p>
 
-  <h2>Specifying options</h2>
-  <p>There are two ways of specifying options for the stand-alone version of
-    TagCanvas, and just the one way to set options for the jQuery plugin
-    version.</p>
+<h2>Specifying options</h2>
+<p>There are two ways of specifying options for the stand-alone version of 
+TagCanvas, and just the one way to set options for the jQuery plugin 
+version.</p>
 
-  <h3 id="standalone">Stand-alone - class variables</h3>
-  <p>The first method for setting options is to set the corresponding class
-    variables before calling the <code>Start</code> function:</p>
+<h3 id="standalone">Stand-alone - class variables</h3>
+<p>The first method for setting options is to set the corresponding class 
+variables before calling the <code>Start</code> function:</p>
 
-<pre class="html4strict"> <span class="sc2">&lt;<span class="kw2">script</span> <span class="kw3">type</span><span
-  class="sy0">=</span><span class="st0">&quot;text/javascript&quot;</span>&gt;</span>
+<pre class="html4strict"> <span class="sc2">&lt;<span class="kw2">script</span> <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;text/javascript&quot;</span>&gt;</span>
  window.onload = function() {
   // set colour of text and outline of active tag
   TagCanvas.textColour = '#ffffff';
@@ -355,17 +207,15 @@
   TagCanvas.Start('myCanvas');
  };
  <span class="sc2">&lt;<span class="sy0">/</span><span class="kw2">script</span>&gt;</span></pre>
-  <p>Using this method multiple tag clouds on the same page will share the
-    same set of options.
-  <p>
+<p>Using this method multiple tag clouds on the same page will share the 
+same set of options.<p>
 
-  <h3>Stand-alone - options array</h3>
-  <p>The second way to configure the stand-alone version is to pass in
-    the required options to the <code>Start</code> function as an array of
-    <code>name: value</code> pairs in the third argument:</p>
+<h3>Stand-alone - options array</h3>
+<p>The second way to configure the stand-alone version is to pass in 
+the required options to the <code>Start</code> function as an array of 
+<code>name: value</code> pairs in the third argument:</p>
 
-<pre class="html4strict"> <span class="sc2">&lt;<span class="kw2">script</span> <span class="kw3">type</span><span
-  class="sy0">=</span><span class="st0">&quot;text/javascript&quot;</span>&gt;</span>
+<pre class="html4strict"> <span class="sc2">&lt;<span class="kw2">script</span> <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;text/javascript&quot;</span>&gt;</span>
  var options = {
   textColour: '#fff',
   textHeight: 20,
@@ -376,23 +226,22 @@
   TagCanvas.Start('myCanvas', '', options);
  };
  <span class="sc2">&lt;<span class="sy0">/</span><span class="kw2">script</span>&gt;</span></pre>
-  <p>I use the word "array" in its more generic sense here - the
-    <code>{ x: y }</code> syntax actually creates an unnamed Javascript
-    object.</p>
+<p>I use the word "array" in its more generic sense here - the
+<code>{ x: y }</code> syntax actually creates an unnamed Javascript 
+object.</p>
 
-  <p>If you are using multiple clouds on a page, you could use both of the above
-    methods at the same time - set the options that you want for all your clouds
-    to share using class variables, then pass in the different options for each
-    cloud as arrays.</p>
+<p>If you are using multiple clouds on a page, you could use both of the above
+methods at the same time - set the options that you want for all your clouds
+to share using class variables, then pass in the different options for each
+cloud as arrays.</p>
 
-  <h3 id="jquery">jQuery - options array</h3>
-  <p>For the jQuery plugin version of TagCanvas, the first method of setting
-    options used by the standalone version is not available, so you must pass all
-    the relevant options into the <code>tagcanvas</code> function using the array
-    method:</p>
+<h3 id="jquery">jQuery - options array</h3>
+<p>For the jQuery plugin version of TagCanvas, the first method of setting 
+options used by the standalone version is not available, so you must pass all 
+the relevant options into the <code>tagcanvas</code> function using the array
+method:</p>
 
-<pre class="html4strict"> <span class="sc2">&lt;<span class="kw2">script</span> <span class="kw3">type</span><span
-  class="sy0">=</span><span class="st0">&quot;text/javascript&quot;</span>&gt;</span>
+<pre class="html4strict"> <span class="sc2">&lt;<span class="kw2">script</span> <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;text/javascript&quot;</span>&gt;</span>
  $(document).ready(function() {
    $('#myCanvas').tagcanvas({
      textColour : '#ffffff',
@@ -400,666 +249,484 @@
    });
  });
  <span class="sc2">&lt;<span class="sy0">/</span><span class="kw2">script</span>&gt;</span></pre>
-  <p>The options array is the first argument to the jQuery plugin function, as
-    it gets the canvas details from the jQuery selector.</p>
+<p>The options array is the first argument to the jQuery plugin function, as
+it gets the canvas details from the jQuery selector.</p>
 
-  <h2 id="optionsList">Options list</h2>
+<h2 id="optionsList">Options list</h2>
 
-  <p>The following table lists all the options that are available in the latest
-    version of TagCanvas.
+<p>The following table lists all the options that are available in the latest
+version of TagCanvas.
 
-  <p>When specifying an option the option name does not need to be in quotes.
-    The value should be quoted with single or double quotes unless it is a number,
-    an array or the Javascript keywords <code>true</code>, <code>false</code> or
-    <code>null</code>.</p>
+<p>When specifying an option the option name does not need to be in quotes.
+The value should be quoted with single or double quotes unless it is a number,
+an array or the Javascript keywords <code>true</code>, <code>false</code> or
+<code>null</code>.</p>
 
-  <p>The default values for each option are shown in the second column of
-    the table below.</p>
+<p>The default values for each option are shown in the second column of
+the table below.</p>
 
-  <script>
-    window.addEventListener('load', function () {
-      var hdr = document.getElementsByClassName('clickHeader'), i;
-      for (i = 0; i < hdr.length; ++i) {
-        hdr[i].addEventListener('click', function (e) {
-          var h = e.target, t = h.parentNode.nextElementSibling, d = 'none',
-            p = '+ Show table', c = 'clickHeader closed';
-          if (t.getAttribute('data-show')) {
-            t.removeAttribute('data-show');
-          } else {
-            t.setAttribute('data-show', '1');
-            d = 'block';
-            p = '- Hide table';
-            c = 'clickHeader';
-          }
-          t.style.display = d;
-          h.innerHTML = p;
-          h.className = c;
-        }, false);
-      }
-    }, false);
-  </script>
-  <div class="table centred">
-    <h2 id="tagcanvas-options">TagCanvas options <span class="clickHeader">- Hide table</span></h2>
-    <div class="clickOpen" data-show="1">
-      <table class="options">
-        <tr>
-          <th>Option</th>
-          <th>Default</th>
-          <th>Description</th>
-        </tr>
-        <tr class="odd">
-          <td><code>activeCursor</code></td>
-          <td><code>"pointer"</code></td>
-          <td>The <a href="http://www.w3.org/TR/CSS21/ui.html#propdef-cursor" target="_blank">CSS cursor type</a> to use
-            when the mouse is over a tag.
-          </td>
-        </tr>
-        <tr>
-          <td><code>animTiming</code></td>
-          <td><code>Smooth</code></td>
-          <td>The animation timing function for use with the RotateTag and TagToFront functions. The values available
-            are "Smooth" and "Linear".
-          </td>
-        </tr>
-        <tr class="odd">
-          <td><code>bgColour</code></td>
-          <td><code class="keyword">null</code></td>
-          <td>Background colour of tag, <code>null</code> for no background. The string <code>"tag"</code> means use the
-            original link background colour.
-          </td>
-        </tr>
-        <tr>
-          <td><code>bgOutline</code></td>
-          <td><code class="keyword">null</code></td>
-          <td>Colour of tag background outline. Use <code>null</code> for the same as the text colour, use
-            <code>"tag"</code> for the original link text colour.
-          </td>
-        </tr>
-        <tr class="odd">
-          <td><code>bgOutlineThickness</code></td>
-          <td><code>0</code></td>
-          <td>Thickness of tag background outline in pixels, 0 for no outline.</td>
-        </tr>
-        <tr>
-          <td><code>bgRadius</code></td>
-          <td><code>0</code></td>
-          <td>Radius for rounded corners of background in pixels.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>centreFunc</code></td>
-          <td><code class="keyword">null</code></td>
-          <td>Function for drawing in centre of cloud. The function is passed in these parameters in order: canvas 2D
-            context; canvas width; canvas height; centre X; centre Y. See the <a href="tagcanvas-centre.php">centre
-              callback function</a> page for details.
-          </td>
-        </tr>
-        <tr>
-          <td><code>centreImage</code></td>
-          <td><code class="keyword">null</code></td>
-          <td>Image to draw at centre of cloud. Uses a built-in <code>centreFunc</code> callback function to draw the
-            image at full size in the middle of the canvas.
-          </td>
-        </tr>
-        <tr class="odd">
-          <td><code>clickToFront</code></td>
-          <td><code class="keyword">null</code></td>
-          <td>If set to a number, the selected tag will move to the front in this many milliseconds before activating.
-          </td>
-        </tr>
-        <tr>
-          <td><code>decel</code></td>
-          <td><code>0.95</code></td>
-          <td>Deceleration rate when mouse leaves canvas.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>depth</code></td>
-          <td><code>0.5</code></td>
-          <td>Controls the perspective (0.0-1.0)</td>
-        </tr>
-        <tr>
-          <td><code>dragControl</code></td>
-          <td><code class="keyword">false</code></td>
-          <td>When enabled, cloud moves when dragged instead of based on mouse position.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>dragThreshold</code></td>
-          <td><code>4</code></td>
-          <td>The number of pixels that the cursor must move to count as a drag instead of a click.</td>
-        </tr>
-        <tr>
-          <td><code>fadeIn</code></td>
-          <td><code>0</code></td>
-          <td>Time to fade in tags at start, in milliseconds.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>freezeActive</code></td>
-          <td><code class="keyword">false</code></td>
-          <td>Set to <code>true</code> to pause movement when a tag is highlighted.</td>
-        </tr>
-        <tr>
-          <td><code>freezeDecel</code></td>
-          <td><code class="keyword">false</code></td>
-          <td>Set to <code>true</code> to decelerate when highlighted tags freeze instead of stopping suddenly.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>frontSelect</code></td>
-          <td><code class="keyword">false</code></td>
-          <td>Set to <code>true</code> to prevent selection of tags at back of cloud.</td>
-        </tr>
-        <tr>
-          <td><code>hideTags</code></td>
-          <td><code class="keyword">true</code></td>
-          <td>Set to <code>true</code> to automatically hide the tag list element if TagCanvas is started successfully.
-          </td>
-        </tr>
-        <tr class="odd">
-          <td><code>imageAlign</code></td>
-          <td><code>"centre"</code></td>
-          <td>Horizontal image alignment, one of &ldquo;centre&rdquo;, &ldquo;left&rdquo; or &ldquo;right&rdquo;.</td>
-        </tr>
-        <tr>
-          <td><code>imageMode</code></td>
-          <td><code class="keyword">null</code></td>
-          <td>What to display when tag contains images and text.
-            <dl>
-              <dt>null</dt>
-              <dd>Image if present, otherwise text.</dd>
-              <dt>image</dt>
-              <dd>Image tags only.</dd>
-              <dt>text</dt>
-              <dd>Text tags only.</dd>
-              <dt>both</dt>
-              <dd>Image and text on tag using <code>imagePosition</code>.</dd>
-            </dl>
-          </td>
-        </tr>
-        <tr class="odd">
-          <td><code>imagePadding</code></td>
-          <td><code>2</code></td>
-          <td>Distance between image and text when using an <code>imageMode</code> of &ldquo;both&rdquo;.</td>
-        </tr>
-        <tr>
-          <td><code>imagePosition</code></td>
-          <td><code>"left"</code></td>
-          <td>Position of image relative to text when using an <code>imageMode</code> of &ldquo;both&rdquo;. Options
-            are &ldquo;left&rdquo;, &ldquo;right&rdquo;, &ldquo;top&ldquo; or &ldquo;bottom&rdquo;.
-          </td>
-        </tr>
-        <tr class="odd">
-          <td><code>imageRadius</code></td>
-          <td><code>0</code></td>
-          <td>Radius for image corners, in pixels. Also supports using a percentage which must be enclosed in a string,
-            e.g. <code>"20%"</code>.
-          </td>
-        </tr>
-        <tr>
-          <td><code>imageScale</code></td>
-          <td><code>1</code></td>
-          <td>Amount to scale images by - the default of 1 uses the size they appear on the page. For no scaling (use
-            the actual image size) set this to <code>null</code>.
-          </td>
-        </tr>
-        <tr class="odd">
-          <td><code>imageVAlign</code></td>
-          <td><code>"middle"</code></td>
-          <td>Vertical image alignment, one of &ldquo;middle&rdquo;, &ldquo;top&rdquo; or &ldquo;bottom&rdquo;.</td>
-        </tr>
-        <tr>
-          <td><code>initial</code></td>
-          <td><code class="keyword">null</code></td>
-          <td>Starting rotation speed, with horizontal and vertical values as an array, e.g. <code>[0.8,-0.3]</code>.
-            Values are multiplied by <code>maxSpeed</code>.
-          </td>
-        </tr>
-        <tr class="odd">
-          <td><code>interval</code><sup><a href="#interval-timer">[1]</a></sup></td>
-          <td><code>20</code></td>
-          <td>Interval between animation frames, in milliseconds.</td>
-        </tr>
-        <tr>
-          <td><code>lock</code></td>
-          <td><code class="keyword">null</code></td>
-          <td>Limits rotation of the cloud using the mouse. A value of <code>"x"</code>
-            limits rotation to the x-axis, <code>"y"</code> limits rotation to the
-            y-axis. A value of <code>"xy"</code> will prevent the cloud rotating in
-            response to the mouse - the cloud will only move if the <code>initial</code>
-            option is used to give it a starting speed.
-          </td>
-        </tr>
-        <tr class="odd">
-          <td><code>maxBrightness</code></td>
-          <td><code>1.0</code></td>
-          <td>Brightness (opacity) of tags at front of cloud (0.0-1.0).</td>
-        </tr>
-        <tr>
-          <td><code>maxSpeed</code></td>
-          <td><code>0.05</code></td>
-          <td>Maximum speed of rotation.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>minBrightness</code></td>
-          <td><code>0.1</code></td>
-          <td>Brightness (opacity) of tags at back of cloud (0.0-1.0).</td>
-        </tr>
-        <tr>
-          <td><code>minSpeed</code></td>
-          <td><code>0.0</code></td>
-          <td>Minimum speed of rotation when mouse leaves canvas.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>minTags</code></td>
-          <td><code>0</code></td>
-          <td>The minimum number of tags to show in the cloud. If the number of links available is lower than this
-            value, the list will be repeated. The maximum supported value is 200. The <code>repeatTags</code> option
-            takes precedence over <code>minTags</code>.
-          </td>
-        </tr>
-        <tr>
-          <td><code>noMouse</code></td>
-          <td><code class="keyword">false</code></td>
-          <td>Set to <code>true</code> to prevent any mouse interaction. The <code>initial</code> option must be used to
-            animate the cloud, otherwise it will be motionless.
-          </td>
-        </tr>
-        <tr class="odd">
-          <td><code>noSelect</code></td>
-          <td><code class="keyword">false</code></td>
-          <td>Set to <code>true</code> to prevent the selection of tags.</td>
-        </tr>
-        <tr>
-          <td><code>noTagsMessage</code></td>
-          <td><code class="keyword">true</code></td>
-          <td>Displays &ldquo;No tags&rdquo; instead of an empty canvas when there are no tags available.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>offsetX</code></td>
-          <td><code>0</code></td>
-          <td>Offsets the centre of the cloud horizontally (measured in pixels)</td>
-        </tr>
-        <tr>
-          <td><code>offsetY</code></td>
-          <td><code>0</code></td>
-          <td>Offsets the centre of the cloud vertically (measured in pixels)</td>
-        </tr>
-        <tr class="odd">
-          <td><code>outlineColour</code></td>
-          <td><code>"#ffff99"</code></td>
-          <td>Colour of the active tag highlight. This can be a colour to use for all tags, or one of these options to
-            set the colour differently for each tag:
-            <dl>
-              <dt>tag</dt>
-              <dd>Use the text colour from the original tag link</dd>
-              <dt>tagbg</dt>
-              <dd>Use the background colour from the original tag link</dd>
-            </dl>
-            See also the &ldquo;outline&rdquo; <code>weightMode</code> for another way to set the highlight colour.
-          </td>
-        </tr>
-        <tr>
-          <td><code>outlineDash</code></td>
-          <td><code>0</code></td>
-          <td>Size of marching ants dash for outline/classic highlights, 0 for no dashes</td>
-        </tr>
-        <tr class="odd">
-          <td><code>outlineDashSpace</code></td>
-          <td><code>0</code></td>
-          <td>Size of space between marching ants dashes, 0 for same as <code>outlineDash</code></td>
-        </tr>
-        <tr>
-          <td><code>outlineDashSpeed</code></td>
-          <td><code>1</code></td>
-          <td>Speed of marching ants animation, 0 for no movement, negative for reverse</td>
-        </tr>
-        <tr class="odd">
-          <td><code>outlineIncrease</code></td>
-          <td><code>4</code></td>
-          <td>Number of pixels to increase size of tag by for the &ldquo;size&rdquo; outline method. Negative values are
-            supported for decreasing the size.
-          </td>
-        </tr>
-        <tr>
-          <td><code>outlineMethod</code></td>
-          <td><code>"outline"</code></td>
-          <td>Type of highlight to use. Options are:
-            <dl>
-              <dt>outline</dt>
-              <dd>An outline at the same depth as the active tag.</dd>
-              <dt>classic</dt>
-              <dd>Old-style outline on top of all tags.</dd>
-              <dt>block</dt>
-              <dd>Solid block of colour around the active tag.</dd>
-              <dt>colour</dt>
-              <dd>Changes the colour of the text or image of the current tag to the <code>outlineColour</code> value.
-              </dd>
-              <dt>size</dt>
-              <dd>Increases the size of the tag, using the <code>outlineIncrease</code> option for the amount.</dd>
-              <dt>none</dt>
-              <dd>No highlighting at all.</dd>
-            </dl>
-          </td>
-        </tr>
-        <tr class="odd">
-          <td><code>outlineOffset</code></td>
-          <td><code>5</code></td>
-          <td>Distance of outline from text, in pixels. This also increases the size of the active area around the
-            tag.
-          </td>
-        </tr>
-        <tr>
-          <td><code>outlineRadius</code></td>
-          <td><code>0</code></td>
-          <td>Radius for rounded corners on outline box in pixels</td>
-        </tr>
-        <tr class="odd">
-          <td><code>outlineThickness</code></td>
-          <td><code>2</code></td>
-          <td>Thickness of outline in pixels</td>
-        </tr>
-        <tr>
-          <td><code>padding</code></td>
-          <td><code>0</code></td>
-          <td>Amount of space around text and inside background.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>pinchZoom</code></td>
-          <td><code class="keyword">false</code></td>
-          <td>Set to <code>true</code> to enable zooming in and out of the cloud by pinching on touchscreen devices.
-          </td>
-        </tr>
-        <tr>
-          <td><code>pulsateTime</code></td>
-          <td><code>3</code></td>
-          <td>Pulse rate, in seconds per beat</td>
-        </tr>
-        <tr class="odd">
-          <td><code>pulsateTo</code></td>
-          <td><code>1.0</code></td>
-          <td>Pulsate outline to this opacity (0.0-1.0)</td>
-        </tr>
-        <tr>
-          <td><code>radiusX</code></td>
-          <td><code>1</code></td>
-          <td>Initial size of cloud from centre to sides.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>radiusY</code></td>
-          <td><code>1</code></td>
-          <td>Initial size of cloud from centre to top and bottom.</td>
-        </tr>
-        <tr>
-          <td><code>radiusZ</code></td>
-          <td><code>1</code></td>
-          <td>Initial size of cloud from centre to front and back.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>repeatTags</code></td>
-          <td><code>0</code></td>
-          <td>The number of times to repeat the list of tags in the cloud. The maximum supported value is 64. This
-            option overrides the <code>minTags</code> option.
-          </td>
-        </tr>
-        <tr>
-          <td><code>reverse</code></td>
-          <td><code class="keyword">false</code></td>
-          <td>Set to <code>true</code> to reverse direction of movement relative to mouse position.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>scrollPause</code></td>
-          <td><code>0</code></td>
-          <td>Animation delay in milliseconds for when the page is being scrolled. Applies to all TagCanvas instances on
-            the page.
-          </td>
-        </tr>
-        <tr>
-          <td><code>shadow</code></td>
-          <td><code>"#000000"</code></td>
-          <td>Colour of the shadow behind each tag.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>shadowBlur</code></td>
-          <td><code>0</code></td>
-          <td>Amount of tag shadow blurring, in pixels.</td>
-        </tr>
-        <tr>
-          <td><code>shadowOffset</code></td>
-          <td><code>[0,0]</code></td>
-          <td>X and Y offset of the tag shadow, in pixels.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>shape</code></td>
-          <td><code>"sphere"</code></td>
-          <td>The shape of the cloud. Currently supported are <code>sphere</code>, <code>hcylinder</code> for a cylinder
-            that starts off horizontal, <code>vcylinder</code> for a cylinder that starts off vertical,
-            <code>hring</code> for a horizontal circle and <code>vring</code> for a vertical circle. You may also
-            provide the name of a function to use for generating the shape. See the <a href="tagcanvas-shapes.php">TagCanvas
-              shapes page</a> for details and examples.
-          </td>
-        </tr>
-        <tr>
-          <td><code>shuffleTags</code></td>
-          <td><code class="keyword">false</code></td>
-          <td>Set to <code>true</code> to randomize the order of the tags.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>splitWidth</code></td>
-          <td><code>0</code></td>
-          <td>If greater than 0, breaks the tag into multiple lines at word boundaries when the line would be longer
-            than this value. Lines are automatically broken at <code>&lt;br&gt;</code> tags.
-          </td>
-        </tr>
-        <tr>
-          <td><code>stretchX</code></td>
-          <td><code>1</code></td>
-          <td>Stretch or compress the cloud horizontally.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>stretchY</code></td>
-          <td><code>1</code></td>
-          <td>Stretch or compress the cloud vertically.</td>
-        </tr>
-        <tr>
-          <td><code>textAlign</code></td>
-          <td><code>"centre"</code></td>
-          <td>Horizontal text alignment, one of &ldquo;centre&rdquo;, &ldquo;left&rdquo; or &ldquo;right&rdquo;.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>textColour</code><sup><a href="#text-colour">[2]</a></sup></td>
-          <td><code>"#ff99ff"</code></td>
-          <td>Colour of the tag text - empty string or <code>null</code> to use the colour of the original link.</td>
-        </tr>
-        <tr>
-          <td><code>textFont</code><sup><a href="#text-colour">[2]</a></sup></td>
-          <td><code>"Helvetica, Arial,<br/> sans-serif"</code></td>
-          <td>Font family for the tag text - empty string or <code>null</code> to use the font of the original link.
-          </td>
-        </tr>
-        <tr class="odd">
-          <td><code>textHeight</code></td>
-          <td><code>15</code></td>
-          <td>Height of the tag text font (in pixels).</td>
-        </tr>
-        <tr>
-          <td><code>textVAlign</code></td>
-          <td><code>"middle"</code></td>
-          <td>Vertical text alignment, one of &ldquo;middle&rdquo;, &ldquo;top&rdquo; or &ldquo;bottom&rdquo;.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>tooltip</code><sup><a href="#tooltips">[3]</a></sup></td>
-          <td><code class="keyword">null</code></td>
-          <td>Sets tooltip display method: <code>null</code> for no tooltips; <code>native</code> for operating system
-            tooltips; <code>div</code> for div-based.
-          </td>
-        </tr>
-        <tr>
-          <td><code>tooltipClass</code><sup><a href="#tooltips">[3]</a></sup></td>
-          <td><code>"tctooltip"</code></td>
-          <td>Class of tooltip div.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>tooltipDelay</code><sup><a href="#tooltips">[3]</a></sup></td>
-          <td><code>300</code></td>
-          <td>Time to pause while mouse is not moving before displaying tooltip div, in milliseconds.</td>
-        </tr>
-        <tr>
-          <td><code>txtOpt</code></td>
-          <td><code class="keyword">true</code></td>
-          <td>Text optimisation, converts text tags to images for better performance.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>txtScale</code></td>
-          <td><code>2</code></td>
-          <td>Scaling factor of text when converting to image in <code>txtOpt</code> mode.</td>
-        </tr>
-        <tr>
-          <td><code>weight</code><sup><a href="#weights">[4]</a></sup></td>
-          <td><code class="keyword">false</code></td>
-          <td>Set to <code>true</code> to turn on weighting of tags.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>weightFrom</code><sup><a href="#weights">[4]</a></sup></td>
-          <td><code class="keyword">null</code></td>
-          <td>The link attribute to take the tag weight from. The default of <code>null</code> means that the weight is
-            taken from the calculated link font size.
-          </td>
-        </tr>
-        <tr>
-          <td><code>weightGradient</code><sup><a href="#weights">[4]</a></sup></td>
-          <td><code>{0:'#f00', 0.33:'#ff0',<br/> 0.66:'#0f0', 1:'#00f'}</code></td>
-          <td>The colour gradient used for colouring tags, backgrounds, etc. when using a colour-based weight mode.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>weightMode</code><sup><a href="#weights">[4]</a></sup></td>
-          <td><code>"size"</code></td>
-          <td>Method to use for displaying tag weights. Should be one of:
-            <dl>
-              <dt>size</dt>
-              <dd>Display more significant tags in a larger font size.</dd>
-              <dt>colour</dt>
-              <dd>Display tags using colour values from the <code>weightGradient</code> option.</dd>
-              <dt>both</dt>
-              <dd>Use both size and colour to visualise weights.</dd>
-              <dt>bgcolour</dt>
-              <dd>Use a <code>weightGradient</code> to set the tag background colour.</dd>
-              <dt>bgoutline</dt>
-              <dd>Use a <code>weightGradient</code> to set the tag background outline colour. Tag background outlines
-                must be enabled using the <code>bgOutlineThickness</code> option.
-              </dd>
-              <dt>outline</dt>
-              <dd>Use a <code>weightGradient</code> to set the tag highlight colour.</dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td><code>weightSize</code><sup><a href="#weights">[4]</a></sup></td>
-          <td><code>1.0</code></td>
-          <td>Multiplier for adjusting the size of tags when using a weight mode of <code>size</code> or
-            <code>both</code>.
-          </td>
-        </tr>
-        <tr class="odd">
-          <td><code>weightSizeMax</code><sup><a href="#weights">[4]</a></sup></td>
-          <td><code class="keyword">null</code></td>
-          <td>Maximum font size when weighted sizing is enabled.</td>
-        </tr>
-        <tr>
-          <td><code>weightSizeMin</code><sup><a href="#weights">[4]</a></sup></td>
-          <td><code class="keyword">null</code></td>
-          <td>Minimum font size when weighted sizing is enabled.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>wheelZoom</code></td>
-          <td><code class="keyword">true</code></td>
-          <td>Enables zooming the cloud in and out using the mouse wheel or scroll gesture.</td>
-        </tr>
-        <tr>
-          <td><code>zoom</code></td>
-          <td><code>1.0</code></td>
-          <td>Adjusts the relative size of the tag cloud in the canvas. Larger values will zoom into the cloud, smaller
-            values will zoom out.
-          </td>
-        </tr>
-        <tr class="odd">
-          <td><code>zoomMax</code></td>
-          <td><code>3.0</code></td>
-          <td>Maximum zoom value.</td>
-        </tr>
-        <tr>
-          <td><code>zoomMin</code></td>
-          <td><code>0.3</code></td>
-          <td>Minimum zoom value.</td>
-        </tr>
-        <tr class="odd">
-          <td><code>zoomStep</code></td>
-          <td><code>0.05</code></td>
-          <td>The amount that the zoom is changed by with each movement of the mouse wheel.</td>
-        </tr>
-      </table>
-      <span class="caption">TagCanvas options</span>
-    </div>
-  </div>
-  <ul class="footnotes">
-    <li id="interval-timer"><sup>[1]</sup>Added in version 1.7, this option is set for all TagCanvases on a page when
-      the first is started (they all use the same interval timer). In previous versions the interval was fixed at 10
-      milliseconds. If your cloud seems to be very jerky, try increasing this to 40.
-    </li>
-    <li id="text-colour"><sup>[2]</sup>For examples of using these options, see the <a href="tagcanvas-styling.php">multiple
-      font and colour page</a>.
-    </li>
-    <li id="tooltips"><sup>[3]</sup>A description of the tooltip options is on the <a
-      href="2012/03/08/tagcanvas-1.14.html">TagCanvas 1.14 page</a>.
-    </li>
-    <li id="weights"><sup>[4]</sup>For more information about the weighting options, see the <a
-      href="tagcanvas-weighted.php">TagCanvas with weighted tags page</a>.
-    </li>
-  </ul>
+<script>
+window.addEventListener('load', function() {
+var hdr = document.getElementsByClassName('clickHeader'), i;
+for(i = 0; i < hdr.length; ++i) {
+  hdr[i].addEventListener('click', function(e) {
+    var h = e.target, t = h.parentNode.nextElementSibling, d = 'none',
+      p = '+ Show table', c = 'clickHeader closed';
+    if(t.getAttribute('data-show')) {
+      t.removeAttribute('data-show');
+    } else {
+      t.setAttribute('data-show', '1');
+      d = 'block';
+      p = '- Hide table';
+      c = 'clickHeader';
+    }
+    t.style.display = d;
+    h.innerHTML = p;
+    h.className = c;
+  }, false);
+}
+}, false);
+</script>
+<div class="table centred">
+<h2 id="tagcanvas-options">TagCanvas options <span class="clickHeader">- Hide table</span></h2>
+<div class="clickOpen" data-show="1">
+<table class="options">
+  <tr>
+    <th>Option</th><th>Default</th><th>Description</th>
+	</tr>	<tr class="odd">
+    <td><code>activeCursor</code></td>
+    <td><code>"pointer"</code></td>
+    <td>The <a href="http://www.w3.org/TR/CSS21/ui.html#propdef-cursor" target="_blank">CSS cursor type</a> to use when the mouse is over a tag.</td>
+	</tr>	<tr>
+    <td><code>animTiming</code></td>
+    <td><code>Smooth</code></td>
+    <td>The animation timing function for use with the RotateTag and TagToFront functions. The values available are "Smooth" and "Linear".</td>
+	</tr>	<tr class="odd">
+    <td><code>bgColour</code></td>
+    <td><code class="keyword">null</code></td>
+    <td>Background colour of tag, <code>null</code> for no background. The string <code>"tag"</code> means use the original link background colour.</td>
+	</tr>	<tr>
+    <td><code>bgOutline</code></td>
+    <td><code class="keyword">null</code></td>
+    <td>Colour of tag background outline. Use <code>null</code> for the same as the text colour, use <code>"tag"</code> for the original link text colour.</td>
+	</tr>	<tr class="odd">
+    <td><code>bgOutlineThickness</code></td>
+    <td><code>0</code></td>
+    <td>Thickness of tag background outline in pixels, 0 for no outline.</td>
+	</tr>	<tr>
+    <td><code>bgRadius</code></td>
+    <td><code>0</code></td>
+    <td>Radius for rounded corners of background in pixels.</td>
+	</tr>	<tr class="odd">
+    <td><code>centreFunc</code></td>
+    <td><code class="keyword">null</code></td>
+    <td>Function for drawing in centre of cloud. The function is passed in these parameters in order: canvas 2D context; canvas width; canvas height; centre X; centre Y. See the <a href="tagcanvas-centre.php">centre callback function</a> page for details.</td>
+	</tr>	<tr>
+    <td><code>centreImage</code></td>
+    <td><code class="keyword">null</code></td>
+    <td>Image to draw at centre of cloud. Uses a built-in <code>centreFunc</code> callback function to draw the image at full size in the middle of the canvas.</td>
+	</tr>	<tr class="odd">
+    <td><code>clickToFront</code></td>
+    <td><code class="keyword">null</code></td>
+    <td>If set to a number, the selected tag will move to the front in this many milliseconds before activating.</td>
+	</tr>	<tr>
+    <td><code>decel</code></td>
+    <td><code>0.95</code></td>
+    <td>Deceleration rate when mouse leaves canvas.</td>
+	</tr>	<tr class="odd">
+    <td><code>depth</code></td>
+    <td><code>0.5</code></td>
+    <td>Controls the perspective (0.0-1.0)</td>
+	</tr>	<tr>
+    <td><code>dragControl</code></td>
+    <td><code class="keyword">false</code></td>
+    <td>When enabled, cloud moves when dragged instead of based on mouse position.</td>
+	</tr>	<tr class="odd">
+    <td><code>dragThreshold</code></td>
+    <td><code>4</code></td>
+    <td>The number of pixels that the cursor must move to count as a drag instead of a click.</td>
+	</tr>	<tr>
+    <td><code>fadeIn</code></td>
+    <td><code>0</code></td>
+    <td>Time to fade in tags at start, in milliseconds.</td>
+	</tr>	<tr class="odd">
+    <td><code>freezeActive</code></td>
+    <td><code class="keyword">false</code></td>
+    <td>Set to <code>true</code> to pause movement when a tag is highlighted.</td>
+	</tr>	<tr>
+    <td><code>freezeDecel</code></td>
+    <td><code class="keyword">false</code></td>
+    <td>Set to <code>true</code> to decelerate when highlighted tags freeze instead of stopping suddenly.</td>
+	</tr>	<tr class="odd">
+    <td><code>frontSelect</code></td>
+    <td><code class="keyword">false</code></td>
+    <td>Set to <code>true</code> to prevent selection of tags at back of cloud.</td>
+	</tr>	<tr>
+    <td><code>hideTags</code></td>
+    <td><code class="keyword">true</code></td>
+    <td>Set to <code>true</code> to automatically hide the tag list element if TagCanvas is started successfully.</td>
+	</tr>	<tr class="odd">
+    <td><code>imageAlign</code></td>
+    <td><code>"centre"</code></td>
+    <td>Horizontal image alignment, one of &ldquo;centre&rdquo;, &ldquo;left&rdquo; or &ldquo;right&rdquo;.</td>
+	</tr>	<tr>
+    <td><code>imageMode</code></td>
+    <td><code class="keyword">null</code></td>
+    <td>What to display when tag contains images and text.
+  <dl>
+    <dt>null</dt><dd>Image if present, otherwise text.</dd>
+    <dt>image</dt><dd>Image tags only.</dd>
+    <dt>text</dt><dd>Text tags only.</dd>
+    <dt>both</dt><dd>Image and text on tag using <code>imagePosition</code>.</dd>
+  </dl></td>
+	</tr>	<tr class="odd">
+    <td><code>imagePadding</code></td>
+    <td><code>2</code></td>
+    <td>Distance between image and text when using an <code>imageMode</code> of &ldquo;both&rdquo;.</td>
+	</tr>	<tr>
+    <td><code>imagePosition</code></td>
+    <td><code>"left"</code></td>
+    <td>Position of image relative to text when using an <code>imageMode</code> of &ldquo;both&rdquo;. Options are &ldquo;left&rdquo;, &ldquo;right&rdquo;, &ldquo;top&ldquo; or &ldquo;bottom&rdquo;.</td>
+	</tr>	<tr class="odd">
+    <td><code>imageRadius</code></td>
+    <td><code>0</code></td>
+    <td>Radius for image corners, in pixels. Also supports using a percentage which must be enclosed in a string, e.g. <code>"20%"</code>.</td>
+	</tr>	<tr>
+    <td><code>imageScale</code></td>
+    <td><code>1</code></td>
+    <td>Amount to scale images by - the default of 1 uses the size they appear on the page. For no scaling (use the actual image size) set this to <code>null</code>.</td>
+	</tr>	<tr class="odd">
+    <td><code>imageVAlign</code></td>
+    <td><code>"middle"</code></td>
+    <td>Vertical image alignment, one of &ldquo;middle&rdquo;, &ldquo;top&rdquo; or &ldquo;bottom&rdquo;.</td>
+	</tr>	<tr>
+    <td><code>initial</code></td>
+    <td><code class="keyword">null</code></td>
+    <td>Starting rotation speed, with horizontal and vertical values as an array, e.g. <code>[0.8,-0.3]</code>. Values are multiplied by <code>maxSpeed</code>.</td>
+	</tr>	<tr class="odd">
+    <td><code>interval</code><sup><a href="#interval-timer">[1]</a></sup></td>
+    <td><code>20</code></td>
+    <td>Interval between animation frames, in milliseconds.</td>
+	</tr>	<tr>
+    <td><code>lock</code></td>
+    <td><code class="keyword">null</code></td>
+    <td>Limits rotation of the cloud using the mouse. A value of <code>"x"</code>
+  limits rotation to the x-axis, <code>"y"</code> limits rotation to the 
+  y-axis. A value of <code>"xy"</code> will prevent the cloud rotating in 
+  response to the mouse - the cloud will only move if the <code>initial</code>
+  option is used to give it a starting speed.</td>
+	</tr>	<tr class="odd">
+    <td><code>maxBrightness</code></td>
+    <td><code>1.0</code></td>
+    <td>Brightness (opacity) of tags at front of cloud (0.0-1.0).</td>
+	</tr>	<tr>
+    <td><code>maxSpeed</code></td>
+    <td><code>0.05</code></td>
+    <td>Maximum speed of rotation.</td>
+	</tr>	<tr class="odd">
+    <td><code>minBrightness</code></td>
+    <td><code>0.1</code></td>
+    <td>Brightness (opacity) of tags at back of cloud (0.0-1.0).</td>
+	</tr>	<tr>
+    <td><code>minSpeed</code></td>
+    <td><code>0.0</code></td>
+    <td>Minimum speed of rotation when mouse leaves canvas.</td>
+	</tr>	<tr class="odd">
+    <td><code>minTags</code></td>
+    <td><code>0</code></td>
+    <td>The minimum number of tags to show in the cloud. If the number of links available is lower than this value, the list will be repeated. The maximum supported value is 200. The <code>repeatTags</code> option takes precedence over <code>minTags</code>.</td>
+	</tr>	<tr>
+    <td><code>noMouse</code></td>
+    <td><code class="keyword">false</code></td>
+    <td>Set to <code>true</code> to prevent any mouse interaction. The <code>initial</code> option must be used to animate the cloud, otherwise it will be motionless.</td>
+	</tr>	<tr class="odd">
+    <td><code>noSelect</code></td>
+    <td><code class="keyword">false</code></td>
+    <td>Set to <code>true</code> to prevent the selection of tags.</td>
+	</tr>	<tr>
+    <td><code>noTagsMessage</code></td>
+    <td><code class="keyword">true</code></td>
+    <td>Displays &ldquo;No tags&rdquo; instead of an empty canvas when there are no tags available.</td>
+	</tr>	<tr class="odd">
+    <td><code>offsetX</code></td>
+    <td><code>0</code></td>
+    <td>Offsets the centre of the cloud horizontally (measured in pixels)</td>
+	</tr>	<tr>
+    <td><code>offsetY</code></td>
+    <td><code>0</code></td>
+    <td>Offsets the centre of the cloud vertically (measured in pixels)</td>
+	</tr>	<tr class="odd">
+    <td><code>outlineColour</code></td>
+    <td><code>"#ffff99"</code></td>
+    <td>Colour of the active tag highlight. This can be a colour to use for all tags, or one of these options to set the colour differently for each tag:
+  <dl><dt>tag</dt>
+    <dd>Use the text colour from the original tag link</dd>
+    <dt>tagbg</dt>
+    <dd>Use the background colour from the original tag link</dd>
+  </dl>
+  See also the &ldquo;outline&rdquo; <code>weightMode</code> for another way to set the highlight colour.</td>
+	</tr>	<tr>
+    <td><code>outlineDash</code></td>
+    <td><code>0</code></td>
+    <td>Size of marching ants dash for outline/classic highlights, 0 for no dashes</td>
+	</tr>	<tr class="odd">
+    <td><code>outlineDashSpace</code></td>
+    <td><code>0</code></td>
+    <td>Size of space between marching ants dashes, 0 for same as <code>outlineDash</code></td>
+	</tr>	<tr>
+    <td><code>outlineDashSpeed</code></td>
+    <td><code>1</code></td>
+    <td>Speed of marching ants animation, 0 for no movement, negative for reverse</td>
+	</tr>	<tr class="odd">
+    <td><code>outlineIncrease</code></td>
+    <td><code>4</code></td>
+    <td>Number of pixels to increase size of tag by for the &ldquo;size&rdquo; outline method. Negative values are supported for decreasing the size.</td>
+	</tr>	<tr>
+    <td><code>outlineMethod</code></td>
+    <td><code>"outline"</code></td>
+    <td>Type of highlight to use. Options are:
+  <dl><dt>outline</dt>
+    <dd>An outline at the same depth as the active tag.</dd>
+    <dt>classic</dt>
+    <dd>Old-style outline on top of all tags.</dd>
+    <dt>block</dt>
+    <dd>Solid block of colour around the active tag.</dd>
+    <dt>colour</dt>
+    <dd>Changes the colour of the text or image of the current tag to the <code>outlineColour</code> value.</dd>
+    <dt>size</dt>
+    <dd>Increases the size of the tag, using the <code>outlineIncrease</code> option for the amount.</dd>
+    <dt>none</dt>
+    <dd>No highlighting at all.</dd>
+  </dl></td>
+	</tr>	<tr class="odd">
+    <td><code>outlineOffset</code></td>
+    <td><code>5</code></td>
+    <td>Distance of outline from text, in pixels. This also increases the size of the active area around the tag.</td>
+	</tr>	<tr>
+    <td><code>outlineRadius</code></td>
+    <td><code>0</code></td>
+    <td>Radius for rounded corners on outline box in pixels</td>
+	</tr>	<tr class="odd">
+    <td><code>outlineThickness</code></td>
+    <td><code>2</code></td>
+    <td>Thickness of outline in pixels</td>
+	</tr>	<tr>
+    <td><code>padding</code></td>
+    <td><code>0</code></td>
+    <td>Amount of space around text and inside background.</td>
+	</tr>	<tr class="odd">
+    <td><code>pinchZoom</code></td>
+    <td><code class="keyword">false</code></td>
+    <td>Set to <code>true</code> to enable zooming in and out of the cloud by pinching on touchscreen devices.</td>
+	</tr>	<tr>
+    <td><code>pulsateTime</code></td>
+    <td><code>3</code></td>
+    <td>Pulse rate, in seconds per beat</td>
+	</tr>	<tr class="odd">
+    <td><code>pulsateTo</code></td>
+    <td><code>1.0</code></td>
+    <td>Pulsate outline to this opacity (0.0-1.0)</td>
+	</tr>	<tr>
+    <td><code>radiusX</code></td>
+    <td><code>1</code></td>
+    <td>Initial size of cloud from centre to sides.</td>
+	</tr>	<tr class="odd">
+    <td><code>radiusY</code></td>
+    <td><code>1</code></td>
+    <td>Initial size of cloud from centre to top and bottom.</td>
+	</tr>	<tr>
+    <td><code>radiusZ</code></td>
+    <td><code>1</code></td>
+    <td>Initial size of cloud from centre to front and back.</td>
+	</tr>	<tr class="odd">
+    <td><code>repeatTags</code></td>
+    <td><code>0</code></td>
+    <td>The number of times to repeat the list of tags in the cloud. The maximum supported value is 64. This option overrides the <code>minTags</code> option.</td>
+	</tr>	<tr>
+    <td><code>reverse</code></td>
+    <td><code class="keyword">false</code></td>
+    <td>Set to <code>true</code> to reverse direction of movement relative to mouse position.</td>
+	</tr>	<tr class="odd">
+    <td><code>scrollPause</code></td>
+    <td><code>0</code></td>
+    <td>Animation delay in milliseconds for when the page is being scrolled. Applies to all TagCanvas instances on the page.</td>
+	</tr>	<tr>
+    <td><code>shadow</code></td>
+    <td><code>"#000000"</code></td>
+    <td>Colour of the shadow behind each tag.</td>
+	</tr>	<tr class="odd">
+    <td><code>shadowBlur</code></td>
+    <td><code>0</code></td>
+    <td>Amount of tag shadow blurring, in pixels.</td>
+	</tr>	<tr>
+    <td><code>shadowOffset</code></td>
+    <td><code>[0,0]</code></td>
+    <td>X and Y offset of the tag shadow, in pixels.</td>
+	</tr>	<tr class="odd">
+    <td><code>shape</code></td>
+    <td><code>"sphere"</code></td>
+    <td>The shape of the cloud. Currently supported are <code>sphere</code>, <code>hcylinder</code> for a cylinder that starts off horizontal, <code>vcylinder</code> for a cylinder that starts off vertical, <code>hring</code> for a horizontal circle and <code>vring</code> for a vertical circle. You may also provide the name of a function to use for generating the shape. See the <a href="tagcanvas-shapes.php">TagCanvas shapes page</a> for details and examples.</td>
+	</tr>	<tr>
+    <td><code>shuffleTags</code></td>
+    <td><code class="keyword">false</code></td>
+    <td>Set to <code>true</code> to randomize the order of the tags.</td>
+	</tr>	<tr class="odd">
+    <td><code>splitWidth</code></td>
+    <td><code>0</code></td>
+    <td>If greater than 0, breaks the tag into multiple lines at word boundaries when the line would be longer than this value. Lines are automatically broken at <code>&lt;br&gt;</code> tags.</td>
+	</tr>	<tr>
+    <td><code>stretchX</code></td>
+    <td><code>1</code></td>
+    <td>Stretch or compress the cloud horizontally.</td>
+	</tr>	<tr class="odd">
+    <td><code>stretchY</code></td>
+    <td><code>1</code></td>
+    <td>Stretch or compress the cloud vertically.</td>
+	</tr>	<tr>
+    <td><code>textAlign</code></td>
+    <td><code>"centre"</code></td>
+    <td>Horizontal text alignment, one of &ldquo;centre&rdquo;, &ldquo;left&rdquo; or &ldquo;right&rdquo;.</td>
+	</tr>	<tr class="odd">
+    <td><code>textColour</code><sup><a href="#text-colour">[2]</a></sup></td>
+    <td><code>"#ff99ff"</code></td>
+    <td>Colour of the tag text - empty string or <code>null</code> to use the colour of the original link.</td>
+	</tr>	<tr>
+    <td><code>textFont</code><sup><a href="#text-colour">[2]</a></sup></td>
+    <td><code>"Helvetica, Arial,<br /> sans-serif"</code></td>
+    <td>Font family for the tag text - empty string or <code>null</code> to use the font of the original link.</td>
+	</tr>	<tr class="odd">
+    <td><code>textHeight</code></td>
+    <td><code>15</code></td>
+    <td>Height of the tag text font (in pixels).</td>
+	</tr>	<tr>
+    <td><code>textVAlign</code></td>
+    <td><code>"middle"</code></td>
+    <td>Vertical text alignment, one of &ldquo;middle&rdquo;, &ldquo;top&rdquo; or &ldquo;bottom&rdquo;.</td>
+	</tr>	<tr class="odd">
+    <td><code>tooltip</code><sup><a href="#tooltips">[3]</a></sup></td>
+    <td><code class="keyword">null</code></td>
+    <td>Sets tooltip display method: <code>null</code> for no tooltips; <code>native</code> for operating system tooltips; <code>div</code> for div-based.</td>
+	</tr>	<tr>
+    <td><code>tooltipClass</code><sup><a href="#tooltips">[3]</a></sup></td>
+    <td><code>"tctooltip"</code></td>
+    <td>Class of tooltip div.</td>
+	</tr>	<tr class="odd">
+    <td><code>tooltipDelay</code><sup><a href="#tooltips">[3]</a></sup></td>
+    <td><code>300</code></td>
+    <td>Time to pause while mouse is not moving before displaying tooltip div, in milliseconds.</td>
+	</tr>	<tr>
+    <td><code>txtOpt</code></td>
+    <td><code class="keyword">true</code></td>
+    <td>Text optimisation, converts text tags to images for better performance.</td>
+	</tr>	<tr class="odd">
+    <td><code>txtScale</code></td>
+    <td><code>2</code></td>
+    <td>Scaling factor of text when converting to image in <code>txtOpt</code> mode.</td>
+	</tr>	<tr>
+    <td><code>weight</code><sup><a href="#weights">[4]</a></sup></td>
+    <td><code class="keyword">false</code></td>
+    <td>Set to <code>true</code> to turn on weighting of tags.</td>
+	</tr>	<tr class="odd">
+    <td><code>weightFrom</code><sup><a href="#weights">[4]</a></sup></td>
+    <td><code class="keyword">null</code></td>
+    <td>The link attribute to take the tag weight from. The default of <code>null</code> means that the weight is taken from the calculated link font size.</td>
+	</tr>	<tr>
+    <td><code>weightGradient</code><sup><a href="#weights">[4]</a></sup></td>
+    <td><code>{0:'#f00', 0.33:'#ff0',<br /> 0.66:'#0f0', 1:'#00f'}</code></td>
+    <td>The colour gradient used for colouring tags, backgrounds, etc. when using a colour-based weight mode.</td>
+	</tr>	<tr class="odd">
+    <td><code>weightMode</code><sup><a href="#weights">[4]</a></sup></td>
+    <td><code>"size"</code></td>
+    <td>Method to use for displaying tag weights. Should be one of:
+  <dl>
+    <dt>size</dt>
+    <dd>Display more significant tags in a larger font size.</dd>
+    <dt>colour</dt>
+    <dd>Display tags using colour values from the <code>weightGradient</code> option.</dd>
+    <dt>both</dt>
+    <dd>Use both size and colour to visualise weights.</dd>
+    <dt>bgcolour</dt>
+    <dd>Use a <code>weightGradient</code> to set the tag background colour.</dd>
+    <dt>bgoutline</dt>
+    <dd>Use a <code>weightGradient</code> to set the tag background outline colour. Tag background outlines must be enabled using the <code>bgOutlineThickness</code> option.</dd>
+    <dt>outline</dt>
+    <dd>Use a <code>weightGradient</code> to set the tag highlight colour.</dd>
+  </dl></td>
+	</tr>	<tr>
+    <td><code>weightSize</code><sup><a href="#weights">[4]</a></sup></td>
+    <td><code>1.0</code></td>
+    <td>Multiplier for adjusting the size of tags when using a weight mode of <code>size</code> or <code>both</code>.</td>
+	</tr>	<tr class="odd">
+    <td><code>weightSizeMax</code><sup><a href="#weights">[4]</a></sup></td>
+    <td><code class="keyword">null</code></td>
+    <td>Maximum font size when weighted sizing is enabled.</td>
+	</tr>	<tr>
+    <td><code>weightSizeMin</code><sup><a href="#weights">[4]</a></sup></td>
+    <td><code class="keyword">null</code></td>
+    <td>Minimum font size when weighted sizing is enabled.</td>
+	</tr>	<tr class="odd">
+    <td><code>wheelZoom</code></td>
+    <td><code class="keyword">true</code></td>
+    <td>Enables zooming the cloud in and out using the mouse wheel or scroll gesture.</td>
+	</tr>	<tr>
+    <td><code>zoom</code></td>
+    <td><code>1.0</code></td>
+    <td>Adjusts the relative size of the tag cloud in the canvas. Larger values will zoom into the cloud, smaller values will zoom out.</td>
+	</tr>	<tr class="odd">
+    <td><code>zoomMax</code></td>
+    <td><code>3.0</code></td>
+    <td>Maximum zoom value.</td>
+	</tr>	<tr>
+    <td><code>zoomMin</code></td>
+    <td><code>0.3</code></td>
+    <td>Minimum zoom value.</td>
+	</tr>	<tr class="odd">
+    <td><code>zoomStep</code></td>
+    <td><code>0.05</code></td>
+    <td>The amount that the zoom is changed by with each movement of the mouse wheel.</td>
+	</tr></table>
+<span class="caption">TagCanvas options</span>
+</div>
+</div>
+<ul class="footnotes">
+<li id="interval-timer"><sup>[1]</sup>Added in version 1.7, this option is set for all TagCanvases on a page when the first is started (they all use the same interval timer). In previous versions the interval was fixed at 10 milliseconds. If your cloud seems to be very jerky, try increasing this to 40.</li>
+<li id="text-colour"><sup>[2]</sup>For examples of using these options, see the <a href="tagcanvas-styling.php">multiple font and colour page</a>.</li>
+<li id="tooltips"><sup>[3]</sup>A description of the tooltip options is on the <a href="2012/03/08/tagcanvas-1.14.html">TagCanvas 1.14 page</a>.</li>
+<li id="weights"><sup>[4]</sup>For more information about the weighting options, see the <a href="tagcanvas-weighted.php">TagCanvas with weighted tags page</a>.</li>
+</ul>
 
-  <ul class="footnotes">
-  </ul>
+<ul class="footnotes">
+</ul>
 
-  <p><a href="#content">&laquo; Back to top of page</a>
-    <span class="next"><a href="tagcanvas-weighted.php">Weighted tags &raquo;</a></span></p>
+<p><a href="#content">&laquo; Back to top of page</a>
+<span class="next"><a href="tagcanvas-weighted.php">Weighted tags &raquo;</a></span></p>
 </div>
 <div id=rightbox>
-  <script type="text/javascript"><!--
-  google_ad_client = "ca-pub-7519606359935719";
-  /* right wide */
-  google_ad_slot = "7197022972";
-  google_ad_width = 160;
-  google_ad_height = 600;
-  //-->
-  </script>
-  <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-7519606359935719";
+/* right wide */
+google_ad_slot = "7197022972";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 
 </div>
 <div id="copyright">Copyright &copy; 2016, Goat 1000</div>
-<script type="text/javascript">var switchTo5x = true;</script>
+<script type="text/javascript">var switchTo5x=true;</script>
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">
-  stLight.options({
-    publisher: '8e86faf3-85e9-433b-9469-b60275526928',
-    onhover: false,
-    doNotHash: true,
-    doNotCopy: true,
-    hashAddressBar: false
-  });
+stLight.options({publisher:'8e86faf3-85e9-433b-9469-b60275526928',onhover:false,doNotHash:true,doNotCopy:true,hashAddressBar:false});
 
-  function track(url) {
-    try {
-      _gaq.push(['_trackPageview', url]);
-    } catch (e) {
-    }
-  }
+function track(url) { try { _gaq.push(['_trackPageview',url]); } catch(e) { } }
 
-  // +1
-  (function () {
-    var po = document.createElement('script');
-    po.type = 'text/javascript';
-    po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(po, s);
-  })();
-</script>
-<script defer src="js/g1k.min.js?201304"></script>
+// +1
+(function() {
+	var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+	po.src = 'https://apis.google.com/js/plusone.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+</script><script defer src="js/g1k.min.js?201304"></script>
 </body>
 </html>

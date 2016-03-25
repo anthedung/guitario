@@ -3702,7 +3702,7 @@ jtab.init = function () {
 jQuery(document).ready(function ($) {
   jtab.init();
 
-  setTimeout(function () {
+  setTimeout(function() {
     refreshUsedChords();
     prepareChordView();
   }, 100);
@@ -3743,14 +3743,14 @@ function myAlert() {
   alert("Hello! I am an alert box!!");
 }
 
-function closeChordView() {
+function closeChordView(){
   jQuery('#chord_view').slideUp();
   //alert('sliding up');
   return;
 }
 
 var chord_view_delay;
-function prepareChordView() {
+function prepareChordView(){
   jQuery('#chord_view').draggable();
   //jQuery('#chord_view .closebutton').click(function () {
   //  jQuery('#chord_view').slideUp();
@@ -3780,7 +3780,7 @@ function prepareChordView() {
   //    $('#chord_view').slideUp();
   //  });
   //} else {
-  jQuery('div.anthe-song-content').click(function (e) {
+  jQuery('.anthe-song-content').click(function (e) {
     jQuery('#chord_view').slideUp();
   });
   //}
@@ -3793,7 +3793,7 @@ function prepareChordView() {
   });
 }
 
-function openCanvasSong(ele) {
+function openCanvasSong(ele){
   console.log('openCanvasSong: clicked');
   jQuery(ele).href.click();
 }

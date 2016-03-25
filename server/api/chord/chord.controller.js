@@ -2,34 +2,24 @@
 
 var _ = require('lodash');
 var Chord = require('./chord.model');
-var ChordGeneralService = require('./chord.vnmylife.service');
+<<<<<<< Updated upstream
+var Crawler = require('./chord.vnmylife.service');
+=======
+var ChordGeneralService = require('./chord.service.js');
+>>>>>>> Stashed changes
 var VnMylifeCrawler = require('./chord.vnmylife.crawl.service');
-var VnMylifeMP3Crawler = require('./chord.vnmylife.mp3.crawl.service');
-require('mongoose-query-paginate');
 
 // Get list of chords
 exports.index = function (req, res) {
-  var limit = req.query.limit || 10;
-
-  var sortBy = req.query.sortBy || 'title';
-  var sortByAsc = req.query.asc || 1;
-  var sort = {};
-  sort[sortBy] = sortByAsc;
-
-  var options = {
-    perPage: limit,
-    delta: 3,
-    page: req.query.p
-  };
-
-  var query = Chord.find().sort(sort);
-  query.paginate(options, function (err, chords) {
+  var limit = req.query.limit || 20;
+  console.log('chords limit: '  + limit);
+  Chord.find(function (err, chords) {
     if (err) {
       return handleError(res, err);
     }
-
-    return res.status(200).json(chords.results);
-  });
+    // console.log(".index chords: " + chords);
+    return res.status(200).json(chords);
+  }).limit(limit);
 };
 
 // Get a single chord
@@ -101,9 +91,21 @@ function handleError(res, err) {
 }
 
 // anthe
+exports.crawlVnMylifeAll = function (req, res) {
+  Crawler.crawlAll();
+}
+
+exports.crawlVnMylife = function (req, res) {
+  Crawler.crawl(req.params.rhythm, req.params.fromPage, req.params.limitPaganiation);
+}
+
+exports.recrawl = function (req, res) {
+  Crawler.recrawl();
+}
 
 exports.crawlMp3 = function (req, res) {
-  VnMylifeMP3Crawler.crawlMp3(req.params.fromPage, req.params.limitPaganiation);
+  console.log(req.params.fromPage, req.params.limitPaganiation)
+  Crawler.crawlMp3(req.params.fromPage, req.params.limitPaganiation);
 }
 
 // exports.cleanData = function (req, res) {
@@ -155,73 +157,49 @@ exports.findAllTitlesWithContent = function (req, res) {
   });
 }
 
-exports.findRandomSingers = function (req, res) {
-  var limit = req.query.limit || 15;
+exports.findChordsByRhythm = function (req, res) {
+  var q = Chord.find({rhythms: req.params.rhythm}).sort({'created': -1}).limit(req.params.limit);
 
-  Chord.find({}).select({title: 1, singers: 1, content: 1}).exec(function (err, chords) {
+  q.exec(function (err, chords) {
     if (err) {
       return handleError(res, err);
     }
 
-    var count = 0;
-    var singers = chords.map(function (item) {
-      var singer = item.singers[0];
-      return (!singer || singer.length > 15 || singer.indexOf('(') > -1 || item.content.length < 10) ? '' : singer.toString("utf8");
-    }).filter(function (singer) {
-      return singer.length > 0;
-    });
-
-    singers = ChordGeneralService.removeDuplicatesBy(function (x) {
-      return x
-    }, singers);
-
-    singers = ChordGeneralService.getRandomSubarray(singers, limit);
-
-    return res.status(200).json(singers);
-  });
-}
-
-exports.findChordsByGeneric = function (req, res) {
-  var limit = req.query.limit || 10;
-
-  var sortBy = req.query.sortBy || 'title';
-  var sortByAsc = req.query.asc || 1;
-  var sort = {};
-  sort[sortBy] = sortByAsc;
-
-  var options = {
-    perPage: limit,
-    delta: 3,
-    page: req.query.p
-  };
-  var params = {}
-  params[req.params.category] = req.params.categoryValue;
-
-  var query = Chord.find(params).sort(sort);
-  query.paginate(options, function (err, chords) {
-    if (err) {
-      return handleError(res, err);
-    }
-
-    return res.status(200).json(chords.results);
-    // console.log(res); // => res = {
-    //  options: options,               // paginate options
-    //  results: [Document, ...],       // mongoose results
-    //  current: 5,                     // current page number
-    //  last: 12,                       // last page number
-    //  prev: 4,                        // prev number or null
-    //  next: 6,                        // next number or null
-    //  pages: [ 2, 3, 4, 5, 6, 7, 8 ], // page numbers
-    //  count: 125                      // document count
-    //};
+    return res.status(200).json(chords);
   });
 };
 
-exports.crawlAllValidChordsToUpsert = function (req, res) {
-  if (req.params.target == 'vnmylife') {
+exports.findChordsByGeneric = function (req, res) {
+  var category = req.params.category;
+  var query = {};
+  query[category] = req.params.categoryValue;
+  console.log('findChordsByGeneric ~ query: ' + query);
+  var q = Chord.find(query).sort({'created': -1}).limit(req.params.limit);
+
+  q.exec(function (err, chords) {
+    if (err) {
+      return handleError(res, err);
+    }
+
+    return res.status(200).json(chords);
+  });
+};
+
+<<<<<<< Updated upstream
+exports.crawlAllValidChordsToUpsert = function(req, res){
+  if (req.params.target == 'vnmylife'){
     VnMylifeCrawler.crawlAndPersist();
   }
 }
+=======
+exports.crawlAllValidChordsToUpsert = function (req, res) {
+  if (req.query.test) {
+    console.log("\n\n crawl testing only");
+    VnMylifeCrawler.crawlAllValidChordsToUpsert();
+  } else if (req.params.target == 'vnmylife') {
+    VnMylifeCrawler.crawlAndPersist();
+  }
+};
 
 exports.search = function (req, res) {
   var query = req.query.q;
@@ -235,3 +213,4 @@ exports.search = function (req, res) {
   });
 }
 
+>>>>>>> Stashed changes

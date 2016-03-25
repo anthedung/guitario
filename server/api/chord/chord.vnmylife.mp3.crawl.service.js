@@ -6,97 +6,77 @@ var Chord = require('./chord.model');
 var http = require('http');
 var domain = 'http://www.vnmylife.com';
 var queryString = require('querystring');
-var GeneralService = require('./chord.vnmylife.service');
-
-
-exports.crawlMp3 = crawlMp3;
+var GeneralService = require('./chord.service.js');
 
 /*
- * crawl song links recursively
- * 1. build valid crawling list from DB
- * 2. crawl recursively
- */
+* crawl song links recursively
+* 1. build valid crawling list from DB
+* 2. crawl recursively
+*/
 
-var base = "http://www.vnmylife.com/api/audio/chiasenhac?q=";
-
-// function saveMp3(fromPage, limitPaganiation){
-//   crawlMp3(fromPage, limitPaganiation).then(function(chordsToSave){
-//       console.log("number of chords to saveMp3: " + chordsToUpdate);
-//       Chord.
-//   });
-
-// }
+var base = "http://www.vnmylife.com/api/audio/chiasenhac?q="+;
 
 function crawlMp3(fromPage, limitPaganiation) {
-  var deferred = Q.defer();
-
   console.log('preparing  crawlMp3Recursive:' + fromPage + '   ' + limitPaganiation);
   fromPage = parseInt(fromPage, 10);
   limitPaganiation = parseInt(limitPaganiation, 10);
 
 
-  GeneralService.findAllChords().then(function (chords) {
+
+  findAllChords().then(function (chords) {
     if (limitPaganiation >= chords.length) {
       limitPaganiation = chords.length - 1;
     }
     console.log('starting  crawlMp3Recursive:' + fromPage + '   ' + limitPaganiation);
 
-    var chordsToUpdate = [];
-    crawlMp3Recursive(chords, fromPage, limitPaganiation, chordsToUpdate, deferred);
+    crawlMp3Recursive(chords, fromPage, limitPaganiation);
   });
-
-  return deferred.promise;
 }
 
-function crawlMp3Recursive(chords, fromPage, limitPaganiation, chordsToUpdate, deferred) {
-  // console.log('crawlMp3Recursive... fromPage: ' + fromPage + ' limitPaganiation: ' + limitPaganiation);
-  // console.log('crawlMp3Recursive... chords.length: ' + chords.length);
-  fromPage = parseInt(fromPage, 10);
-  limitPaganiation = parseInt(limitPaganiation, 10);
+function crawlMp3Recursive(chords, fromPage, limitPaganiation) {
+    // console.log('crawlMp3Recursive... fromPage: ' + fromPage + ' limitPaganiation: ' + limitPaganiation);
+    // console.log('crawlMp3Recursive... chords.length: ' + chords.length);
+    fromPage = parseInt(fromPage, 10);
+    limitPaganiation = parseInt(limitPaganiation, 10);
 
-  if (fromPage > limitPaganiation) {
-    console.log("number of chords to update mp3s: " + chordsToUpdate.length);
-    deferred.resolve(chordsToUpdate);
-    return;
-  }
+    if (fromPage > limitPaganiation) {return;}
 
-  var chord = chords[fromPage];
-  console.log('crawlMp3Recursive... chord.content.length: ' + chord.content.length + ' mp3.length: ' + chord.mp3s.length);
+    var chord = chords[fromPage];
+    console.log('crawlMp3Recursive... chord.content.length: ' + chord.content.length + ' mp3.length: ' + chord.mp3s.length);
 
-  if (chord.content.length > 10 && chord.mp3s.length < 1) {
-    console.log('crawlMp3 :' + chord.title);
-    console.log('crawlMp3 creditUrl: ' + chord.creditUrl);
+    if (chord.content.length > 10 && chord.mp3s.length < 1) {
+      console.log('crawlMp3 :' + chord.title);
+      console.log('crawlMp3 creditUrl: ' + chord.creditUrl);
 
-    var baseUrl = base + encodeURIComponent(chord.title);
-    console.log('api url: ' + baseUrl);
-    http.get(baseUrl, function (res) {
-      var str = '';
+      var baseUrl = base + encodeURIComponent(chord.title);
+      console.log('api url: ' + baseUrl);
+      http.get(baseUrl, function(res){
+        var str = '';
 
-      //another chunk of data has been recieved, so append it to `str`
-      res.on('data', function (chunk) {
-        str += chunk;
+            //another chunk of data has been recieved, so append it to `str`
+            res.on('data', function (chunk) {
+              str += chunk;
+            });
+
+            //the whole response has been recieved, so we just print it out here
+            res.on('end', function () {
+              //chordProcessing(str, chord);
+              // setTimeout(function() {
+                console.log("successfuly hitting url, now processing..mp3: " + chord.title);
+                processBodyGetMp3(str, chord);
+                crawlMp3Recursive(chords, ++fromPage, limitPaganiation);
+              // }, 1000);
+            });
+      }).on('error', function (e) {
+        console.log('Error retrieving page: ' + chord.title+'. Continues..');
+        crawlMp3Recursive(chords, ++fromPage, limitPaganiation);
+
       });
+    } else {
+      crawlMp3Recursive(chords, ++fromPage, limitPaganiation);
+    }
 
-      //the whole response has been recieved, so we just print it out here
-      res.on('end', function () {
-        //chordProcessing(str, chord);
-        // setTimeout(function() {
-        console.log("successfuly hitting url, now processing..mp3: " + chord.title);
-        chordsToUpdate.push(processBodyGetMp3(str, chord));
-
-        crawlMp3Recursive(chords, ++fromPage, limitPaganiation, chordsToUpdate, deferred);
-        // }, 1000);
-      });
-    }).on('error', function (e) {
-      console.log('Error retrieving page: ' + chord.title + '. Continues..');
-      crawlMp3Recursive(chords, ++fromPage, limitPaganiation, chordsToUpdate, deferred);
-
-    });
-  } else {
-    crawlMp3Recursive(chords, ++fromPage, limitPaganiation, chordsToUpdate, deferred);
-  }
-
-  // }
+    // }
 }
 
 function processBodyGetMp3(body, chord) {
@@ -119,7 +99,7 @@ function processBodyGetMp3(body, chord) {
     song.singers = [];
 
     var singersStr = temp('span.singer a').text().trim().split(/[\n\r,]+/);
-    var cleaned = GeneralService.cleanArray(singersStr);
+    var cleaned = cleanArray(singersStr);
     cleaned.forEach(function (a) {
         if (a.toLowerCase().indexOf('thơ') > -1) return;
         song.singers.push(a);
@@ -136,8 +116,7 @@ function processBodyGetMp3(body, chord) {
 
   chord.mp3s = musicLinks;
 
-  // return chord;
-
-  GeneralService.upsert(chord);
+  //return chord;
+  upsert(chord);
   //chord.
 }
