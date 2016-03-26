@@ -44,7 +44,7 @@ db.chords.find().forEach(function (chord) {
 });
 
 
+// mongorestore -dir /Users/anthedung/AProgramming/MEAN/dbbackup/20160301-123357/guitarios-dev/ --drop
 // db.copyDatabase("ir","guitarios-dev")
-// mongorestore -dir /Users/anthedung/AProgramming/MEAN/dbbackup/20160325-133622/guitarios-dev/ --drop
 
 

@@ -46,7 +46,9 @@ angular.module('guitariosApp')
       }
 
       // console.log('this.findAllChords: ' + indices);
-      return (indices[indices.length - 1]).toString().replace('[', '').replace(']', '');
+      return (indices[indices.length - 1]) 
+                ? (indices[indices.length - 1]).toString().replace('[', '').replace(']', '')
+                : '';
     };
 
     this.findAllChordsWithClass = function (chords) {
@@ -128,9 +130,11 @@ angular.module('guitariosApp')
 
     this.breakContentIntoLines = function (content) {
       // console.log(content);
+      console.log('breakContentIntoLines before: ' + content);
+      content = ('' + content).replace(/\n\r/g,'\r').replace(/[\.\n\r]/g, '<br>').toString();
+      content = ('' + content).replace(/<br><br>/g,'<br>').toString();
 
-      content = ('' + content).replace(/[\.\n\r]/g, '<br>').toString();
-
+      console.log('breakContentIntoLines after: ' + content);
       return content;
     };
 

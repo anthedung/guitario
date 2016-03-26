@@ -14,11 +14,11 @@ angular.module('guitariosApp')
     vm.getStandardDescLength = ChordService.getStandardDescLength;
 
     // loading some chords
-    $http.get('/api/chords').success(function (chords) {
+    $http.get('/api/chords?random=true').success(function (chords) {
       vm.chords = ChordService.processChords(chords);
       console.log("vm.chords.length: " + vm.chords.length)
 
-      vm.randomChordsForGlobe = ChordService.getRandomSubarray(vm.chords, 6);
+      vm.randomChordsForGlobe = ChordService.getRandomSubarray(vm.chords, 8);
 
       // ensure canvas will start with some delays
       setTimeout(function () {

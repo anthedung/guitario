@@ -11,6 +11,12 @@ require('mongoose-query-paginate');
 
 // Get list of chords
 exports.index = function (req, res) {
+  var page = req.query.p || 1;
+
+  if (req.query.random){
+      page = Math.floor(Math.random() * 60) + 1;
+  }
+
   var limit = req.query.limit || 10;
 
   var sortBy = req.query.sortBy || 'title';
@@ -21,7 +27,7 @@ exports.index = function (req, res) {
   var options = {
     perPage: limit,
     delta: 3,
-    page: req.query.p
+    page: page
   };
 
   var query = Chord.find().sort(sort);

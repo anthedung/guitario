@@ -43,10 +43,12 @@
           <div .md-whiteframe-2dp layout-padding="10">
             <md-card-content ng-href="#vm.chordDetails/{{vm.chord._id}}">
               <div>
-                <div ng-bind-html="vm.trustedContentHtml" class="anthe-song-content" clickable></div>
+                <div class="anthe-song-content">
+                  <pre class="anthe-song-content" ng-bind-html="vm.trustedContentHtml"  clickable></pre>
+                </div>
                 <br>
                 <br>
-                <span ng-if='vm.chord.rhythms.length > 0'> <em>&nbsp;&#119074;&nbsp;{{vm.join(vm.chord.rhythms)}}</em> </span>
+                <span > <em>&nbsp;&#119074;&nbsp;{{vm.join(vm.chord.rhythms)}}</em> </span>
                 <span ng-if='vm.chord.chordAuthor.length > 0'> <em>
                   &nbsp;&#119083;&nbsp;{{vm.chord.chordAuthor}}</em> </span>
               </div>
@@ -56,7 +58,7 @@
       </div>
 
       <!--chords-->
-      <div class="md-whiteframe-6dp anthe-chord-card">
+      <div class="md-whiteframe-6dp anthe-chord-card" ng-if="vm.allChordsJoinedStrHtml.length > 2">
         <div ng-bind-html="vm.allChordsJoinedStrHtml" layout="row" class="anthe-guitarios-chord-card" layout-wrap></div>
       </div>
     </div>
@@ -148,6 +150,17 @@
     </div>
   </div>
 
-  <div ng-include="'app/components/banner/footer.html'" ng-cloak></div>
+  <!-- <div ng-include="'app/components/banner/footer.html'" ng-cloak></div> -->
+<div layout="column" flex>
+  <br>
+  <br>
+  <footer>
+    <div layout="row" layout-align="center" id="anthe-footer">
+      <div class="anthe-copyright" layout="row" layout-align="center bottom">
+        <p style="color:white">Copyright © 2016 ABCStudio</p>
+      </div>
+    </div>
+  </footer>
+</div>
 
 </div>

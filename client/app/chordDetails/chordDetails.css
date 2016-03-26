@@ -20,3 +20,9 @@
   color: rgb(45, 42, 42) !important;
   style: "cursor: pointer";
 }
+
+
+pre.anthe-song-content-pre{
+	font-size: large !important;
+	font-family: inherit !important;
+}
