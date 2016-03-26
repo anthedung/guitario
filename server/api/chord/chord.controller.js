@@ -4,6 +4,8 @@ var _ = require('lodash');
 var Chord = require('./chord.model');
 var ChordGeneralService = require('./chord.service.js');
 var VnMylifeCrawler = require('./chord.vnmylife.crawl.service');
+var EChordsCrawler = require('./chord.echords.crawl.service');
+
 var VnMylifeMP3Crawler = require('./chord.vnmylife.mp3.crawl.service');
 require('mongoose-query-paginate');
 
@@ -218,11 +220,18 @@ exports.findChordsByGeneric = function (req, res) {
 };
 
 exports.crawlAllValidChordsToUpsert = function (req, res) {
-  if (req.query.test) {
+  if (!req.query.real) {
     console.log("\n\n crawl testing only");
-    VnMylifeCrawler.crawlAllValidChordsToUpsert();
+    if (req.params.target == 'vnmylife') {
+      VnMylifeCrawler.crawlAllValidChordsToUpsert();
+    } else if (req.params.target == 'echords'){
+      EChordsCrawler.crawlAllValidChordsToUpsert();
+    }
+    
   } else if (req.params.target == 'vnmylife') {
     VnMylifeCrawler.crawlAndPersist();
+  } else if (req.params.target == 'echords'){
+    EChordsCrawler.crawlAndPersist();
   }
 }
 

@@ -19,8 +19,8 @@ var GeneralService = require('./chord.service.js');
  * 6. persist into DB
  */
 
-var START_FROM = 3;
-var END_PAGE = 2000;
+var START_FROM = 100;
+var END_PAGE = 300;
 
 var rhythmMap = {
   // 'rhumba': 'http://www.vnmylife.com/mychord/rhythm/rhumba/9',
@@ -114,6 +114,7 @@ function crawlFullChordRecursive(validChordsToCrawl, counter, deferred){
   console.log('\n\nstartCrawling:' + url);
 
   http.get(url, function(res){
+    res.setEncoding('utf8');
     var str = '';
       //another chunk of data has been recieved, so append it to `str`
       res.on('data', function (chunk) {
@@ -179,7 +180,7 @@ function getValidChordsToCrawl(basicChordsCrawled, chordsInDB){
     // if not in DB or empty in DB then eligible to crawl
     if (chordsInDBCreditUrls.indexOf(basicChordsCrawled[i].creditUrl) < 0){
       chordsToCrawl.push(basicChordsCrawled[i]);
-      console.log('valid creditUrl to crawl:' + basicChordsCrawled[i].creditUrl);
+      console.log(i + ' valid creditUrl crawl: ' + basicChordsCrawled[i].creditUrl);
     }
   }
 
@@ -215,6 +216,7 @@ function crawlPagesRecursive(songPages, counter, chords, deferred){
   var curPageUrl = songPages[counter];
 
   http.get(curPageUrl, function(res){
+    res.setEncoding('utf8');
     var str = '';
     //another chunk of data has been recieved, so append it to `str`
     res.on('data', function (chunk) {
