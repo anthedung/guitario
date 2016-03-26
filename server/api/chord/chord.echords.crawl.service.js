@@ -20,88 +20,92 @@ var GeneralService = require('./chord.service.js');
  * 6. persist into DB
  */
 
-var START_FROM = 1;
-var END_PAGE = 1;
-var START_ARTIST_NO = 4; // index = 0
+var START_ARTIST_NO = 0; // index = 0
 var END_ARTIST_NO = 2000000000;
 var END_SONG_NO = 2000000000;
-var rhythmMap = {
+// list getting after crawling, this is to give
+// manual control over which artists to get 
+var artistArr = 
+[
+  // Done
+  // {'Aerosmith' : 'http://www.e-chords.com/chords/aerosmith'},
+  // {'Adele' : 'http://www.e-chords.com/chords/adele'},
 
-'3 Doors Down' : 'http//www.e-chords.com/chords/3-doors-down',
-'4 Non Blondes' : 'http//www.e-chords.com/chords/4-non-blondes',
-'A Great Big World' : 'http//www.e-chords.com/chords/a-great-big-world',
-'Adele' : 'http//www.e-chords.com/chords/adele',
-'Aerosmith' : 'http//www.e-chords.com/chords/aerosmith',
-'Ariana Grande' : 'http//www.e-chords.com/chords/ariana-grande',
-'Ben E. King' : 'http//www.e-chords.com/chords/ben-e-king',
-'Bill Withers' : 'http//www.e-chords.com/chords/bill-withers',
-'Bob Dylan' : 'http//www.e-chords.com/chords/bob-dylan',
-'Bob Marley' : 'http//www.e-chords.com/chords/bob-marley',
-'Boyce Avenue' : 'http//www.e-chords.com/chords/boyce-avenue',
-'Bruno Mars' : 'http//www.e-chords.com/chords/bruno-mars',
-'Bryan Adams' : 'http//www.e-chords.com/chords/bryan-adams',
-'Christina Perri' : 'http//www.e-chords.com/chords/christina-perri',
-'Coldplay' : 'http//www.e-chords.com/chords/coldplay',
+  // batch 2
+  {'Ariana Grande' : 'http://www.e-chords.com/chords/ariana-grande'},
+  {'Ben E. King' : 'http://www.e-chords.com/chords/ben-e-king'},
+  {'Bill Withers' : 'http://www.e-chords.com/chords/bill-withers'},
+  {'Bob Dylan' : 'http://www.e-chords.com/chords/bob-dylan'},
+  {'Bob Marley' : 'http://www.e-chords.com/chords/bob-marley'},
+  {'Boyce Avenue' : 'http://www.e-chords.com/chords/boyce-avenue'},
+  {'Bruno Mars' : 'http://www.e-chords.com/chords/bruno-mars'},
+  {'Bryan Adams' : 'http://www.e-chords.com/chords/bryan-adams'},
+  {'Christina Perri' : 'http://www.e-chords.com/chords/christina-perri'},
+  {'Coldplay' : 'http://www.e-chords.com/chords/coldplay'},
+  
+  // batch 3
+  {'3 Doors Down' : 'http://www.e-chords.com/chords/3-doors-down'},
+  {'4 Non Blondes' : 'http://www.e-chords.com/chords/4-non-blondes'},
+  {'A Great Big World' : 'http://www.e-chords.com/chords/a-great-big-world'},
 
-// batch 2
-
-'Creedence Clearwater Revival' : 'http//www.e-chords.com/chords/creedence-clearwater-revival',
-'David Bowie' : 'http//www.e-chords.com/chords/david-bowie',
-'David Crowder Band' : 'http//www.e-chords.com/chords/david-crowder-band',
-'Drake' : 'http//www.e-chords.com/chords/drake',
-'Eagles' : 'http//www.e-chords.com/chords/eagles',
-'Ed Sheeran' : 'http//www.e-chords.com/chords/ed-sheeran',
-'Ellie Goulding' : 'http//www.e-chords.com/chords/ellie-goulding',
-'Elton John' : 'http//www.e-chords.com/chords/elton-john',
-'Elvis Presley' : 'http//www.e-chords.com/chords/elvis-presley',
-'Eric Clapton' : 'http//www.e-chords.com/chords/eric-clapton',
-'Extreme' : 'http//www.e-chords.com/chords/extreme',
-'Fleetwood Mac' : 'http//www.e-chords.com/chords/fleetwood-mac',
-'Frank Sinatra' : 'http//www.e-chords.com/chords/frank-sinatra',
-'Frozen' : 'http//www.e-chords.com/chords/frozen',
-'Green Day' : 'http//www.e-chords.com/chords/green-day',
-"Guns N' Roses" : 'http//www.e-chords.com/chords/guns-n-roses',
-'Hillsong United' : 'http//www.e-chords.com/chords/hillsong-united',
-'Hozier' : 'http//www.e-chords.com/chords/hozier',
-"Israel Kamakawiwo'ole" : 'http//www.e-chords.com/chords/israel-kamakawiwoole',
-'James Blunt' : 'http//www.e-chords.com/chords/james-blunt',
-'Jason Mraz' : 'http//www.e-chords.com/chords/jason-mraz',
-'Jeff Buckley' : 'http//www.e-chords.com/chords/jeff-buckley',
-'Jessie J' : 'http//www.e-chords.com/chords/jessie-j',
-'John Denver' : 'http//www.e-chords.com/chords/john-denver',
-'John Legend' : 'http//www.e-chords.com/chords/john-legend',
-'John Lennon' : 'http//www.e-chords.com/chords/john-lennon',
-'Journey' : 'http//www.e-chords.com/chords/journey',
-'Justin Bieber' : 'http//www.e-chords.com/chords/justin-bieber',
-'Led Zeppelin' : 'http//www.e-chords.com/chords/led-zeppelin',
-'Lukas Graham' : 'http//www.e-chords.com/chords/lukas-graham',
-'Magic!' : 'http//www.e-chords.com/chords/magic',
-'Maroon 5' : 'http//www.e-chords.com/chords/maroon-5',
-'Metallica' : 'http//www.e-chords.com/chords/metallica',
-'Neil Young' : 'http//www.e-chords.com/chords/neil-young',
-'Nirvana' : 'http//www.e-chords.com/chords/nirvana',
-'Oasis' : 'http//www.e-chords.com/chords/oasis',
-'Passenger' : 'http//www.e-chords.com/chords/passenger',
-'Pink Floyd' : 'http//www.e-chords.com/chords/pink-floyd',
-'Radiohead' : 'http//www.e-chords.com/chords/radiohead',
-'Red Hot Chili Peppers' : 'http//www.e-chords.com/chords/red-hot-chili-peppers',
-'REM' : 'http//www.e-chords.com/chords/rem',
-'Ronan Keating' : 'http//www.e-chords.com/chords/ronan-keating',
-'Rufus Wainwright' : 'http//www.e-chords.com/chords/rufus-wainwright',
-'Sam Smith' : 'http//www.e-chords.com/chords/sam-smith',
-'Shawn Mendes' : 'http//www.e-chords.com/chords/shawn-mendes',
-'The Animals' : 'http//www.e-chords.com/chords/the-animals',
-'The Beatles' : 'http//www.e-chords.com/chords/the-beatles',
-'The Cranberries' : 'http//www.e-chords.com/chords/the-cranberries',
-'The Rolling Stones' : 'http//www.e-chords.com/chords/the-rolling-stones',
-'Traditional' : 'http//www.e-chords.com/chords/traditional',
-'Van Morrison' : 'http//www.e-chords.com/chords/van-morrison',
-'Weezer' : 'http//www.e-chords.com/chords/weezer',
-'Wiz Khalifa' : 'http//www.e-chords.com/chords/wiz-khalifa'
+  // batch 2
+  // {'Creedence Clearwater Revival' : 'http://www.e-chords.com/chords/creedence-clearwater-revival'},
+  // {'David Bowie' : 'http://www.e-chords.com/chords/david-bowie'},
+  // {'David Crowder Band' : 'http://www.e-chords.com/chords/david-crowder-band'},
+  // {'Drake' : 'http://www.e-chords.com/chords/drake'},
+  // {'Eagles' : 'http://www.e-chords.com/chords/eagles'},
+  // {'Ed Sheeran' : 'http://www.e-chords.com/chords/ed-sheeran'},
+  // {'Ellie Goulding' : 'http://www.e-chords.com/chords/ellie-goulding'},
+  // {'Elton John' : 'http://www.e-chords.com/chords/elton-john'},
+  // {'Elvis Presley' : 'http://www.e-chords.com/chords/elvis-presley'},
+  // {'Eric Clapton' : 'http://www.e-chords.com/chords/eric-clapton'},
+  // {'Extreme' : 'http://www.e-chords.com/chords/extreme'},
+  // {'Fleetwood Mac' : 'http://www.e-chords.com/chords/fleetwood-mac'},
+  // {'Frank Sinatra' : 'http://www.e-chords.com/chords/frank-sinatra'},
+  // {'Frozen' : 'http://www.e-chords.com/chords/frozen'},
+  // {'Green Day' : 'http://www.e-chords.com/chords/green-day'},
+  // {"Guns N' Roses" : 'http://www.e-chords.com/chords/guns-n-roses'},
+  // {'Hillsong United' : 'http://www.e-chords.com/chords/hillsong-united'},
+  // {'Hozier' : 'http://www.e-chords.com/chords/hozier'},
+  // {"Israel Kamakawiwo'ole" : 'http://www.e-chords.com/chords/israel-kamakawiwoole'},
+  // {'James Blunt' : 'http://www.e-chords.com/chords/james-blunt'},
+  // {'Jason Mraz' : 'http://www.e-chords.com/chords/jason-mraz'},
+  // {'Jeff Buckley' : 'http://www.e-chords.com/chords/jeff-buckley'},
+  // {'Jessie J' : 'http://www.e-chords.com/chords/jessie-j'},
+  // {'John Denver' : 'http://www.e-chords.com/chords/john-denver'},
+  // {'John Legend' : 'http://www.e-chords.com/chords/john-legend'},
+  // {'John Lennon' : 'http://www.e-chords.com/chords/john-lennon'},
+  // {'Journey' : 'http://www.e-chords.com/chords/journey'},
+  // {'Justin Bieber' : 'http://www.e-chords.com/chords/justin-bieber'},
+  // {'Led Zeppelin' : 'http://www.e-chords.com/chords/led-zeppelin'},
+  // {'Lukas Graham' : 'http://www.e-chords.com/chords/lukas-graham'},
+  // {'Magic!' : 'http://www.e-chords.com/chords/magic'},
+  // {'Maroon 5' : 'http://www.e-chords.com/chords/maroon-5'},
+  // {'Metallica' : 'http://www.e-chords.com/chords/metallica'},
+  // {'Neil Young' : 'http://www.e-chords.com/chords/neil-young'},
+  // {'Nirvana' : 'http://www.e-chords.com/chords/nirvana'},
+  // {'Oasis' : 'http://www.e-chords.com/chords/oasis'},
+  // {'Passenger' : 'http://www.e-chords.com/chords/passenger'},
+  // {'Pink Floyd' : 'http://www.e-chords.com/chords/pink-floyd'},
+  // {'Radiohead' : 'http://www.e-chords.com/chords/radiohead'},
+  // {'Red Hot Chili Peppers' : 'http://www.e-chords.com/chords/red-hot-chili-peppers'},
+  // {'REM' : 'http://www.e-chords.com/chords/rem'},
+  // {'Ronan Keating' : 'http://www.e-chords.com/chords/ronan-keating'},
+  // {'Rufus Wainwright' : 'http://www.e-chords.com/chords/rufus-wainwright'},
+  // {'Sam Smith' : 'http://www.e-chords.com/chords/sam-smith'},
+  // {'Shawn Mendes' : 'http://www.e-chords.com/chords/shawn-mendes'},
+  // {'The Animals' : 'http://www.e-chords.com/chords/the-animals'},
+  // {'The Beatles' : 'http://www.e-chords.com/chords/the-beatles'},
+  // {'The Cranberries' : 'http://www.e-chords.com/chords/the-cranberries'},
+  // {'The Rolling Stones' : 'http://www.e-chords.com/chords/the-rolling-stones'},
+  // {'Traditional' : 'http://www.e-chords.com/chords/traditional'},
+  // {'Van Morrison' : 'http://www.e-chords.com/chords/van-morrison'},
+  // {'Weezer' : 'http://www.e-chords.com/chords/weezer'},
+  // {'Wiz Khalifa' : 'http://www.e-chords.com/chords/wiz-khalifa'}
 
   // batch all 5
   // 'Famous artist': 'http://www.e-chords.com/chords'
-};
+];
 
 // crawlAllValidChordsToUpsert();
 exports.crawlAllValidChordsToUpsert = crawlAllValidChordsToUpsert;
@@ -122,7 +126,7 @@ function crawlAndPersist() {
         console.log('number of docs persisted: ' + chords.length);
       }
       var t1 = Date.now();
-      console.log("\n\nCrawlAndPersist took " + (t1 - t0) + " milliseconds for " + chords.length + " chords");
+      console.log("\n\nCrawlAndPersist took " + ((t1 - t0)/1000/60) + " mins for " + chords.length + " chords");
     });
   })
 }
@@ -160,7 +164,7 @@ function crawlFullChordRecursive(validChordsToCrawl, counter, deferred){
   var chord = validChordsToCrawl[counter];
 
   var url = chord.creditUrl;
-  console.log('\n\nstartCrawling:' + url);
+  console.log('\n\n'+counter+'/'+ validChordsToCrawl.length +' startCrawling:' + url);
 
   http.get(url, function(res){
     if (res.statusCode > 300 && res.statusCode < 400 && res.headers.location) {
@@ -196,23 +200,6 @@ function crawlFullChordRecursive(validChordsToCrawl, counter, deferred){
     });
 }
 
-function buildEChordsPageList(){
-  var pagination = '/#results-';
-
-  var rythmsAllKeys = Object.keys(rhythmMap);
-  var rhythmAllPages = [];
-  for (var i = 0; i < rythmsAllKeys.length; i++){
-    for (var j = START_FROM; j <= END_PAGE; j++){
-      var url = rhythmMap[rythmsAllKeys[i]] + pagination + j;
-      rhythmAllPages.push(url);
-      console.log("buildPageList.page: " + url);
-    }
-  }
-
-  return rhythmAllPages;
-}
-
-
 function getValidChordsToCrawl(basicChordsCrawled, chordsInDB){
   var chordsToCrawl = [];
   console.log('\nstart validating chords to crawl - getValidChordsToCrawl: ');
@@ -243,143 +230,42 @@ function getValidChordsToCrawl(basicChordsCrawled, chordsInDB){
   return chordsToCrawl;
 }
 
-
 /* STEP 1
-* Template Method
-*/
-function buildListOfArtirstFromWebsites(){
-  var deferred = Q.defer();
-
-  var songPages = buildEChordsPageList();
-  var artirsts = []; // {name: Adele, artistLink: /chords/adele }
-
-  console.log('buildListOfArtirstFromWebsites...');
-  crawlArtistPagesRecursive(songPages, 0, artirsts, deferred);
-
-  return deferred.promise;
-}
-
-/* STEP 2
 * Template Method
 */
 function buildListOfBasicChordsFromWebsites(){
   var deferred = Q.defer();
 
- // {name: Adele, artistLink: /chords/adele }
+  var chords = [];
+  crawlSongPagesRecursive(artistArr, START_ARTIST_NO, chords, deferred);
 
-  buildListOfArtirstFromWebsites().then(function (artirsts){
-    var chords = [];
-    console.log('buildListOfBasicChordsFromWebsites... artirsts.length: ' + artirsts.length);
-    crawlSongPagesRecursive(artirsts, START_ARTIST_NO, chords, deferred);
-  })
-  
 
   return deferred.promise;
-}
-
-/** STEP 1
-* build a full list of individual artists page
-* making it a promise
-*/
-function crawlArtistPagesRecursive(songPages, counter, artirsts, deferred){
-
-  // if (counter >= 2) {
-  if (counter >= songPages.length ) {
-    deferred.resolve(artirsts);
-    return;
-  }
-
-  var curPageUrl = songPages[counter];
-
-  http.get(curPageUrl, function(res){
-
-    if (res.statusCode > 300 && res.statusCode < 400 && res.headers.location) {
-      console.log('Page redirected: ' + res.statusCode + '  ' + curPageUrl);
-      // recursion
-      crawlArtistPagesRecursive(songPages, ++counter, artirsts, deferred);         
-    } else {
-      res.setEncoding('utf8');
-      var str = '';
-      //another chunk of data has been recieved, so append it to `str`
-      res.on('data', function (chunk) {
-        str += chunk;
-      });
-
-      res.on('end', function () {
-        if (str.length > 10) {
-          // pars the basic info artirsts for each page: title + url
-          console.log('\nGetting individual artirst from: ' + curPageUrl);
-
-          getListOfIndividualArtirstEchords(str, artirsts);
-
-          // recursion
-          crawlArtistPagesRecursive(songPages, ++counter, artirsts, deferred)
-        }
-      });
-    }
-  }).on('error', function (e) {
-    console.log('Error retrieving page: ' + curPageUrl);
-
-    // recursion
-    crawlArtistPagesRecursive(songPages, ++counter, artirsts, deferred);
-  });
-}
-
-function getListOfIndividualArtirstEchords(body, artirsts){
-  $ = cheerio.load(body);
-
-  // stop when cloudFare wants me to stop!
-  var ddos = $('div.attribution a').text().toString();
-  if (ddos != undefined && ddos.length > 10) {
-    console.log('ddos deteced: ' + ddos);
-    return;
-  }
-
-  var content = $('ul#results').toString();
-  $ = cheerio.load(content);
-  console.log('Start getting list of chords... ~ body.length: ' + body.length);
-  $('li').map(function (i, link) {
-    temp = cheerio.load($(link).toString());
-    // console.log('\nli ~ $(link).toString(): ' + $(link).toString());
-
-    temp('div.lista').map(function (i, link) {
-      var temp3 = cheerio.load($(link).toString());
-
-      var artist = {}; //{name: Adele, url: /chords/adele }
-      artist.version = 1;
-
-      artist.name = temp3('p.nome-artista a').text().trim();
-      artist.url = domain + "/" + temp3('p.nome-artista a').attr('href').trim();
-
-      artirsts.push(artist);
-      console.log('getListOfIndividualArtirstEchords - name: ' + artist.name + '  url: ' + artist.url);
-    });
-  });
-
-  return artirsts;
 }
 
 /**
 * build a full list of individual chords with title and credit urls
 * making it a promise
 */
-function crawlSongPagesRecursive(artists, counter, chords, deferred){
+function crawlSongPagesRecursive(artistArr, counter, chords, deferred){
 
-  if (counter >= artists.length || counter >= END_ARTIST_NO) {
+  if (counter >= artistArr.length || counter >= END_ARTIST_NO) {
     console.log('\crawlSongPagesRecursive total chords: ' + chords.length);
 
     deferred.resolve(chords);
     return;
   }
 
-  var curPageUrl = artists[counter].url;
+  var singer = Object.keys(artistArr[counter])[0];
+  var curPageUrl = artistArr[counter][singer]
+
   console.log('\crawlSongPagesRecursive: ' + curPageUrl);
 
   http.get(curPageUrl, function(res){
     if (res.statusCode > 300 && res.statusCode < 400 && res.headers.location) {
       console.log('Page redirected: ' + res.statusCode + '  ' + curPageUrl);
       // recursion
-      crawlSongPagesRecursive(artists, ++counter, chords, deferred)
+      crawlSongPagesRecursive(artistArr, ++counter, chords, deferred)
     } else {
       res.setEncoding('utf8');
       var str = '';
@@ -393,19 +279,19 @@ function crawlSongPagesRecursive(artists, counter, chords, deferred){
           // pars the basic info chords for each page: title + url
           console.log('\nGetting individual chords from: ' + curPageUrl);
 
-          var singers = [artists[counter].name];
+          var singers = [singer];
           console.log('\crawlSongPagesRecursive singers: ' + singers);
           getListOfIndividualChordsBasicInfoEChords(str, chords, singers);
 
           // recursion
-          crawlSongPagesRecursive(artists, ++counter, chords, deferred)
+          crawlSongPagesRecursive(artistArr, ++counter, chords, deferred)
         }
       });
   }}).on('error', function (e) {
     console.log('Error retrieving page: ' + curPageUrl);
 
     // recursion
-    crawlSongPagesRecursive(artists, ++counter, chords, deferred);
+    crawlSongPagesRecursive(artistArr, ++counter, chords, deferred);
   });
 }
 
@@ -431,7 +317,7 @@ function getListOfIndividualChordsBasicInfoEChords(body, chords, singers){
     chord.version = 1;
 
     chord.title = temp('div.track a').attr('title').trim();
-    console.log('getListOfIndividualChordsBasicInfoEChords - title: ' + chord.title );
+    // console.log('getListOfIndividualChordsBasicInfoEChords - title: ' + chord.title );
 
     var href = temp('div.track a').attr('href')
     chord.creditUrl = (domain + "/" + href).trim();
