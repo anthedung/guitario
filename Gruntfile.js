@@ -507,7 +507,7 @@ module.exports = function (grunt) {
         files: {
           '<%= yeoman.client %>/index.html': [
                [
-                 
+                 // '.tmp/app/components/anthejtab/raphael.js', // make sure Raphael load first
                  '.tmp/{app,components}/**/*.js',
                  
                  '!{.tmp,<%= yeoman.client %>}/app/app.js',

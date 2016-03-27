@@ -6,6 +6,7 @@
 'use strict';
 
 var Thing = require('../api/thing/thing.model');
+var Chord = require('../api/chord/chord.model');
 
 
 Thing.find({}).remove(function () {
@@ -29,3 +30,11 @@ Thing.find({}).remove(function () {
     info: 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
   });
 });
+
+Chord.find({}).remove(function (){
+  Chord.create({
+    
+  })
+})
+
+
