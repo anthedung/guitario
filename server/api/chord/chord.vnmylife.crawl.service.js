@@ -19,8 +19,8 @@ var GeneralService = require('./chord.service.js');
  * 6. persist into DB
  */
 
-var START_FROM = 1;
-var END_PAGE = 300;
+var START_FROM = 3;
+var END_PAGE = 2000;
 
 var rhythmMap = {
   // 'rhumba': 'http://www.vnmylife.com/mychord/rhythm/rhumba/9',
@@ -68,11 +68,10 @@ function crawlAndPersist() {
     console.log('\n\nStarting to persist of docs persisted: ' + chords.length);
 
     Chord.create(chords, function (err, docs) {
-
       if (err) {
         console.log('persistValidChordToDB error: ' + err);
       } else {
-        console.log('number of docs persisted: ' + docs.length);
+        console.log('number of docs persisted: ' + chords.length);
       }
       var t1 = Date.now();
       console.log("\n\nCrawlAndPersist took " + (t1 - t0) + " milliseconds for " + chords.length + " chords");
@@ -146,7 +145,7 @@ function buildVnMylifePageList(){
   var rythmsAllKeys = Object.keys(rhythmMap);
   var rhythmAllPages = [];
   for (var i = 0; i < rythmsAllKeys.length; i++){
-    for (var j = 1; j < 2; j++){
+    for (var j = START_FROM; j < END_PAGE; j++){
       var url = rhythmMap[rythmsAllKeys[i]] + pagination + j;
       rhythmAllPages.push(url);
       console.log("buildPageList.page: " + url);

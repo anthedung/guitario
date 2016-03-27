@@ -117,6 +117,11 @@ angular.module('guitariosApp')
 
     var removeInitialCounting = function (content) {
       content = ('' + content).replace(/[0-9]\. /g, '');
+
+      // bonus
+      content = ('' + content).replace(/\[\[/g, '[');
+      content = ('' + content).replace(/\]\]/g, ']');
+
       return content;
     };
 

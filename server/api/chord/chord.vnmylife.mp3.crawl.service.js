@@ -14,7 +14,7 @@ var GeneralService = require('./chord.service.js');
 * 2. crawl recursively
 */
 
-var base = "http://www.vnmylife.com/api/audio/chiasenhac?q="+;
+var base = "http://www.vnmylife.com/api/audio/chiasenhac?q=";
 
 function crawlMp3(fromPage, limitPaganiation) {
   console.log('preparing  crawlMp3Recursive:' + fromPage + '   ' + limitPaganiation);

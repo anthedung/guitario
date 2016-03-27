@@ -11,7 +11,7 @@ angular.module('guitariosApp')
     vm.chipRhythms[vm.selectedRhythm] = 'clickedrhythmChip';
 
     var rhythm = $stateParams.rhythm;
-    var LIMIT = 20, pageNoToScroll = 1;
+    var LIMIT = 10, pageNoToScroll = 1;
     vm.chordsByRhythm = [];
     loadRhythms(rhythm);
 
@@ -38,6 +38,7 @@ angular.module('guitariosApp')
     }
 
     function addMoreChordsToRhythm(chords) {
+      console.log("addMoreChordsToRhythm...pageNoToScroll: " + pageNoToScroll);
       pageNoToScroll = pageNoToScroll + 1;
       for (var i = 0; i < chords.length; i++) {
         if (vm.chordsByRhythm.indexOf(chords[i]) < 0)
