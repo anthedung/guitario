@@ -44,9 +44,15 @@ db.chords.find().forEach(function (chord) {
 });
 
 
-// mongorestore -dir /Users/anthedung/AProgramming/MEAN/dbbackup/20160301-123357/guitarios-dev/ --drop
+// mongorestore -dir /Users/anthedung/AProgramming/MEAN/dbbackup/vnmylifeRhythmsonly-echordsAll-20160327-084549/guitarios-dev/ --drop
 // db.copyDatabase("ir","guitarios-dev")
 
 // db.chords.find({$and:[{chordAuthor:'vnmylife'},{'rhythms':{$size: 0}}]})
 
+
+// mlab
+// mongo ds025459.mlab.com:25459/heroku_h3xb8w9l 
+// mongodb://heroku_h3xb8w9l:f9kmb6suasqjp31lsbavrhhfbanthe321@ds025459.mlab.com:25459/heroku_h3xb8w9l
+
+// mongorestore -h ds025459.mlab.com:25459 -d heroku_h3xb8w9l -c chords -u heroku_h3xb8w9l -p f9kmb6suasqjp31lsbavrhhfbanthe321 chords.bson
 

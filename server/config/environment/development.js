@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/guitarios-dev'
   },
 
-  seedDB: true
+  seedDB: false,
 };

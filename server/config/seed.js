@@ -31,10 +31,3 @@ Thing.find({}).remove(function () {
   });
 });
 
-Chord.find({}).remove(function (){
-  Chord.create({
-    
-  })
-})
-
-

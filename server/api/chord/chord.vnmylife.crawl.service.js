@@ -74,7 +74,7 @@ function crawlAndPersist() {
         console.log('number of docs persisted: ' + chords.length);
       }
       var t1 = Date.now();
-      console.log("\n\nCrawlAndPersist took " + (t1 - t0) + " milliseconds for " + chords.length + " chords");
+      console.log("\n\nCrawlAndPersist took " + ((t1 - t0)/1000/60) + " milliseconds for " + chords.length + " chords");
     });
   })
 }
@@ -164,7 +164,7 @@ function getValidChordsToCrawl(basicChordsCrawled, chordsInDB){
 
   var chordsInDBCreditUrls = chordsInDB.filter(function(chord){
     // non empty chords only 
-    var isValidInDb = chord.title.length > 0 && chord.content.length > 10;
+    var isValidInDb = chord.title != undefined && chord.content != undefined && chord.title.length > 0 && chord.content.length > 10;
     // console.log('getValidChordsToCrawl isValidInDb - title:' + chord.title + " valid: " + isValidInDb);
 
     if (isValidInDb){
