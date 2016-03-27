@@ -4,20 +4,7 @@
 
   <br>
   <br data-ng-show="!vm.chordsVisible" ng-cloak>
-  <div layout="row" layout-align="center center" class="anthe-rythms-chips" ng-cloak>
-    <md-chips data-ng-repeat="rythm in vm.rythms34">
-      <md-chip clickable class="anthe-chip" data-ng-class="vm.chipRhythms[rythm]">
-      <a class="anthe-link-button"href="chordsByRhythm/{{rythm}}">{{rythm}}</a>
-      </md-chip>
-    </md-chips>
-  </div>
-  <div layout="row" layout-align="center center" class="anthe-rythms-chips">
-    <md-chips data-ng-repeat="rythm in vm.rythms">
-      <md-chip clickable class="anthe-chip" data-ng-class="vm.chipRhythms[rythm]">
-      <a class="anthe-link-button" href="chordsByRhythm/{{rythm}}">{{rythm}}</a>
-      </md-chip>
-    </md-chips>
-  </div>
+  <div ng-include="'app/components/banner/rhythm_chips.html'"></div>
   <br>
 
   <br>

@@ -1,28 +1,8 @@
 <div layout="column" class="anthe-content" ng-cloak onscroll="alert('haha')">
 
   <div ng-include="'app/components/banner/bannerSearchBar.html'" ng-cloak></div>
-
   <br>
-  <div layout="row" layout-align="center center" class="anthe-rythms-chips" ng-cloak>
-    <md-chips data-ng-repeat="rythm in vm.rythms34" ng-cloak>
-      <md-chip clickable class="anthe-chip" ng-click="vm.toggleShowChords(rythm, this)"
-               data-ng-class="vm.chipRhythms[rythm]">
-        <!-- <a class="anthe-link-button" href="chordsByRhythm/{{rythm}}"> -->
-        {{rythm}}
-        <!-- </a> -->
-      </md-chip>
-    </md-chips>
-  </div>
-  <div layout="row" layout-align="center center" class="anthe-rythms-chips" ng-cloak>
-    <md-chips data-ng-repeat="rythm in vm.rythms">
-      <md-chip clickable class="anthe-chip" ng-click="vm.toggleShowChords(rythm, this)"
-               data-ng-class="vm.chipRhythms[rythm]" >
-        <!-- <a class="anthe-link-button" href="chordsByRhythm/{{rythm}}"> -->
-        {{rythm}}
-        <!-- </a> -->
-      </md-chip>
-    </md-chips>
-  </div>
+  <div ng-include="'app/components/banner/rhythm_chips.html'"></div>
   <br>
   <div class="anthe-quote" layout-align="center" data-if="vm.chordsVisible"
        infinite-scroll="vm.nextPage()" infinite-scroll-disabled="vm.scrollShouldDisable" infinite-scroll-distance="1" >

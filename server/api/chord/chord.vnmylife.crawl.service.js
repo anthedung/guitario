@@ -19,8 +19,8 @@ var GeneralService = require('./chord.service.js');
  * 6. persist into DB
  */
 
-var START_FROM = 1;
-var END_PAGE = 100;
+var START_FROM = 101;
+var END_PAGE = 800;
 
 var rhythmMap = {
   // 'rhumba': 'http://www.vnmylife.com/mychord/rhythm/rhumba/9',
