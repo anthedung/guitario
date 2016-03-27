@@ -4,8 +4,9 @@ var baseUrl = '/api/chords/';
 var baseUrlByRhythms = '/api/chords/rhythms/';
 
 angular.module('guitariosApp')
-  .controller('ChordDetailsCtrl', function ($http, $stateParams, $sce, $timeout, ChordService, $log) {
+  .controller('ChordDetailsCtrl', function ($http, $stateParams, $sce, $timeout, ChordService, $log, $q) {
     var vm = this;
+    vm.chords
     // temporarily put here
     var limit = 4;
     console.log('$stateParams: ' + $stateParams.id);
@@ -58,4 +59,53 @@ angular.module('guitariosApp')
     vm.selectChordsByRhythm = ChordService.selectChordsByRhythm;
     vm.trustAsHtml = ChordService.trustAsHtml;
 
+
+    // SEARCH
+    vm.searchRemote = true;
+    vm.isDisabled = false;
+    // list of `state` value/display objects
+    vm.querySearch = querySearch;
+    vm.selectedItemChange = selectedItemChange;
+    vm.searchTextChange = searchTextChange;
+    vm.randomChord = randomChord;
+    function randomChord(state) {
+      // alert("Sorry! You'll need to create a Constituion for " + state + " first!");
+    }
+
+    function querySearch(query) {
+      $http.get('api')
+      var results = query ? vm.chordsByRhythm.filter(createFilterFor(query)) : vm.chordsByRhythm,
+        deferred;
+      if (vm.searchRemote) {
+        deferred = $q.defer();
+        var url = 'api/chords/search?q=';
+        $http.get(url + query).success(function (chords) {
+          deferred.resolve(chords);
+        })
+
+        return deferred.promise;
+      } else {
+        return results;
+      }
+    }
+
+    function searchTextChange(text) {
+      $log.info('Text changed to ' + text);
+    }
+
+    function selectedItemChange(item) {
+      $log.info('Item changed to ' + JSON.stringify(item));
+    }
+
+    /**
+     * Create filter function for a query string
+     */
+    function createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(chord) {
+        return
+        (chord.title.toLowerCase().indexOf(lowercaseQuery) > -1)
+        || (chord.titleEnChar.toLowerCase().indexOf(lowercaseQuery) > -1)
+      };
+    }
   });

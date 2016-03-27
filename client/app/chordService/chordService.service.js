@@ -73,7 +73,7 @@ angular.module('guitariosApp')
 
     this.getStandardDescLength = function (description, length) {
       length = length || 160;
-      description = '' + description;
+      description = '' + removeInvalidChars(description);
       if (description.length < length) {
         return description + "...";
       } else {
@@ -106,6 +106,7 @@ angular.module('guitariosApp')
 
     this.decorateContent = function (content) {
       content = this.removeInitialCounting(content);
+      content = this.removeInvalidChars(content);
       content = this.breakContentIntoLines(content);
       content = this.addSpanClassForChords(content);
 
@@ -120,12 +121,21 @@ angular.module('guitariosApp')
     var removeInitialCounting = function (content) {
       content = ('' + content).replace(/[0-9]\. /g, '');
 
-      // bonus
+      return content;
+    }
+
+    this.removeInvalidChars = function(content){
+      return removeInvalidChars(content);
+    }
+
+    var removeInvalidChars = function (content) {
+      // bonus -- remove double [[ | ]]
       content = ('' + content).replace(/\[\[/g, '[');
       content = ('' + content).replace(/\]\]/g, ']');
+      content = ('' + content).replace(/�/g, '-');
 
       return content;
-    };
+    }
 
 
     this.breakContentIntoLines = function (content) {
@@ -136,7 +146,7 @@ angular.module('guitariosApp')
 
       console.log('breakContentIntoLines after: ' + content);
       return content;
-    };
+    }
 
     this.addSpanClassForChords = function (content) {
       // console.log(content);
@@ -145,7 +155,7 @@ angular.module('guitariosApp')
       content = ('' + content).replace(/\]/g, '</span>]').toString();
 
       return content;
-    };
+    }
 
     this.selectChordsNoFilter = function (limit, pageNo) {
       var limit = limit || 7;
@@ -227,6 +237,15 @@ angular.module('guitariosApp')
         if (chords[i].content.length > 10) {
           var c = chords[i]
           c.content = removeInitialCounting(c.content);
+          c.title = removeInvalidChars(c.title);
+
+          c.singers.forEach(function(singer){
+            return removeInvalidChars(singer);
+          });
+
+          c.songAuthors.forEach(function(author){
+            return removeInvalidChars(author);
+          });
 
           refinedChords.push(c);
         }
@@ -254,3 +273,5 @@ angular.module('guitariosApp')
       return shuffled.slice(min);
     }
   });
+
+

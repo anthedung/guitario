@@ -19,8 +19,8 @@ var GeneralService = require('./chord.service.js');
  * 6. persist into DB
  */
 
-var START_FROM = 100;
-var END_PAGE = 300;
+var START_FROM = 1;
+var END_PAGE = 100;
 
 var rhythmMap = {
   // 'rhumba': 'http://www.vnmylife.com/mychord/rhythm/rhumba/9',
@@ -111,7 +111,8 @@ function crawlFullChordRecursive(validChordsToCrawl, counter, deferred){
   var chord = validChordsToCrawl[counter];
 
   var url = chord.creditUrl;
-  console.log('\n\nstartCrawling:' + url);
+  // console.log('\n\nstartCrawling:' + url);
+  console.log('\n\n'+(counter+1)+'/'+ validChordsToCrawl.length +'('+ (Math.round((counter+1)/validChordsToCrawl.length*100))+'%) startCrawling:' + url);
 
   http.get(url, function(res){
     res.setEncoding('utf8');
