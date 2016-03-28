@@ -4,67 +4,65 @@
   <div ng-include="'app/components/anthejtab/chord_view.html'"></div>
 
   <br>
-  <br>
-  <div layout="row" layout-xs="column" layout-wrap>
+  <br hide-xs>
+  <div layout="row" layout-sm="column" layout-wrap class="anthe-song-content-container">
 
     <!-- first col -->
-    <div layout="column" flex="66">
-      <div layout-align="center">
-        <md-card layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card ">
-          <md-card-title>
-            <md-card-title-text>
-              <div class="anthe-headline">
-                <strong>&#9834; {{vm.chord.title}}</strong>
+    <div layout="column" flex-gt-sm="66">
+      <div layout="column" flex>
+        <div class="anthe-song-content-container">
+          <md-card layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card ">
+            <md-card-title>
+              <md-card-title-text>
+                <div class="anthe-headline">
+                  <strong>&#9834; {{vm.chord.title}}</strong>
                 <span ng-if='vm.chord.songAuthors.length > 0'><em>&nbsp;&#x2606;
                   {{vm.join(vm.chord.singers)}}</em></span>
 
 
-                <!-- Note -->
-                &nbsp;
+                  <!-- Note -->
+                  &nbsp;
                   <span class="trans_" align="center">
                     <span class="trans_back" onclick="changeAllChord(-1);">&#9837;</span>
                     [<span class="guitarios_chord " align="center" value="{{vm.songTone}}">{{vm.songTone}}</span>]
                     <span class="trans_next" onclick="changeAllChord(1);">&#9839;</span>
                   </span>
-                <!-- <input id="trans_code" value="' + val + '" type="hidden"/>
-                <input id="trans_char" value="' + cha + '" type="hidden"/>
-                <span class="trans_" layout="row" layout-align="center center" align="center">
-                <span class="trans_back" onclick="jtab.trans_back(this)">&#45;</span>
-                <span onclick="jtab.trans_default(this)" class="trans_space">frets</span>
-                <span class="trans_next" onclick="jtab.trans_next(this)">&#43;</span></span>
-                <span class="trans_" layout="row" layout-align="center center" align="center">
-                <span class="trans_back" onclick="changeAllChord(-1);">&#9837;</span>
-                <span class="trans_space">tune</span>' + '<span class="trans_next" onclick="changeAllChord(1);">&#9839;</span> -->
-                </span>
-              </div>
-            </md-card-title-text>
-          </md-card-title>
-          <br> <!-- separator-->
-          <div .md-whiteframe-2dp layout-padding="10">
-            <md-card-content ng-href="#vm.chordDetails/{{vm.chord._id}}">
-              <div>
-                <div class="anthe-song-content">
-                  <pre class="anthe-song-content" ng-bind-html="vm.trustedContentHtml"  clickable></pre>
+                  </span>
                 </div>
-                <br>
-                <br>
-                <span > <em>&nbsp;&#119074;&nbsp;{{vm.join(vm.chord.rhythms)}}</em> </span>
+              </md-card-title-text>
+            </md-card-title>
+            <br> <!-- separator-->
+            <div .md-whiteframe-2dp layout-padding="10">
+              <md-card-content ng-href="#vm.chordDetails/{{vm.chord._id}}">
+                <div>
+                  <div class="anthe-song-content">
+                    <div class="anthe-song-content-pre" ng-bind-html="vm.trustedContentHtml" clickable></div>
+                  </div>
+                  <br>
+                  <br>
+                  <span> <em>&nbsp;&#119074;&nbsp;{{vm.join(vm.chord.rhythms)}}</em> </span>
                 <span ng-if='vm.chord.chordAuthor.length > 0'> <em>
                   &nbsp;&#119083;&nbsp;{{vm.chord.chordAuthor}}</em> </span>
-              </div>
-            </md-card-content>
-          </div>
-        </md-card>
-      </div>
+                </div>
+              </md-card-content>
+            </div>
+          </md-card>
+        </div>
 
-      <!--chords-->
-      <div class="md-whiteframe-6dp anthe-chord-card" ng-if="vm.allChordsJoinedStrHtml.length > 2">
-        <div ng-bind-html="vm.allChordsJoinedStrHtml" layout="row" class="anthe-guitarios-chord-card" layout-wrap></div>
+        <!--chords-->
+        <div>
+          <div class="md-whiteframe-6dp anthe-chord-card" ng-bind-html="vm.allChordsJoinedStrHtml" layout="row"
+               class="anthe-guitarios-chord-card" layout-wrap>
+            <br>
+
+          </div>
+          <br>
+        </div>
       </div>
     </div>
 
     <!-- 2nd col -->
-    <div layout="column" flex="33">
+    <div layout="column" flex-gt-sm="33" hide-lt-md hide-xs>
 
       <!--songs-->
       <div layout-align="center" ng-if='vm.chord.mp3s.length > 0'>
@@ -150,17 +148,6 @@
     </div>
   </div>
 
-  <!-- <div ng-include="'app/components/banner/footer.html'" ng-cloak></div> -->
-<div layout="column" flex>
-  <br>
-  <br>
-  <footer>
-    <div layout="row" layout-align="center" id="anthe-footer">
-      <div class="anthe-copyright" layout="row" layout-align="center bottom">
-        <p style="color:white">Copyright © 2016 ABCStudio</p>
-      </div>
-    </div>
-  </footer>
-</div>
+  <div ng-include="'app/components/banner/footer.html'" ng-cloak></div>
 
 </div>

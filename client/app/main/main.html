@@ -3,11 +3,13 @@
   <div ng-include="'app/components/banner/bannerSearchBar.html'"></div>
 
   <br>
-  <br data-ng-show="!vm.chordsVisible" ng-cloak>
+  <br hide-xs ng-cloak>
   <div ng-include="'app/components/banner/rhythm_chips.html'"></div>
   <br>
 
   <br>
+  <br show-lt-md>
+
   <div layout="row" layout-align="center" ngCloak>
     <div class="anthe-canvas-globe" id="myCanvasContainer" ngCloak>
       <canvas min-height="600" min-width="600" id="myCanvas" class="anthe-global">

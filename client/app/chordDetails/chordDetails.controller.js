@@ -40,9 +40,9 @@ angular.module('guitariosApp')
       vm.songTone = ChordService.findLastChord(chord.content);
       console.log('vm.songTone: ' + vm.songTone);
       vm.allChordsWithClass = ChordService.findAllChordsWithClass(vm.allChords);
+      console.log('vm.allChordsWithClass.length: ' + vm.allChordsWithClass.length);
       vm.allChordsJoinedStrHtml = $sce.trustAsHtml(ChordService.join(vm.allChordsWithClass, true, ' '));
-
-      //console.log('vm.allChordsJoinedStr: ' + vm.allChordsJoinedStrHtml);
+      console.log('vm.allChordsJoinedStr: ' + vm.allChordsJoinedStrHtml);
 
       console.log('timeout to ensure event is loaded: refreshing...');
       $timeout(function () {

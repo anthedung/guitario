@@ -19,3 +19,69 @@
     "Điệu Boston"
   ]
 }
+
+['Aerosmith', 'Adele', 'Ariana Grande', 'Ben E. King', 'Bob Dylan', 'Bob Marley', 'Boyce Avenue', 'Bruno Mars', 'Bryan Adams','Christina Perri', 'Coldplay',
+  'Creedence Clearwater Revival' , 'David Bowie' , 'David Crowder Band' , 'Drake' , 'Eagles' , 'Ed Sheeran' , 'Ellie Goulding' , 'Elton John' , 'Elvis Presley' , 'Eric Clapton' , 'Extreme' , 'Fleetwood Mac' , 'Frank Sinatra' , 'Frozen' , 'Green Day' , "Guns N' Roses" , 'Hillsong United' , 'Hozier' , "Israel Kamakawiwo'ole" , 'James Blunt' , 'Jason Mraz' , 'Jeff Buckley' , 'Jessie J' , 'John Denver' , 'John Legend' , 'John Lennon' , 'Journey' , 'Justin Bieber' , 'Led Zeppelin' , 'Lukas Graham' , 'Magic!' , 'Maroon 5' , 'Metallica' , 'Neil Young' , 'Nirvana' , 'Oasis' , 'Passenger' , 'Pink Floyd']
+]
+
+[
+{'Aerosmith' : 'http://www.e-chords.com/chords/aerosmith'},
+ {'Adele' : 'http://www.e-chords.com/chords/adele'},
+
+ // batch 2
+ {'Ariana Grande' : 'http://www.e-chords.com/chords/ariana-grande'},
+ {'Ben E. King' : 'http://www.e-chords.com/chords/ben-e-king'},
+ {'Bill Withers' : 'http://www.e-chords.com/chords/bill-withers'},
+ {'Bob Dylan' : 'http://www.e-chords.com/chords/bob-dylan'},
+ {'Bob Marley' : 'http://www.e-chords.com/chords/bob-marley'},
+ {'Boyce Avenue' : 'http://www.e-chords.com/chords/boyce-avenue'},
+ {'Bruno Mars' : 'http://www.e-chords.com/chords/bruno-mars'},
+ {'Bryan Adams' : 'http://www.e-chords.com/chords/bryan-adams'},
+ {'Christina Perri' : 'http://www.e-chords.com/chords/christina-perri'},
+ {'Coldplay' : 'http://www.e-chords.com/chords/coldplay'},
+
+ // batch 3
+ {'3 Doors Down' : 'http://www.e-chords.com/chords/3-doors-down'},
+ {'4 Non Blondes' : 'http://www.e-chords.com/chords/4-non-blondes'},
+ {'A Great Big World' : 'http://www.e-chords.com/chords/a-great-big-world'},
+
+ // batch 4
+ {'Creedence Clearwater Revival' : 'http://www.e-chords.com/chords/creedence-clearwater-revival'},
+ {'David Bowie' : 'http://www.e-chords.com/chords/david-bowie'},
+ {'David Crowder Band' : 'http://www.e-chords.com/chords/david-crowder-band'},
+ {'Drake' : 'http://www.e-chords.com/chords/drake'},
+ {'Eagles' : 'http://www.e-chords.com/chords/eagles'},
+ {'Ed Sheeran' : 'http://www.e-chords.com/chords/ed-sheeran'},
+ {'Ellie Goulding' : 'http://www.e-chords.com/chords/ellie-goulding'},
+ {'Elton John' : 'http://www.e-chords.com/chords/elton-john'},
+ {'Elvis Presley' : 'http://www.e-chords.com/chords/elvis-presley'},
+ {'Eric Clapton' : 'http://www.e-chords.com/chords/eric-clapton'},
+ {'Extreme' : 'http://www.e-chords.com/chords/extreme'},
+ {'Fleetwood Mac' : 'http://www.e-chords.com/chords/fleetwood-mac'},
+ {'Frank Sinatra' : 'http://www.e-chords.com/chords/frank-sinatra'},
+ {'Frozen' : 'http://www.e-chords.com/chords/frozen'},
+ {'Green Day' : 'http://www.e-chords.com/chords/green-day'},
+ {"Guns N' Roses" : 'http://www.e-chords.com/chords/guns-n-roses'},
+ {'Hillsong United' : 'http://www.e-chords.com/chords/hillsong-united'},
+ {'Hozier' : 'http://www.e-chords.com/chords/hozier'},
+ {"Israel Kamakawiwo'ole" : 'http://www.e-chords.com/chords/israel-kamakawiwoole'},
+ {'James Blunt' : 'http://www.e-chords.com/chords/james-blunt'},
+ {'Jason Mraz' : 'http://www.e-chords.com/chords/jason-mraz'},
+ {'Jeff Buckley' : 'http://www.e-chords.com/chords/jeff-buckley'},
+ {'Jessie J' : 'http://www.e-chords.com/chords/jessie-j'},
+ {'John Denver' : 'http://www.e-chords.com/chords/john-denver'},
+ {'John Legend' : 'http://www.e-chords.com/chords/john-legend'},
+ {'John Lennon' : 'http://www.e-chords.com/chords/john-lennon'},
+ {'Journey' : 'http://www.e-chords.com/chords/journey'},
+ {'Justin Bieber' : 'http://www.e-chords.com/chords/justin-bieber'},
+ {'Led Zeppelin' : 'http://www.e-chords.com/chords/led-zeppelin'},
+ {'Lukas Graham' : 'http://www.e-chords.com/chords/lukas-graham'},
+ {'Magic!' : 'http://www.e-chords.com/chords/magic'},
+ {'Maroon 5' : 'http://www.e-chords.com/chords/maroon-5'},
+ {'Metallica' : 'http://www.e-chords.com/chords/metallica'},
+ {'Neil Young' : 'http://www.e-chords.com/chords/neil-young'},
+ {'Nirvana' : 'http://www.e-chords.com/chords/nirvana'},
+ {'Oasis' : 'http://www.e-chords.com/chords/oasis'},
+ {'Passenger' : 'http://www.e-chords.com/chords/passenger'},
+ {'Pink Floyd' : 'http://www.e-chords.com/chords/pink-floyd'}
+  ]

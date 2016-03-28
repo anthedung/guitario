@@ -13,12 +13,13 @@
     <md-item-template>
       <a class="anthe-link-button" href="chordDetails/{{item._id}}">
         <div layout="row">
-          
+
           <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.title}} - {{item.singers[0]}}</span>
           <!-- <br> -->
           <!-- <p md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.content}}</p> -->
-          &nbsp; <md-chips ng-if='vm.join(item.rhythms).length > 0'>
-            <md-chip class="anthe-chip" > {{vm.join(item.rhythms)}}
+          &nbsp;
+          <md-chips ng-if='vm.join(item.rhythms).length > 0'>
+            <md-chip class="anthe-chip"> {{vm.join(item.rhythms)}}
             </md-chip>
           </md-chips>
         </div>

@@ -19,10 +19,24 @@
 .anthe-chip {
   color: rgb(45, 42, 42) !important;
   style: "cursor: pointer";
+  display: block;
 }
 
+.anthe-song-content-container{
+  -webkit-flex: 1 0 auto;
+  flex: 1 0 auto;
+}
+.anthe-song-content-pre {
+  font-size: large !important;
+  font-family: inherit !important;
+  white-space: pre-wrap;
+}
 
-pre.anthe-song-content-pre{
-	font-size: large !important;
-	font-family: inherit !important;
+.anthe-all-chords-bottom {
+  display: block;
+}
+
+.anthe-upper-footer-container{
+  -webkit-flex: 1 0 auto;
+  flex: 1 0 auto;
 }

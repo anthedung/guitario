@@ -45,6 +45,7 @@ angular.module('guitariosApp')
           vm.chordsByRhythm.push(chords[i]);
       }
     }
+
     //endregion
 
     // load chips
@@ -54,6 +55,11 @@ angular.module('guitariosApp')
       var first = 6;
       var last = 14;
       vm.rythms34.push($stateParams.singer);
+
+      if (ChordService.isMobileBrowser()){
+        first = 3;
+        last = 7;
+      }
 
       for (var i = 1; i < first; i++) {
         vm.rythms34.push(singers[i]);
@@ -109,7 +115,6 @@ angular.module('guitariosApp')
         });
       }
     }
-
 
 
     // SEARCH

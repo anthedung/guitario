@@ -45,6 +45,7 @@ angular.module('guitariosApp')
           vm.chordsByRhythm.push(chords[i]);
       }
     }
+
     //endregion
 
     vm.toggleShowChords = function (rhythm) {

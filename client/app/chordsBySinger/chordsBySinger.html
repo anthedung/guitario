@@ -2,10 +2,10 @@
 
   <div ng-include="'app/components/banner/bannerSearchBar.html'" ng-cloak></div>
   <br>
-  <div ng-include="'app/components/banner/rhythm_chips.html'"></div>
+  <div ng-include="'app/components/banner/rhythm_chips.html'" hide-xs></div>
   <br>
   <div class="anthe-quote" layout-align="center" data-if="vm.chordsVisible"
-       infinite-scroll="vm.nextPage()" infinite-scroll-disabled="vm.scrollShouldDisable" infinite-scroll-distance="1">
+       infinite-scroll="vm.nextPage()" infinite-scroll-disabled="vm.scrollShouldDisable" infinite-scroll-distance="0">
     <md-card ng-repeat="chord in vm.chordsByRhythm" layout-padding="70px" class="md-whiteframe-6dp anthe-chord-card">
       <md-card-title>
         <md-card-title-text>

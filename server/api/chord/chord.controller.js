@@ -233,7 +233,7 @@ exports.crawlAllValidChordsToUpsert = function (req, res) {
     } else if (req.params.target == 'echords'){
       EChordsCrawler.crawlAllValidChordsToUpsert();
     }
-    
+
   } else if (req.params.target == 'vnmylife') {
     VnMylifeCrawler.crawlAndPersist();
   } else if (req.params.target == 'echords'){
@@ -264,7 +264,7 @@ exports.findRandomSingers = function (req, res) {
     var count = 0;
     var singers = chords.map(function (item) {
       var singer = item.singers[0];
-      return (!singer || singer.length > 15 || singer.indexOf('(') > -1 || item.content.length < 10) ? '' : singer.toString("utf8");
+      return (!singer || singer.length > 15 || singer.indexOf('(') > -1 || item.content==undefined || item.content.length < 10) ? '' : singer.toString("utf8");
     }).filter(function (singer) {
       return singer.length > 0;
     });

@@ -18,14 +18,35 @@
   padding: 0.2em 0;
 }
 
-.anthe-home {
-  background: url('/assets/images/guitar_bg.png') center center;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 900px;
+@media only screen and (max-width: 600px) {
+  .anthe-home {
+    background: url('/assets/images/guitar_bg_phone.png') center center;
+    background-repeat: no-repeat;
+    background-position: left;
+    height: 900px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+
+  .anthe-home {
+    background: url('/assets/images/guitar_bg.png') center center;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 900px;
+  }
+
 }
 
 .clickedRhymthChip {
   background: rgb(0, 0, 0);
   color: rgb(255, 255, 255);
+}
+
+.anthe-more-button{
+  color: white;
+}
+
+.md-chips {
+  box-shadow: none !important;
 }
