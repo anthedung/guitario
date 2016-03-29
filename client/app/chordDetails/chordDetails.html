@@ -51,14 +51,14 @@
 
         <!--chords-->
         <div>
-          <div class="md-whiteframe-6dp anthe-chord-card" ng-bind-html="vm.allChordsJoinedStrHtml" layout="row"
+          <div class="md-whiteframe-6dp anthe-chord-card anthe-chord-card-bottom" ng-bind-html="vm.allChordsJoinedStrHtml" layout="row"
                class="anthe-guitarios-chord-card" layout-wrap>
-            <br>
-
           </div>
-          <br>
         </div>
+        <div ng-include="'app/components/banner/footer.html'" ></div>
+
       </div>
+
     </div>
 
     <!-- 2nd col -->
@@ -147,7 +147,4 @@
       </div>
     </div>
   </div>
-
-  <div ng-include="'app/components/banner/footer.html'" ng-cloak></div>
-
 </div>

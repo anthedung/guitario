@@ -20,17 +20,17 @@
 
 @media only screen and (max-width: 600px) {
   .anthe-home {
-    background: url('/assets/images/guitar_bg_phone.png') center center;
+    background: url('/assets/images/guitar_bg_phone.jpg') center center;
     background-repeat: no-repeat;
     background-position: left;
-    height: 900px;
+    /*height: 900px;*/
   }
 }
 
 @media only screen and (min-width: 600px) {
 
   .anthe-home {
-    background: url('/assets/images/guitar_bg.png') center center;
+    background: url('/assets/images/guitar_bg.jpg') center center;
     background-repeat: no-repeat;
     background-position: center;
     height: 900px;

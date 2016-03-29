@@ -20,7 +20,7 @@ var GeneralService = require('./chord.service.js');
  */
 
 var START_FROM = 800;
-var END_PAGE = 2781;
+var END_PAGE = 1600;
 
 var rhythmMap = {
   // 'rhumba': 'http://www.vnmylife.com/mychord/rhythm/rhumba/9',
