@@ -1,5 +1,5 @@
 /**
- * Main application routes
+ *  Main application routes
  */
 
 'use strict';
