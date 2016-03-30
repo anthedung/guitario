@@ -1,0 +1,22 @@
+<md-sidenav class="anthe-sidenav"
+  tabindex="2"
+  md-component-id="left">
+  <!-- Sidenav Left2 -->
+  	<md-list flex class="md-dense">
+        <md-subheader class="md-no-sticky" > Artirsts </md-subheader>
+<!--         <md-list-item class="md-2-line" ng-repeat="artirst in vm.singers">
+          <div class="md-list-item-text">
+            <h3 data-ng-click="vm.say()"> {{artirst}}</h3>
+          </div>
+		</md-list-item> -->
+
+		<md-chips ng-model="vm.singers" name="fruitName" readonly="ctrl.readonly" md-max-chips="5">
+        <md-chip-template>
+          <a href="chordsBySinger/{{$chip}}" class="anthe-link-button" data-ng-click="vm.close()"><em>{{$chip}}</em> </a>
+          <!-- <em>(fruit)</em> -->
+        </md-chip-template>
+      </md-chips>
+	</md-list>
+</md-sidenav>
+<!--class="md-sidenav-left"-->
+          <!-- <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" /> -->

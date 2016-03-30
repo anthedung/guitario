@@ -234,7 +234,7 @@ angular.module('guitariosApp')
       // remove empty chords
       var refinedChords = [];
       for (var i = 0; i < chords.length; i++) {
-        if (chords[i].content.length > 10) {
+        if (!content.length && chords[i].content.length > 10) {
           var c = chords[i]
           c.content = removeInitialCounting(c.content);
           c.title = removeInvalidChars(c.title);

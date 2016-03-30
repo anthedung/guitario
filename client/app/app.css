@@ -50,3 +50,7 @@
 .md-chips {
   box-shadow: none !important;
 }
+
+.anthe-sidenav {
+  background: rgba(255, 255, 255, 0.7);
+}

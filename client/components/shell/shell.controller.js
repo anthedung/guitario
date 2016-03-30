@@ -1,30 +1,45 @@
 'use strict';
 
 angular.module('guitariosApp')
-  .controller('ShellCtrl', function ($mdSidenav, $mdDialog, $scope, $location) {
+  .controller('ShellCtrl', function ($mdSidenav, $mdDialog, $location, ChordService) {
+    var vm = this;
 
+    var singers = ['Aerosmith', 'Adele', 'Ariana Grande', 'Ben E. King', 'Bob Dylan', 'Bob Marley', 'Boyce Avenue', 'Bruno Mars', 'Bryan Adams', 'Christina Perri', 'Coldplay',
+        'Creedence Clearwater Revival', 'David Bowie', 'David Crowder Band', 'Drake', 'Eagles', 'Ed Sheeran', 'Ellie Goulding', 'Elton John', 'Elvis Presley', 'Eric Clapton', 'Extreme', 'Fleetwood Mac', 'Frank Sinatra', 'Frozen', 'Green Day', "Guns N' Roses", 'Hillsong United', 'Hozier', "Israel Kamakawiwo'ole", 'James Blunt', 'Jason Mraz', 'Jeff Buckley', 'Jessie J', 'John Denver', 'John Legend', 'John Lennon', 'Journey', 'Justin Bieber', 'Led Zeppelin', 'Lukas Graham', 'Magic!', 'Maroon 5', 'Metallica', 'Neil Young', 'Nirvana', 'Oasis', 'Passenger', 'Pink Floyd'];
     
+    vm.singers = ChordService.getRandomSubarray(singers, 13);
 
-    $scope.isActive = function(route) {
+    console.log("singers: " + vm.singers.length);
+
+    vm.say = function(){
+      console.log("say: " + vm.singers.length);
+
+    }
+
+    vm.close(){
+      $mdSidenav('left').close();
+    }
+
+    vm.isActive = function(route) {
       return route === $location.path();
     };
 
-    $scope.toggleLeft = function() {
+    vm.toggleLeft = function() {
       $mdSidenav('left').toggle();
     };
 
     var originatorEv;
-    $scope.openMenu = function($mdOpenMenu, ev) {
+    vm.openMenu = function($mdOpenMenu, ev) {
       originatorEv = ev;
       $mdOpenMenu(ev);
     };
 
-    $scope.notificationsEnabled = true;
-    $scope.toggleNotifications = function() {
-      $scope.notificationsEnabled = !$scope.notificationsEnabled;
+    vm.notificationsEnabled = true;
+    vm.toggleNotifications = function() {
+      vm.notificationsEnabled = !vm.notificationsEnabled;
     };
 
-    $scope.redial = function() {
+    vm.redial = function() {
       $mdDialog.show(
         $mdDialog.alert()
           .targetEvent(originatorEv)
@@ -37,11 +52,11 @@ angular.module('guitariosApp')
       originatorEv = null;
     };
 
-    $scope.checkVoicemail = function() {
+    vm.checkVoicemail = function() {
       // This never happens.
     };
 
-    $scope.showAddDialog = function($event) {
+    vm.showAddDialog = function($event) {
       var parentEl = angular.element(document.body);
       $mdDialog.show({
         parent: parentEl,
