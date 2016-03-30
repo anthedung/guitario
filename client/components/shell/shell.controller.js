@@ -6,8 +6,10 @@ angular.module('guitariosApp')
 
     var singers = ['Aerosmith', 'Adele', 'Ariana Grande', 'Ben E. King', 'Bob Dylan', 'Bob Marley', 'Boyce Avenue', 'Bruno Mars', 'Bryan Adams', 'Christina Perri', 'Coldplay',
         'Creedence Clearwater Revival', 'David Bowie', 'David Crowder Band', 'Drake', 'Eagles', 'Ed Sheeran', 'Ellie Goulding', 'Elton John', 'Elvis Presley', 'Eric Clapton', 'Extreme', 'Fleetwood Mac', 'Frank Sinatra', 'Frozen', 'Green Day', "Guns N' Roses", 'Hillsong United', 'Hozier', "Israel Kamakawiwo'ole", 'James Blunt', 'Jason Mraz', 'Jeff Buckley', 'Jessie J', 'John Denver', 'John Legend', 'John Lennon', 'Journey', 'Justin Bieber', 'Led Zeppelin', 'Lukas Graham', 'Magic!', 'Maroon 5', 'Metallica', 'Neil Young', 'Nirvana', 'Oasis', 'Passenger', 'Pink Floyd'];
+    var rhythms = ['Boston', 'Slow Rock', 'Valse', 'Twist', 'Pop','Slow', 'Blues', 'Rhumba', 'Ballade', 'Chachacha', 'Tango', 'Disco', 'Rock'];
     
     vm.singers = ChordService.getRandomSubarray(singers, 13);
+    vm.rhythms = ChordService.getRandomSubarray(rhythms, 11);
 
     console.log("singers: " + vm.singers.length);
 
@@ -16,7 +18,7 @@ angular.module('guitariosApp')
 
     }
 
-    vm.close(){
+    vm.close = function() {
       $mdSidenav('left').close();
     }
 

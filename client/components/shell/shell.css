@@ -5,3 +5,8 @@
   min-height: 35px;
   max-height: 70px;
 }
+
+md-backdrop.md-sidenav-backdrop {
+    z-index: 59;
+    min-height: 1200px;
+}

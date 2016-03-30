@@ -1,5 +1,3 @@
-// dump to backup
-// mongodump --db guitarios-dev --collection chords --out "/Users/anthedung/AProgramming/MEAN/dbbackup/$(date +%Y%m%d-%H%M%S)/"
 
 // MongoDB remove duplicates
 var duplicates = [];
@@ -42,6 +40,10 @@ db.chords.find().forEach(function (chord) {
   chord.titleEn = transformtoEnChars(chord.title);
   db.chords.save(chord);
 });
+
+
+// dump to backup
+// mongodump --db guitarios-dev --collection chords --out "/Users/anthedung/AProgramming/MEAN/dbbackup/$(date +%Y%m%d-%H%M%S)/"
 
 
 // mongorestore -dir /Users/anthedung/AProgramming/MEAN/dbbackup/vnmylifeRhythmsonly-echordsAll-20160327-084549/guitarios-dev/ --drop

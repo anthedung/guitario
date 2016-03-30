@@ -53,4 +53,13 @@
 
 .anthe-sidenav {
   background: rgba(255, 255, 255, 0.7);
+  min-height: 1200px;
+}
+
+.anthe-subheader{
+  background: rgba(255, 255, 255, 0.8) !important;
+}
+
+.anthe-8-margin {
+  margin: 8px;
 }
