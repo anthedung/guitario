@@ -58,3 +58,5 @@ db.chords.find().forEach(function (chord) {
 
 // mongorestore -h ds025459.mlab.com:25459 -d heroku_h3xb8w9l -c chords -u heroku_h3xb8w9l -p f9kmb6suasqjp31lsbavrhhfbanthe321 chords.bson
 
+// mongo ds025459.mlab.com:25459/guitarios-dev -u heroku_h3xb8w9l -p f9kmb6suasqjp31lsbavrhhfbanthe322
+
