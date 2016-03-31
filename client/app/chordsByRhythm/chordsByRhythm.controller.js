@@ -92,8 +92,9 @@ angular.module('guitariosApp')
       }
     }
 
-    vm.rythms34 = ['Everything', 'Boston', 'Slow Rock', 'Valse', 'Twist', 'Pop'];
-    vm.rythms = ['Slow', 'Blues', 'Rhumba', 'Ballade', 'Chachacha', 'Tango', 'Disco', 'Rock'];
+    // vm.rhythms = ['Everything', 'Boston', 'Slow Rock', 'Valse', 'Twist', 'Pop'];
+    // vm.singers = ['Slow', 'Blues', 'Rhumba', 'Ballade', 'Chachacha', 'Tango', 'Disco', 'Rock'];
+    ChordService.prepareChips(vm,'r');  
 
     // SEARCH
     vm.searchRemote = true;

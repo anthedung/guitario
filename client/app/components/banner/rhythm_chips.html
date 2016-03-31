@@ -1,14 +1,14 @@
 <div layout="row" layout-align="center center" class="anthe-rythms-chips" ng-cloak>
-  <md-chips data-ng-repeat="rythm in vm.rythms34" class="anthe-rythms-chips-line">
-    <md-chip clickable class="anthe-chip" data-ng-class="vm.chipRhythms[rythm]">
-      <a class="anthe-link-button" href="chordsByRhythm/{{rythm}}">{{rythm}}</a>
+  <md-chips data-ng-repeat="rythm in vm.rhythms" class="anthe-rythms-chips-line">
+    <md-chip clickable class="anthe-chip" data-ng-class="vm.chipRhythms[rythm]" data-ng-click="vm.toggleShowChords(rythm,1)">
+      <a class="anthe-link-button" data-ng-class="vm.chipRhythms[rythm]">{{rythm}}</a>
     </md-chip>
   </md-chips>
 </div>
 <div layout="row" layout-align="center center" class="anthe-rythms-chips" ng-cloak>
-  <md-chips data-ng-repeat="rythm in vm.rythms" class="anthe-rythms-chips-line">
-    <md-chip clickable class="anthe-chip" data-ng-class="vm.chipRhythms[rythm]">
-      <a class="anthe-link-button" href="chordsBySinger/{{rythm}}">{{rythm}}</a>
+  <md-chips data-ng-repeat="rythm in vm.singers" class="anthe-rythms-chips-line">
+    <md-chip clickable class="anthe-chip" data-ng-class="vm.chipRhythms[rythm]" data-ng-click="vm.toggleShowChords(rythm,2)">
+      <a class="anthe-link-button"  data-ng-class="vm.chipRhythms[rythm]">{{rythm}}</a>
     </md-chip>
   </md-chips>
 </div>

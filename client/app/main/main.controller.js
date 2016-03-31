@@ -65,6 +65,14 @@ angular.module('guitariosApp')
       $log.info('Item changed to ' + JSON.stringify(item));
     }
 
+    vm.toggleShowChords = function(item, lineNo){
+      var l = '';
+      if (lineNo === 1) l = vm.line1Href;
+      else if (lineNo === 2) l = vm.line2Href;
+
+      $location.path(l+'/'+item);
+    }
+
     /**
      * Create filter function for a query string
      */
@@ -77,35 +85,8 @@ angular.module('guitariosApp')
       };
     }
 
-    //vm.rythms34 = ['Everything', 'Boston', 'Slow Rock', 'Valse', 'Twist', 'Pop'];
-    //vm.rythms = [];
-
-
-    // load chips
-    (function prepareChips() {
-      var rhythms = ['Boston', 'Slow Rock', 'Valse', 'Twist', 'Pop','Slow', 'Blues', 'Rhumba', 'Ballade', 'Chachacha', 'Tango', 'Disco', 'Rock'];
-      var singers = ['Aerosmith', 'Adele', 'Ariana Grande', 'Ben E. King', 'Bob Dylan', 'Bob Marley', 'Boyce Avenue', 'Bruno Mars', 'Bryan Adams', 'Christina Perri', 'Coldplay',
-        'Creedence Clearwater Revival', 'David Bowie', 'David Crowder Band', 'Drake', 'Eagles', 'Ed Sheeran', 'Ellie Goulding', 'Elton John', 'Elvis Presley', 'Eric Clapton', 'Extreme', 'Fleetwood Mac', 'Frank Sinatra', 'Frozen', 'Green Day', "Guns N' Roses", 'Hillsong United', 'Hozier', "Israel Kamakawiwo'ole", 'James Blunt', 'Jason Mraz', 'Jeff Buckley', 'Jessie J', 'John Denver', 'John Legend', 'John Lennon', 'Journey', 'Justin Bieber', 'Led Zeppelin', 'Lukas Graham', 'Magic!', 'Maroon 5', 'Metallica', 'Neil Young', 'Nirvana', 'Oasis', 'Passenger', 'Pink Floyd'];
-      var first = 6;
-      var last = 8;
-
-      singers = singers.filter(function (singer) {
-        return singer.length < 9;
-      });
-
-
-      if (ChordService.isMobileBrowser()) {
-        first = 3;
-        last = 3;
-      }
-
-      vm.rythms34 = ChordService.getRandomSubarray(rhythms, first);
-      if (ChordService.isMobileBrowser()) {
-        vm.rythms34[1] = 'Everything';//put in the middle
-      }
-      vm.rythms = ChordService.getRandomSubarray(singers, last);
-
-    })();
+    // // load chips
+    ChordService.prepareChips(vm);
 
     // helpers
     function getChordTitlesFromChords(arr) {

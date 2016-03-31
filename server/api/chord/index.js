@@ -15,7 +15,7 @@ router.get('/randomSingers', controller.findRandomSingers)
 
 // crawl
 router.get('/crawlMp3/:fromPage/:limitPaganiation', controller.crawlMp3);
-router.get('/crawlRecursiveStrategy/:target', controller.crawlAllValidChordsToUpsert);
+// router.get('/crawlRecursiveStrategy/:target', controller.crawlAllValidChordsToUpsert);
 
 // chords api
 router.get('/:category/:categoryValue', controller.findChordsByGeneric);

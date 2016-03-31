@@ -4,35 +4,21 @@
   <!-- Sidenav Left2 -->
   	<md-list flex class="md-dense">
         <md-subheader class="md-no-sticky" class="anthe-subheader"> Artirsts </md-subheader>
-<!--         <md-list-item class="md-2-line" ng-repeat="artirst in vm.singers">
-          <div class="md-list-item-text">
-            <h3 data-ng-click="vm.say()"> {{artirst}}</h3>
-          </div>
-		</md-list-item> -->
 		<div class="anthe-8-margin" >
 			<md-chips ng-model="vm.singers" name="fruitName" readonly="true" md-max-chips="20">
 		        <md-chip-template>
 		          <a href="chordsBySinger/{{$chip}}" class="anthe-link-button" data-ng-click="vm.close()"><em>{{$chip}}</em> </a>
-		          <!-- <em>(fruit)</em> -->
 		        </md-chip-template>
 	      	</md-chips>
 	     </div>
-	     <br>
+	     <br hide-xs>
 	     <md-subheader class="md-no-sticky" class="anthe-subheader"> Rhythms </md-subheader>
-<!--         <md-list-item class="md-2-line" ng-repeat="artirst in vm.singers">
-          <div class="md-list-item-text">
-            <h3 data-ng-click="vm.say()"> {{artirst}}</h3>
-          </div>
-		</md-list-item> -->
 		<div class="anthe-8-margin" >
 			<md-chips ng-model="vm.rhythms" name="fruitName" readonly="true" md-max-chips="20">
 		        <md-chip-template>
 		          <a href="chordsByRhythm/{{$chip}}" class="anthe-link-button" data-ng-click="vm.close()"><em>{{$chip}}</em> </a>
-		          <!-- <em>(fruit)</em> -->
 		        </md-chip-template>
 	      	</md-chips>
 	     </div>
 	</md-list>
 </md-sidenav>
-<!--class="md-sidenav-left"-->
-          <!-- <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" /> -->

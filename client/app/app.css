@@ -53,13 +53,22 @@
 
 .anthe-sidenav {
   background: rgba(255, 255, 255, 0.7);
-  min-height: 1200px;
+  min-height: 900px;
 }
 
-.anthe-subheader{
-  background: rgba(255, 255, 255, 0.8) !important;
+.anthe-subheader {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+.md-subheader{
+  background: rgba(255, 255, 255, 0.63) !important;
 }
 
 .anthe-8-margin {
   margin: 8px;
+}
+
+.anthe-link-button {
+  color: black !important;
+  text-decoration: none !important;
 }
