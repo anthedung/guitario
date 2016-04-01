@@ -17,7 +17,7 @@
           <ul ng-cloak>
             <li data-ng-repeat="chord in vm.randomChordsForGlobe" data-ng-hide="true" class="anthe-canvas-searchable"
                 onlick="openCanvasSong(this);"><a data-ng-href="chordDetails/{{chord._id}}">{{chord.title}}</a></li>
-            <li data-ng-hide="vm.randomChordsForGlobe.length > 0 "><a>I &hearts; Guitarios</a></li>
+            <li data-ng-hide="vm.randomChordsForGlobe.length > 0" style="color:black"><a>I &hearts; Guitarios</a></li>
           </ul>
         </div>
       </canvas>
