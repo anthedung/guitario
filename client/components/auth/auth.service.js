@@ -107,6 +107,7 @@ angular.module('guitariosApp')
        * @return {Boolean}
        */
       isLoggedIn: function() {
+        console.log('checking isLoggedIn...' + currentUser.hasOwnProperty('role'))
         return currentUser.hasOwnProperty('role');
       },
 

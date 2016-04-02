@@ -1,0 +1,71 @@
+
+<div ng-include="'app/components/banner/banner.html'"></div>
+<div class="container">
+  <div layout="row" layout-align="center center">
+    <md-card class="login-card md-whiteframe-6dp anthe-auth-form" layout-padding="70px">
+      <md-card-content>
+        <div class="col-sm-12" layout="row" layout-align="center">
+          <h1>Sign up</h1>
+        </div>
+        
+        <form class="form" name="form" ng-submit="vm.register(form)" novalidate>
+          <div layout="column">
+            <md-input-container>
+              <label>Name</label>
+              <input required type="text" name="name" ng-model="vm.user.name">
+              <div ng-messages="form.name.$error">
+                <div ng-message="required">This is required.</div>
+              </div>
+            </md-input-container>
+
+            <md-input-container>
+              <label>Email</label>
+              <input required type="email" name="email" ng-model="vm.user.email">
+              <div ng-messages="form.email.$error">
+                <div ng-message="required">This is required.</div>
+              </div>
+            </md-input-container>
+            <md-input-container>
+              <label>Password</label>
+              <input required type="password" name="password" ng-model="vm.user.password">
+              <div ng-messages="form.password.$error">
+                <div ng-message="required">This is required.</div>
+              </div>
+            </md-input-container>
+            <div layout="row">
+              <md-button flex class="md-primary" type="submit">Signup</md-button>
+              <md-button flex type="submit" href="/login">Login</md-button>
+            </div>
+          </div>
+          <hr>
+          <div layout="row" layout-padding="3px" layout-margin="3px" layout-align="center">
+            <!-- <span layout-margin="8px" > Login with: </span> -->
+              <a class="btn btn-facebook" href="" ng-click="vm.loginOauth('facebook')">
+                <i class="fa fa-facebook anthe-icon-button"></i>
+              </a>
+              <a class="btn btn-google-plus" href="" ng-click="vm.loginOauth('google')">
+                <i class="fa fa-google-plus anthe-icon-button"></i> 
+              </a>
+              <a class="btn btn-twitter" href="" ng-click="vm.loginOauth('twitter')">
+                <i class="fa fa-twitter anthe-icon-button"></i> 
+              </a>
+            </div>
+<!-- 
+          <hr>
+          <div layout="row" layout-padding="10px" layout-margin="8px" >
+          <span layout-margin="8px" > Login with: </span>
+            <a class="btn btn-facebook" href="" ng-click="vm.loginOauth('facebook')">
+              <i class="fa fa-facebook anthe-icon-button"></i>
+            </a>
+            <a class="btn btn-google-plus" href="" ng-click="vm.loginOauth('google')">
+              <i class="fa fa-google-plus anthe-icon-button"></i> 
+            </a>
+            <a class="btn btn-twitter" href="" ng-click="vm.loginOauth('twitter')">
+              <i class="fa fa-twitter anthe-icon-button"></i> 
+            </a>
+          </div> -->
+        </form>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>

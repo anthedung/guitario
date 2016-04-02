@@ -1,7 +1,17 @@
 <md-sidenav class="anthe-sidenav"
   tabindex="2"
   md-component-id="left">
-  <!-- Sidenav Left2 -->
+
+  	<md-toolbar class="md-tall" ng-if="vm.isLoggedIn()">
+      <div ng-if="vm.isLoggedIn()" layout="column" layout-padding class="anthe-profile-container">
+        <div flex></div>
+        <div layout-padding layout="column">
+          <div class="profile-name">{{ vm.getCurrentUser().name }}</div>
+          <div class="profile-email">{{ vm.getCurrentUser().email }}</div>
+        </div>
+      </div>
+    </md-toolbar>
+     <!-- Sidenav Left2 -->
   	<md-list flex class="md-dense">
         <md-subheader class="md-no-sticky" class="anthe-subheader"> Artirsts </md-subheader>
 		<div class="anthe-8-margin" >

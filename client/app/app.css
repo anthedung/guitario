@@ -2,6 +2,10 @@
  * App-wide Styles
  */
 
+.anthe-profile-container{
+  background: rgba(255, 255, 255, 0.7) !important;
+}
+
 .main-shell .profile-container {
   height: 100%;
   font-size: 14px;
