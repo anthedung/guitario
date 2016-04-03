@@ -10,3 +10,18 @@ md-backdrop.md-sidenav-backdrop {
     z-index: 59;
     min-height: 900px;
 }
+
+.anthe-dialog{
+	margin: 8px;
+	min-width: 350px;
+}
+
+md-dialog {
+	max-width: 100% !important;
+}
+
+.anthe-feedback-input{
+	min-width: 90%;
+  min-width: 300px;
+
+}

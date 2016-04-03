@@ -1,18 +1,20 @@
 'use strict';
 
 angular.module('guitariosApp')
-  .controller('DialogController', function ($scope, $mdDialog, $http) {
-  $scope.closeDialog = function() {
+  .controller('DialogController', function ($mdDialog, $http) {
+  var vm = this;
+  
+  vm.closeDialog = function() {
     $mdDialog.hide();
   };
 
   
-  $scope.addThing = function() {
-    if($scope.newThing === '') {
+  vm.addThing = function() {
+    if(vm.newThing === '') {
       return;
     }
-    $http.post('/api/things', { name: $scope.newThing });
-    $scope.newThing = '';
+    $http.post('/api/things', { name: vm.newThing });
+    vm.newThing = '';
     $mdDialog.hide();
   };
 });
